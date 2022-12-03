@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "275286429021",
+    "project_id": "eventtra-efb5f",
+    "storage_bucket": "eventtra-efb5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275286429021:android:0fe9f961a864eb71b8ecb4",
+        "android_client_info": {
+          "package_name": "com.example.eventtra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275286429021-kar4a8ij6uql3d64nbuaprpeu72u0mo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuTYUXbvNoeoz163Ng6MvnUEAqcaLhUwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275286429021-kar4a8ij6uql3d64nbuaprpeu72u0mo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
