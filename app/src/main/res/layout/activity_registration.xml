@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Registration">
+<<<<<<< HEAD
 
 <!--    code-->
 
@@ -22,6 +23,21 @@
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
             android:inputType="text"/>
         />
+=======
+    <EditText
+        android:id="@+id/fnameBox"
+        android:layout_width="234dp"
+        android:layout_height="wrap_content"
+        android:hint="FName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.644"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+        android:inputType="text"/>
+>>>>>>> origin/master
     <EditText
         android:id="@+id/lnameBox"
         android:layout_width="234dp"
@@ -33,10 +49,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.122"
+<<<<<<< HEAD
         android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "/>
 
         <EditText
             android:id="@+id/emailBox"
+=======
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/emailBox"
+>>>>>>> origin/master
         android:layout_width="234dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -48,8 +71,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.253" />
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master
     <EditText
         android:id="@+id/passwordBox"
         android:layout_width="234dp"

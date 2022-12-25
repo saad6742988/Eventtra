@@ -48,6 +48,10 @@ public class user {
         this.phone = phone;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     @Exclude
     public String getUserId() {
         return userId;
