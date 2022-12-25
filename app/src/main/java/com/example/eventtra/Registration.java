@@ -3,7 +3,7 @@ package com.example.eventtra;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-<<<<<<< HEAD
+
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -17,16 +17,14 @@ public class Registration extends AppCompatActivity {
     private EditText fnameText,lnameText,emailText,phoneText,passwordText,cpasswordText;
     private Button registerBtn;
     FirebaseAuth mAuth;
-=======
 
-public class Registration extends AppCompatActivity {
     //To be Implemented11
->>>>>>> origin/master
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-<<<<<<< HEAD
+
         mAuth=FirebaseAuth.getInstance();
         fnameText=findViewById(R.id.fnameBox);
         lnameText=findViewById(R.id.lnameBox);
@@ -67,8 +65,5 @@ public class Registration extends AppCompatActivity {
 //            }
 //        });
 
-
-=======
->>>>>>> origin/master
     }
 }
