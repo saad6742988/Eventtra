@@ -3,6 +3,7 @@ package com.example.eventtra;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -45,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("login","not done");
                 }
             }
+
         });
+
+//        shift to registration page
+        Intent intent = new Intent(this, Registration.class);
+        startActivity(intent);
     }
 }
