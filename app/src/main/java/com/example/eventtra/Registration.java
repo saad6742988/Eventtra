@@ -3,6 +3,7 @@ package com.example.eventtra;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -165,5 +166,11 @@ public class Registration extends AppCompatActivity {
                 Log.d("Add not DB",e.getMessage());
             }
         });
+    }
+
+    public void gotoLogin(View v)
+    {
+        Intent intent = new Intent(Registration.this,Login.class);
+        startActivity(intent);
     }
 }
