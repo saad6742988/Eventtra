@@ -2,18 +2,20 @@ package com.example.eventtra;
 
 import com.google.firebase.firestore.Exclude;
 
-public class user {
+public class MyUser {
     private String fname;
     private String lname;
     private String email;
     private String phone;
+    private String roll;
     private String userId;
 
-    public user(String fname, String lname, String email, String phone) {
+    public MyUser(String fname, String lname, String email, String phone) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.phone = phone;
+        this.roll = "attendee";
     }
 
     public String getFname() {
@@ -56,5 +58,17 @@ public class user {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "user{" +
+                "fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", roll='" + roll + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
     }
 }
