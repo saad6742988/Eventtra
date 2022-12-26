@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 //        shift to registration page
 //        Intent intent = new Intent(this, Registration.class);
 //        startActivity(intent);
-        Intent intent = new Intent(this, AdminPage.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, AdminPage.class);
+//        startActivity(intent);
     }
 }
