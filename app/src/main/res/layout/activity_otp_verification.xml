@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".OtpVerification">
 
     <TextView
@@ -18,17 +19,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <EditText
         android:id="@+id/otpBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter 6-Digit OTP"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topText"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="10dp" />
 
     <TextView
         android:id="@+id/viewTime"
@@ -38,21 +38,22 @@
         app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/resendBtn"
-        app:layout_constraintTop_toBottomOf="@id/otpBox"
-        app:layout_constraintVertical_bias="0.025"/>
+        app:layout_constraintTop_toBottomOf="@+id/otpBox"
+        app:layout_constraintVertical_bias="0.025" />
 
     <Button
         android:id="@+id/resendBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
+        android:onClick="resendOtp"
         android:text="Resend"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otpBox"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="resendOtp"/>
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
