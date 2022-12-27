@@ -34,20 +34,20 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-        mAuth.signInWithEmailAndPassword("saad@gmail.com","ok123456ok").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(MainActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
-                    Log.d("login","done");
-
-                }else{
-                    Toast.makeText(MainActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.d("login","not done");
-                }
-            }
-
-        });
+//        mAuth.signInWithEmailAndPassword("saad@gmail.com1","ok123456ok1").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()){
+//                    Toast.makeText(MainActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
+//                    Log.d("login","done");
+//
+//                }else{
+//                    Toast.makeText(MainActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                    Log.d("login","not done "+ task.getException().getMessage());
+//                }
+//            }
+//
+//        });
 
 //        shift to registration page
 //        Intent intent = new Intent(this, Registration.class);
@@ -55,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = new Intent(this, AdminPage.class);
 //        startActivity(intent);
 
-        Intent intent = new Intent(this,OtpVerification.class);
+//        Intent intent = new Intent(this,OtpVerification.class);
+//        startActivity(intent);
+        Intent intent = new Intent(this,Login.class);
         startActivity(intent);
     }
 }

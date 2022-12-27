@@ -5,6 +5,9 @@
     <string name="app_created_by_team_liquid">APP CREATED BY TEAM LIQUID</string>
     <string name="open_nav">"Open Navigation Drawer  "</string>
     <string name="close_nav">"Close Navigation Drawer  "</string>
+    <string name="invalid_password">The password is invalid or the user does not have a password.</string>
+    <string name="invalid_email">The email address is badly formatted.</string>
+    <string name="no_user">There is no user record corresponding to this identifier. The user may have been deleted.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
