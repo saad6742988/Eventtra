@@ -68,7 +68,8 @@ public class Registration extends AppCompatActivity {
 //                break;
                 if(getSupportFragmentManager().getBackStackEntryCount()==1)
                 {
-                    Toast.makeText(this, "Going to Log in"+opened, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Registration.this,Login.class);
+                    startActivity(intent);
                 }
                 else{
                     getSupportFragmentManager().popBackStackImmediate("register",0);

@@ -217,11 +217,8 @@ public class registration_otpVerification extends Fragment {
                         //create user object
                         user = new MyUser(fname, lname, email, phone);
                         Log.d("user", user.toString());
-
                         //add user to database
                         addUser();
-
-                        Log.d("user", user.toString());
                     } else {
                         alertDialog.setTitle("Error!");
                         if(task.getException().getMessage()!=null)
@@ -321,7 +318,6 @@ public class registration_otpVerification extends Fragment {
                 //Toast.makeText(getActivity(), "Registered Successfully", Toast.LENGTH_LONG).show();
                 Log.d("Add DB","Added");
                 //documentReference.getId();
-                user.setUserId(documentReference.getId());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

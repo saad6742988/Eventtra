@@ -26,6 +26,7 @@ public class Login extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore database;
     private CollectionReference userCollection;
+    GlobalData globalData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class Login extends AppCompatActivity {
         database=FirebaseFirestore.getInstance();
         userCollection = database.collection("User");
         errorView=findViewById(R.id.errorView);
+        globalData.getApplicationContext();
         errorView.setAlpha(0f);
     }
 
