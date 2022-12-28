@@ -136,7 +136,6 @@ public class registration_userData extends Fragment {
             userData.putString("email",email);
             userData.putString("phone",phone);
             userData.putString("password",password);
-            userData.putString("cpassword",cpassword);
             registration_otpVerification otpVerify = new registration_otpVerification();
             otpVerify.setArguments(userData);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.register_fragment_container, otpVerify).addToBackStack(null).commit();

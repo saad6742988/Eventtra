@@ -1,7 +1,12 @@
 package com.example.eventtra;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
@@ -15,6 +20,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+///used for mail sesnding
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 
 public class registration_otpVerification extends Fragment {
@@ -63,17 +89,24 @@ public class registration_otpVerification extends Fragment {
     public EditText otpText;
     public Button resendBtn;
     private String otp;
+    Bundle userData;
+    final private FirebaseAuth mAuth=FirebaseAuth.getInstance();;
+    final private FirebaseFirestore database =FirebaseFirestore.getInstance();
+    final private CollectionReference userCollection = database.collection("User");
+    private AlertDialog alertDialog;
+    private  MyUser user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_registration_otp_verification, container, false);
-        Bundle userData = this.getArguments();
+        userData = this.getArguments();
         timerView=view.findViewById(R.id.viewTime);
         topView=view.findViewById(R.id.topText);
         otpText = view.findViewById(R.id.otpBox);
         resendBtn = view.findViewById(R.id.resendBtn);
+        alertDialog = new AlertDialog.Builder(getActivity()).create();
         topView.setText("OTP Email Has Been Sent to "+userData.getString("email")+"\n" +
                 "If You Want to Change Your Email You Can Go Back.");
         resendBtn.setOnClickListener(new View.OnClickListener() {
@@ -113,11 +146,101 @@ public class registration_otpVerification extends Fragment {
         Toast.makeText(getActivity(), userData.getString("email"), Toast.LENGTH_SHORT).show();
         return view;
     }
-    private void verifyOtp(String otpEntered) {
-        if(otp.equals(otpEntered))
+
+    private void sendEmail(String otpToSend) {
+        final String sender = "eventtra@outlook.com";
+        final String password = "saad&6742988";
+        String msgToSend = "Hello "+userData.getString("fname")+" "+userData.getString("lname")+
+                "\nYour Verification OTP is "+otpToSend+
+                "\n\nYou can ignore this Email, if you have not requested register Eventtra";
+        Properties prop = new Properties();
+        //gmail
+//        prop.put("mail.smtp.auth","true");
+//        prop.put("mail.smtp.starttls.enable","true");
+//        prop.put("mail.smtp.host","smtp.gmail.com");
+//        prop.put("mail.smtp.port","587");
+        //outlook
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true");
+        prop.put("mail.smtp.host", "smtp-mail.outlook.com");
+        prop.put("mail.smtp.port", "587");
+        Session session = Session.getInstance(prop, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(sender,password);
+            }
+        });
+        try{
+            Message m=new MimeMessage(session);
+            m.setFrom(new InternetAddress(sender));
+            m.setRecipient(Message.RecipientType.TO,new InternetAddress(userData.getString("email")));
+            m.setSubject("Test 4");
+            m.setText(msgToSend);
+            Transport.send(m);
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(getActivity(),"Send Successfully", Toast.LENGTH_SHORT).show();
+                }
+            });
+            Log.d("email status","Send Successfully");
+
+        }catch (MessagingException e)
         {
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(getActivity(),"System is unable to send OTP.Please Try again later.", Toast.LENGTH_SHORT).show();
+                }
+            });
+            Log.d("email status","System is unable to send OTP.Please Try again later. "+e.getMessage().toString());
+
+            //throw new RuntimeException(e);
+        }
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+    }
+    private void verifyOtp(String otpEntered) {
+        if(otp.equals(otpEntered)) {
             Log.d("verifyOtp: ", "mtched");
             otpText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.valid, 0);
+            String email = userData.getString("email");
+            String password = userData.getString("password");
+            String fname = userData.getString("fname");
+            String lname = userData.getString("lname");
+            String phone = userData.getString("phone");
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getActivity(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                        Log.d("Registration", "Registration Successful");
+
+                        //create user object
+                        user = new MyUser(fname, lname, email, phone);
+                        Log.d("user", user.toString());
+
+                        //add user to database
+                        addUser();
+
+                        Log.d("user", user.toString());
+                    } else {
+                        alertDialog.setTitle("Error!");
+                        if(task.getException().getMessage()!=null)
+                            alertDialog.setMessage("Error: "+task.getException().getMessage()+"\nTry Again.");
+                        else
+                            alertDialog.setMessage("Check Your Connection.\nTry Again Later!");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        getActivity().getSupportFragmentManager().popBackStackImmediate("register",0);
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                        //Toast.makeText(getActivity(), "Registration Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("Registration", "Registration UnSuccessful");
+                    }
+                }
+            });
         }
         else
         {
@@ -144,6 +267,13 @@ public class registration_otpVerification extends Fragment {
     {
         //Email Sending Code Has to BE done Here
         otp=otpGenerator();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sendEmail(otp);
+            }
+        }).start();
+
         Log.d("OTP Generated", "otpSender: "+otp);
         //Send this otp via mail
     }
@@ -169,5 +299,46 @@ public class registration_otpVerification extends Fragment {
         }
 
         return sb.toString();
+    }
+    public void addUser()
+    {
+        //Toast to be removed
+        userCollection.add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                alertDialog.setTitle("Congrats!");
+                alertDialog.setMessage("You Are Successfully Registered.");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(getActivity(),Login.class);
+                                getActivity().finish();
+                                startActivity(i);
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+                //Toast.makeText(getActivity(), "Registered Successfully", Toast.LENGTH_LONG).show();
+                Log.d("Add DB","Added");
+                //documentReference.getId();
+                user.setUserId(documentReference.getId());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                alertDialog.setTitle("Error!");
+                alertDialog.setMessage("Check Your Connection.\nTry Again Later!");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                getActivity().getSupportFragmentManager().popBackStackImmediate("register",0);
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+                //Toast.makeText(getActivity(), "User Not Added", Toast.LENGTH_SHORT).show();
+                Log.d("Add not DB",e.getMessage());
+            }
+        });
     }
 }
