@@ -5,15 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AttendeePage extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
+    TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendee_page);
+        tv=findViewById(R.id.tv);
+        GlobalData globalData=(GlobalData) getApplicationContext();
+        tv.setText(globalData.getGlobalUser().toString());
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.eventtra;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.regex.Matcher;
 
@@ -59,6 +61,7 @@ public class registration_userData extends Fragment {
 
     public EditText fnameText,lnameText,emailText,phoneText,passwordText,cpasswordText;
     public Button registerBtn;
+    public TextView loginView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,12 +73,22 @@ public class registration_userData extends Fragment {
         phoneText=view.findViewById(R.id.phoneBox);
         passwordText=view.findViewById(R.id.passwordBox);
         cpasswordText=view.findViewById(R.id.cpasswordBox);
+        loginView=view.findViewById(R.id.loginV);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 registeration(view);
             }
         });
+        loginView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(),Login.class);
+                getActivity().startActivity(i);
+                getActivity().finish();
+            }
+        });
+
         // Inflate the layout for this fragment
         return view;
     }

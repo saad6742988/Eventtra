@@ -7,48 +7,14 @@ public class MyUser {
     private String lname;
     private String email;
     private String phone;
-    private String roll;
+    private String role;
     private String userId;
 
-    public MyUser(String fname, String lname, String email, String phone) {
-        this.fname = fname;
-        this.lname = lname;
-        this.email = email;
-        this.phone = phone;
-        this.roll = "attendee";
+
+    public MyUser() {
     }
 
-    public String getFname() {
-        return fname;
-    }
 
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
 
     @Exclude
@@ -60,6 +26,34 @@ public class MyUser {
         this.userId = userId;
     }
 
+    public MyUser(String fname, String lname, String email, String phone) {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.phone = phone;
+        this.role = "attendee";
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
     @Override
     public String toString() {
         return "user{" +
@@ -67,7 +61,7 @@ public class MyUser {
                 ", lname='" + lname + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", roll='" + roll + '\'' +
+                ", role='" + role + '\'' +
                 ", userId='" + userId + '\'' +
                 '}';
     }

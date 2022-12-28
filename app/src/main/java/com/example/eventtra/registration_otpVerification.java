@@ -151,7 +151,7 @@ public class registration_otpVerification extends Fragment {
         final String sender = "eventtra@outlook.com";
         final String password = "saad&6742988";
         String msgToSend = "Hello "+userData.getString("fname")+" "+userData.getString("lname")+
-                "\nYour Verification OTP is "+otpToSend+
+                "!\n\nYour Verification OTP is "+otpToSend+
                 "\n\nYou can ignore this Email, if you have not requested register Eventtra";
         Properties prop = new Properties();
         //gmail
@@ -174,7 +174,7 @@ public class registration_otpVerification extends Fragment {
             Message m=new MimeMessage(session);
             m.setFrom(new InternetAddress(sender));
             m.setRecipient(Message.RecipientType.TO,new InternetAddress(userData.getString("email")));
-            m.setSubject("Test 4");
+            m.setSubject("OTP For Eventtra");
             m.setText(msgToSend);
             Transport.send(m);
             getActivity().runOnUiThread(new Runnable() {

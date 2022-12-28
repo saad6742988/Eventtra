@@ -12,11 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class Login extends AppCompatActivity {
 
@@ -24,8 +27,8 @@ public class Login extends AppCompatActivity {
     private EditText emailText,passwordText;
     private TextView errorView;
     FirebaseAuth mAuth;
-    FirebaseFirestore database;
-    private CollectionReference userCollection;
+    final private FirebaseFirestore database =FirebaseFirestore.getInstance();
+    final private CollectionReference userCollection = database.collection("User");
     GlobalData globalData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +37,8 @@ public class Login extends AppCompatActivity {
         emailText=findViewById(R.id.emailBox);
         passwordText=findViewById(R.id.passwordBox);
         mAuth = FirebaseAuth.getInstance();
-        database=FirebaseFirestore.getInstance();
-        userCollection = database.collection("User");
         errorView=findViewById(R.id.errorView);
-        globalData.getApplicationContext();
+        globalData = (GlobalData) getApplicationContext();
         errorView.setAlpha(0f);
     }
 
@@ -68,6 +69,34 @@ public class Login extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(Login.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
+
+
+                        userCollection.whereEqualTo("email", email).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                    MyUser user = documentSnapshot.toObject(MyUser.class);
+                                    Log.d("User ID", "onSuccess: " + documentSnapshot.getId());
+                                    user.setUserId(documentSnapshot.getId());
+                                    globalData.setglobalUser(user);
+                                    Log.d("check global USer", "onComplete: " + globalData.getGlobalUser().toString());
+                                    if (globalData.getGlobalUser().getRole().equals("attendee")) {
+                                        Intent i = new Intent(Login.this, AttendeePage.class);
+                                        Login.this.startActivity(i);
+                                        Login.this.finish();
+                                    }
+                                }
+                            }
+                        });
+
+//                        MyUser userTemp=new MyUser(globalData.getUser());
+                        //Log.d("check global", "onComplete: " + globalData.getGlobalUser().toString());
+//                        if(globalData.getUser().getRole().equals("attendee"))
+//                        {
+//                            Intent i = new Intent(Login.this,AttendeePage.class);
+//                            Login.this.startActivity(i);
+//                            Login.this.finish();
+//                        }
                         Log.d("login", "done");
 
                     } else {
@@ -97,5 +126,22 @@ public class Login extends AppCompatActivity {
 
             });
         }
+    }
+
+    private void getUser(String email) {
+        userCollection.whereEqualTo("email",email).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    MyUser user = documentSnapshot.toObject(MyUser.class);
+                    Log.d("User ID", "onSuccess: "+documentSnapshot.getId());
+                    user.setUserId(documentSnapshot.getId());
+//                    globalData.setglobalUser(user.getFname(),user.getLname(),user.getEmail(),user.getPhone(),user.getRole(),user.getUserId());
+                    Log.d("writing", user.toString());
+                    globalData.setglobalUser(user);
+                    Log.d("User Data out", user.toString());
+                }
+            }
+        });
     }
 }
