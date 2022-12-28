@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         mAuth=FirebaseAuth.getInstance();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fnameText=findViewById(R.id.fnameBox);
         lnameText=findViewById(R.id.lnameBox);
@@ -48,7 +50,17 @@ public class Registration extends AppCompatActivity {
         cpasswordText=findViewById(R.id.cpasswordBox);
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                Toast.makeText(this, "Back Clicked", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
 
     public void registeration(View v)
     {
