@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -95,6 +94,8 @@ public class registration_otpVerification extends Fragment {
     final private CollectionReference userCollection = database.collection("User");
     private AlertDialog alertDialog;
     private  MyUser user;
+    private CountDownTimer countDownTimer;
+    private AlertDialog loadingDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -201,6 +202,10 @@ public class registration_otpVerification extends Fragment {
     private void verifyOtp(String otpEntered) {
         if(otp.equals(otpEntered)) {
             Log.d("verifyOtp: ", "mtched");
+            showLoading();
+            countDownTimer.cancel();
+            timerView.setText("OTP Verified!");
+            resendBtn.setEnabled(false);
             otpText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.valid, 0);
             String email = userData.getString("email");
             String password = userData.getString("password");
@@ -233,6 +238,7 @@ public class registration_otpVerification extends Fragment {
                                     }
                                 });
                         alertDialog.show();
+                        loadingDialog.dismiss();
                         //Toast.makeText(getActivity(), "Registration Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         Log.d("Registration", "Registration UnSuccessful");
                     }
@@ -246,9 +252,22 @@ public class registration_otpVerification extends Fragment {
         }
     }
 
+    private void showLoading() {
+        // adding ALERT Dialog builder object and passing activity as parameter
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        // layoutinflater object and use activity to get layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.loading, null));
+        builder.setCancelable(true);
+
+        loadingDialog = builder.create();
+        loadingDialog.show();
+    }
+
     private void timer()
     {
-        new CountDownTimer(60000, 1000) {
+        countDownTimer = new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 timerView.setText("Resend OTP in " + millisUntilFinished / 1000 + " Seconds.");
@@ -315,6 +334,7 @@ public class registration_otpVerification extends Fragment {
                             }
                         });
                 alertDialog.show();
+                loadingDialog.dismiss();
                 //Toast.makeText(getActivity(), "Registered Successfully", Toast.LENGTH_LONG).show();
                 Log.d("Add DB","Added");
                 //documentReference.getId();
@@ -332,6 +352,7 @@ public class registration_otpVerification extends Fragment {
                             }
                         });
                 alertDialog.show();
+                loadingDialog.dismiss();
                 //Toast.makeText(getActivity(), "User Not Added", Toast.LENGTH_SHORT).show();
                 Log.d("Add not DB",e.getMessage());
             }
