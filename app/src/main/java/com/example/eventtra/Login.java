@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -68,35 +69,54 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(Login.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
-
-
-                        userCollection.whereEqualTo("email", email).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                    MyUser user = documentSnapshot.toObject(MyUser.class);
-                                    Log.d("User ID", "onSuccess: " + documentSnapshot.getId());
-                                    user.setUserId(documentSnapshot.getId());
-                                    globalData.setglobalUser(user);
-                                    Log.d("check global USer", "onComplete: " + globalData.getGlobalUser().toString());
-                                    if (globalData.getGlobalUser().getRole().equals("attendee")) {
-                                        Intent i = new Intent(Login.this, AttendeePage.class);
-                                        Login.this.startActivity(i);
-                                        Login.this.finish();
+                        if(mAuth.getCurrentUser().isEmailVerified()){
+                            Toast.makeText(Login.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
+//                            userCollection.whereEqualTo("email", email).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                                @Override
+//                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+//                                        MyUser user = documentSnapshot.toObject(MyUser.class);
+//                                        Log.d("User ID", "onSuccess: " + documentSnapshot.getId());
+//                                        user.setUserId(documentSnapshot.getId());
+//                                        globalData.setglobalUser(user);
+//                                        Log.d("check global USer", "onComplete: " + globalData.getGlobalUser().toString());
+//                                        if (globalData.getGlobalUser().getRole().equals("attendee")) {
+//                                            Intent i = new Intent(Login.this, AttendeePage.class);
+//                                            Login.this.startActivity(i);
+//                                            Login.this.finish();
+//                                        }
+//                                    }
+//                                }
+//                            });
+                            userCollection.document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot doc =task.getResult();
+                                    if(doc.exists()) {
+                                        MyUser user = doc.toObject(MyUser.class);
+                                        Log.d("User ID", "onSuccess: " + doc.getId());
+                                        user.setUserId(doc.getId());
+                                        globalData.setglobalUser(user);
+                                        Log.d("check global USer", "onComplete: " + globalData.getGlobalUser().toString());
+                                        if (globalData.getGlobalUser().getRole().equals("attendee")) {
+                                            Intent i = new Intent(Login.this, AttendeePage.class);
+                                            Login.this.startActivity(i);
+                                            Login.this.finish();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(Login.this, "Failed to get user data", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            }
-                        });
-
-//                        MyUser userTemp=new MyUser(globalData.getUser());
-                        //Log.d("check global", "onComplete: " + globalData.getGlobalUser().toString());
-//                        if(globalData.getUser().getRole().equals("attendee"))
-//                        {
-//                            Intent i = new Intent(Login.this,AttendeePage.class);
-//                            Login.this.startActivity(i);
-//                            Login.this.finish();
-//                        }
+                            });
+                        }
+                        else
+                        {
+                            errorView.setText("Email Not Verified!\nPlease Check your Email and Verify it First.");
+                            errorView.setAlpha(1f);
+                            errorView.animate().alpha(0f).setDuration(3000);
+                        }
                         Log.d("login", "done");
 
                     } else {

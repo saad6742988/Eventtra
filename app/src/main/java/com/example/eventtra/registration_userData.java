@@ -151,7 +151,7 @@ public class registration_userData extends Fragment {
             userData.putString("password",password);
             registration_otpVerification otpVerify = new registration_otpVerification();
             otpVerify.setArguments(userData);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.register_fragment_container, otpVerify).addToBackStack(null).commit();
+            //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.register_fragment_container, otpVerify).addToBackStack(null).commit();
 
 
         }
@@ -171,7 +171,7 @@ public class registration_userData extends Fragment {
     }
 
     public void gotoOtp(View view) {
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.register_fragment_container, new registration_otpVerification()).addToBackStack(null).commit();
+        //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.register_fragment_container, new registration_otpVerification()).addToBackStack(null).commit();
     }
 
 
