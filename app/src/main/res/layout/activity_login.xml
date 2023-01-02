@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
-        android:text="hello"
+        android:text=""
         android:textColor="@color/red"
         app:layout_constraintBottom_toTopOf="@+id/emailBox"
         app:layout_constraintRight_toRightOf="parent"
@@ -79,16 +79,16 @@
         android:id="@+id/registerV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="gotoRegistration"
         android:text="Register here"
         android:textColor="@color/purple_700"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.507"
-        android:onClick="gotoRegistration"/>
+        app:layout_constraintVertical_bias="0.507" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

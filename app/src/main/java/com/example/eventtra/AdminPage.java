@@ -12,10 +12,12 @@ import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    final private FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
                 break;
 
             case R.id.nav_logout:
+                mAuth.signOut();
                 Intent intent = new Intent(this, Login.class);
                 finish();
                 startActivity(intent);

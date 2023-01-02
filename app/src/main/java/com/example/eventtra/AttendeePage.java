@@ -2,15 +2,20 @@ package com.example.eventtra;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AttendeePage extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
+    final private FirebaseAuth mAuth=FirebaseAuth.getInstance();
     TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +44,12 @@ public class AttendeePage extends AppCompatActivity {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
+    }
+
+    public void logout(View view) {
+        mAuth.signOut();
+        Intent intent = new Intent(this, Login.class);
+        finish();
+        startActivity(intent);
     }
 }
