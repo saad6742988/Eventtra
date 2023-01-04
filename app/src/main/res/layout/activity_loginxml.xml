@@ -6,19 +6,20 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:layout_marginBottom="20dp"
-    tools:context=".loginxml">
+    tools:context=".loginxml"
+    android:background="@drawable/eventra">
 
-    <ImageView
-        android:id="@+id/backgroundmenu"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:contentDescription="backgroundmenu"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/eventra" />
+<!--    <ImageView-->
+<!--        android:id="@+id/backgroundmenu"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:contentDescription="backgroundmenu"-->
+<!--        android:scaleType="fitXY"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/eventra" />-->
 
     <LinearLayout
         android:id="@+id/linearlayoutmenu"
@@ -68,7 +69,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="@drawable/btntiger"
-            android:drawableLeft="@drawable/withphone"
             android:text="Sign in with Phone" />
 
         <LinearLayout
