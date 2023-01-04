@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_marginBottom="20dp"
     tools:context=".loginxml"
     android:background="@drawable/eventra">
 
@@ -34,11 +33,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/menulogo"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="102dp"
-            app:srcCompat="@drawable/okay"
+            app:srcCompat="@drawable/logo1"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
@@ -59,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/btntiger"
+            android:background="@drawable/button_shape"
             android:drawableLeft="@drawable/emailforsignin"
             android:text="Sign in With Email" />
 
@@ -68,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="@drawable/btntiger"
+            android:background="@drawable/button_shape"
             android:text="Sign in with Phone" />
 
         <LinearLayout

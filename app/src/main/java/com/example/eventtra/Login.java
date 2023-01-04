@@ -33,7 +33,6 @@ public class Login extends AppCompatActivity {
 
     // to be implemented
     private EditText emailText,passwordText;
-    private TextView errorView;
     private AlertDialog loadingDialog;
     private AlertDialog alertDialog;
     FirebaseAuth mAuth;
@@ -48,10 +47,8 @@ public class Login extends AppCompatActivity {
         emailText=findViewById(R.id.emailBox);
         passwordText=findViewById(R.id.passwordBox);
         mAuth = FirebaseAuth.getInstance();
-        errorView=findViewById(R.id.errorView);
         alertDialog = new AlertDialog.Builder(Login.this).create();
         globalData = (GlobalData) getApplicationContext();
-        errorView.setAlpha(0f);
     }
 
     public void gotoRegistration(View v)
@@ -75,7 +72,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void login(View view) {
-        showLoading();
+
         String email = emailText.getText().toString();
         String pass =passwordText.getText().toString();
 
@@ -90,7 +87,7 @@ public class Login extends AppCompatActivity {
             passwordText.requestFocus();
         }
         else {
-
+            showLoading();
             mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -214,6 +211,18 @@ public class Login extends AppCompatActivity {
                             alertDialog.setCancelable(false);
                             loadingDialog.dismiss();
                         } else {
+                            alertDialog.setTitle("Error!");
+                            alertDialog.setMessage("Check Your Connection and Try Again!");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+                            alertDialog.setCanceledOnTouchOutside(false);
+                            alertDialog.setCancelable(false);
+                            loadingDialog.dismiss();
                             Toast.makeText(Login.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d("login", "not done " + task.getException().getMessage());
                         }
