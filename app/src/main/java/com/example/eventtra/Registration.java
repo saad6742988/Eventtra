@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -28,6 +29,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.regex.Matcher;
 
@@ -38,6 +42,7 @@ public class Registration extends AppCompatActivity {
     private AlertDialog loadingDialog;
     private AlertDialog alertDialog;
     FirebaseAuth mAuth;
+    private StorageReference storageReference= FirebaseStorage.getInstance().getReference();
     private FirebaseFirestore database =FirebaseFirestore.getInstance();
     private CollectionReference userCollection = database.collection("User");
     //To be Implemented11
@@ -95,7 +100,8 @@ public class Registration extends AppCompatActivity {
         LayoutInflater inflater = Registration.this.getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.loading, null));
         builder.setCancelable(true);
-
+        loadingDialog.setCancelable(false);
+        loadingDialog.setCanceledOnTouchOutside(false);
         loadingDialog = builder.create();
         loadingDialog.show();
     }
@@ -312,6 +318,7 @@ public class Registration extends AppCompatActivity {
 //            }
 //        });
     }
+
 
     public void gotoLogin(View v)
     {

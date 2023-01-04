@@ -4,23 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class MainActivity extends AppCompatActivity {
 
     final private FirebaseAuth mAuth=FirebaseAuth.getInstance();
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
+    final private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     final private CollectionReference userCollection = database.collection("User");
     GlobalData globalData;
     @Override
@@ -40,17 +46,30 @@ public class MainActivity extends AppCompatActivity {
                                 MyUser user = doc.toObject(MyUser.class);
                                 Log.d("User ID", "onSuccess: " + doc.getId());
                                 user.setUserId(doc.getId());
-                                globalData.setglobalUser(user);
-                                Log.d("check global USer", "onComplete: " + globalData.getGlobalUser().toString());
-                                if (globalData.getGlobalUser().getRole().equals("attendee")) {
-                                    Intent i = new Intent(MainActivity.this, AttendeePage.class);
-                                    MainActivity.this.startActivity(i);
-                                    MainActivity.this.finish();
-                                } else if (globalData.getGlobalUser().getRole().equals("admin")) {
-                                    Intent i = new Intent(MainActivity.this, AdminPage.class);
-                                    MainActivity.this.startActivity(i);
-                                    MainActivity.this.finish();
-                                }
+
+                                //get picture
+                                StorageReference file = storageReference.child("Users/Profile/"+doc.getId()+"/profile.jpg");
+                                file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Log.d("main get image", "onSuccess: fetch success");
+                                        if(uri!=null)
+                                        {
+                                            Log.d("Image uri", "onSuccess: "+uri);
+                                            user.setProfilePic(uri);
+                                            moveToOtherActivity(user);
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("Error", "onFailure: "+e.getMessage());
+                                        user.setProfilePic(null);
+                                        moveToOtherActivity(user);
+                                    }
+                                });
+
+
                             } else {
                                 Toast.makeText(MainActivity.this, "Failed to get user data", Toast.LENGTH_SHORT).show();
                             }
@@ -78,5 +97,34 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
 //        Intent intent = new Intent(this,Login.class);
 //        startActivity(intent);
+    }
+
+    private void moveToOtherActivity(MyUser user) {
+        globalData.setglobalUser(user);
+        Log.d("check global USer", "onComplete: " + globalData.getGlobalUser().toString());
+        if (globalData.getGlobalUser().getRole().equals("attendee")) {
+            Intent i = new Intent(MainActivity.this, AttendeePage.class);
+            MainActivity.this.startActivity(i);
+            MainActivity.this.finish();
+        } else if (globalData.getGlobalUser().getRole().equals("admin")) {
+            Intent i = new Intent(MainActivity.this, AdminPage.class);
+            MainActivity.this.startActivity(i);
+            MainActivity.this.finish();
+        }
+    }
+
+    private Uri getProfilePic(String id) {
+        Uri pic=null;
+        StorageReference file = storageReference.child("Users/Profile/"+id+"/profile.jpg");
+        file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                if(uri!=null)
+                {
+
+                }
+            }
+        });
+        return pic;
     }
 }

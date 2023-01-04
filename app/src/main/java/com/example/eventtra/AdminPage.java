@@ -8,27 +8,46 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdminPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
     final private FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    private TextView username,email;
+    CircleImageView profile;
+    GlobalData globalData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_page);
-
+        globalData = (GlobalData) getApplicationContext();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.admin_page_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        username=navigationView.getHeaderView(0).findViewById(R.id.usernameContainer);
+        email=navigationView.getHeaderView(0).findViewById(R.id.emailContainer);
+        profile=navigationView.getHeaderView(0).findViewById(R.id.profileContainer);
+        username.setText(globalData.getGlobalUser().getFname()+" "+globalData.getGlobalUser().getLname());
+        email.setText(globalData.getGlobalUser().getEmail());
+        Log.d("admin pic", "onCreate: "+globalData.getGlobalUser().getProfilePic());
+        if(globalData.getGlobalUser().getProfilePic()!=null)
+        {
+            Picasso.get().load(globalData.getGlobalUser().getProfilePic()).into(profile);
+        }
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,toolbar, R.string.open_nav, R.string.close_nav);
@@ -59,9 +78,9 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
 
             case R.id.nav_logout:
                 mAuth.signOut();
-                Intent intent = new Intent(this, Login.class);
-                finish();
-                startActivity(intent);
+                Intent intent = new Intent(AdminPage.this, Login.class);
+                AdminPage.this.startActivity(intent);
+                AdminPage.this.finish();
                 break;
         }
 

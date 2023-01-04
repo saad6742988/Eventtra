@@ -1,5 +1,7 @@
 package com.example.eventtra;
 
+import android.net.Uri;
+
 import com.google.firebase.firestore.Exclude;
 
 public class MyUser {
@@ -9,13 +11,21 @@ public class MyUser {
     private String phone;
     private String role;
     private String userId;
+    private Uri profilePic;
 
 
     public MyUser() {
     }
 
 
+    @Exclude
+    public Uri getProfilePic() {
+        return profilePic;
+    }
 
+    public void setProfilePic(Uri profilePic) {
+        this.profilePic = profilePic;
+    }
 
     @Exclude
     public String getUserId() {

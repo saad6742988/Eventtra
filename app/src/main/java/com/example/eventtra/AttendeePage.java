@@ -48,8 +48,8 @@ public class AttendeePage extends AppCompatActivity {
 
     public void logout(View view) {
         mAuth.signOut();
-        Intent intent = new Intent(this, Login.class);
-        finish();
-        startActivity(intent);
+        Intent intent = new Intent(AttendeePage.this, Login.class);
+        AttendeePage.this.finish();
+        AttendeePage.this.startActivity(intent);
     }
 }

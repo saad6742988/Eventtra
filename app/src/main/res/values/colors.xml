@@ -8,4 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#D31305</color>
+
+
+    <color name="one">#C15D44</color>
+    <color name="two">#EBC2C2</color>
+    <color name="three">#E4BE9A</color>
+    <color name="four">#D7926A</color>
+
 </resources>

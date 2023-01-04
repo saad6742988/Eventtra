@@ -8,13 +8,14 @@
     android:background="@color/design_default_color_secondary">
 
     <de.hdodenhof.circleimageview.CircleImageView
-
+        android:id="@+id/profileContainer"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/temp_profile"
+        android:src="@drawable/profiletemp"
         />
 
     <TextView
+        android:id="@+id/usernameContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username"
@@ -22,6 +23,7 @@
         android:textStyle="bold"
         />
     <TextView
+        android:id="@+id/emailContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="cybercat@gmail.com"
