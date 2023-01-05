@@ -3,6 +3,7 @@ package com.example.eventtra;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,14 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,10 +31,16 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,11 +50,17 @@ public class settings extends Fragment {
 
     private CircleImageView profilePic,navProfile;
     private TextView usernameText,emailText,changePic,updateProfile;
+    private EditText updateFname,updateLname,updateEmail,updatePhone;
+    private Button savebtn;
     private AlertDialog loadingDialog;
     private AlertDialog alertDialog;
+    private LinearLayout updateLayout;
     final private StorageReference storageReference= FirebaseStorage.getInstance().getReference();
     private Boolean updateOpen=false;
     GlobalData globalData;
+    NavigationView navigationView;
+    private FirebaseFirestore database =FirebaseFirestore.getInstance();
+    private CollectionReference userCollection = database.collection("User");
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,27 +71,178 @@ public class settings extends Fragment {
         updateProfile=view.findViewById(R.id.updateProfileBtn);
         usernameText=view.findViewById(R.id.usernameText);
         emailText=view.findViewById(R.id.emailText);
+        updateFname=view.findViewById(R.id.fnameEditBox);
+        updateLname=view.findViewById(R.id.lnameEditBox);
+        updateEmail=view.findViewById(R.id.emailEditBox);
+        updatePhone=view.findViewById(R.id.phoneEditBox);
+        updateLayout=view.findViewById(R.id.updateLayout);
+        savebtn=view.findViewById(R.id.saveBtn);
         alertDialog = new AlertDialog.Builder(getActivity()).create();
-        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        navigationView = getActivity().findViewById(R.id.nav_view);
         navProfile=navigationView.getHeaderView(0).findViewById(R.id.profileContainer);
 
         globalData = (GlobalData) getActivity().getApplicationContext();
         usernameText.setText(globalData.getGlobalUser().getFname()+" "+globalData.getGlobalUser().getLname());
         emailText.setText(globalData.getGlobalUser().getEmail());
+        updateFname.setText(globalData.getGlobalUser().getFname());
+        updateLname.setText(globalData.getGlobalUser().getLname());
+        updateEmail.setText(globalData.getGlobalUser().getEmail());
+        updatePhone.setText(globalData.getGlobalUser().getPhone());
         if(globalData.getGlobalUser().getProfilePic()!=null)
         {
             Picasso.get().load(globalData.getGlobalUser().getProfilePic()).into(profilePic);
         }
 
+        updateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(updateOpen)
+                {
+                    Log.d("update profile", "onClick: true");
+                    ViewGroup.LayoutParams params = updateLayout.getLayoutParams();
+                    Log.d("height", "onClick: "+params.height);
+                    params.height=105;
+                    updateLayout.setLayoutParams(params);
+                    updateOpen=false;
 
-
+                }
+                else
+                {
+                    Log.d("update profile", "onClick: false");
+                    ViewGroup.LayoutParams params = updateLayout.getLayoutParams();
+                    Log.d("height", "onClick: "+params.height);
+                    params.height=900;
+                    updateLayout.setLayoutParams(params);
+                    updateOpen=true;
+                }
+            }
+        });
         changePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changePic();
             }
         });
+        savebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateUserProfile();
+            }
+        });
+
+        updateFname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                checkChange();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        updateLname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                checkChange();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        updatePhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                checkChange();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         return view;
+    }
+
+    private void checkChange() {
+        boolean fname=updateFname.getText().toString().equals(globalData.getGlobalUser().getFname());
+        boolean lname=updateLname.getText().toString().equals(globalData.getGlobalUser().getLname());
+        boolean phone=updatePhone.getText().toString().equals(globalData.getGlobalUser().getPhone());
+        if(!fname||!lname||!phone)
+        {
+            savebtn.setEnabled(true);
+            savebtn.setTextColor(Color.parseColor("#ffffff"));
+        }
+        else
+        {
+            savebtn.setEnabled(false);
+            savebtn.setTextColor(Color.parseColor("#8b8b8b"));
+        }
+    }
+
+    private void updateUserProfile() {
+        String fname=updateFname.getText().toString();
+        String lname=updateLname.getText().toString();
+        String phone = updatePhone.getText().toString();
+        boolean validData = true;
+
+        /// Validating data
+        if(fname.isEmpty())
+        {
+            updateFname.setError("First Name Required");
+            updateFname.requestFocus();
+            validData = false;
+        }
+        else if(lname.isEmpty())
+        {
+            updateLname.setError("Last Name Required");
+            updateLname.requestFocus();
+            validData = false;
+        }
+        else if(phone.length()!=11)
+        {
+            updatePhone.setError("Invalid Phone");
+            updatePhone.requestFocus();
+            validData = false;
+        }
+        else {
+            MyUser updateUser = globalData.getGlobalUser();
+            updateUser.setFname(fname);
+            updateUser.setLname(lname);
+            updateUser.setPhone(phone);
+            Log.d("Updated user", "updateUserProfile: " + updateUser.toString());
+            Map<String, Object> toUpdate = new HashMap<>();
+            toUpdate.put("fname",updateUser.getFname());
+            toUpdate.put("lname",updateUser.getLname());
+            toUpdate.put("phone",updateUser.getPhone());
+            userCollection.document(updateUser.getUserId()).update(toUpdate);
+            usernameText.setText(globalData.getGlobalUser().getFname()+" "+globalData.getGlobalUser().getLname());
+            emailText.setText(globalData.getGlobalUser().getEmail());
+            TextView nav_name = navigationView.getHeaderView(0).findViewById(R.id.usernameContainer);
+            TextView nav_email = navigationView.getHeaderView(0).findViewById(R.id.emailContainer);
+            nav_name.setText(globalData.getGlobalUser().getFname()+" "+globalData.getGlobalUser().getLname());
+            nav_email.setText(globalData.getGlobalUser().getEmail());
+            savebtn.setEnabled(false);
+            savebtn.setTextColor(Color.parseColor("#8b8b8b"));
+        }
     }
 
     private void changePic() {
