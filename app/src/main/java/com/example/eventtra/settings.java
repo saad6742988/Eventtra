@@ -189,12 +189,10 @@ public class settings extends Fragment {
         if(!fname||!lname||!phone)
         {
             savebtn.setEnabled(true);
-            savebtn.setTextColor(Color.parseColor("#ffffff"));
         }
         else
         {
             savebtn.setEnabled(false);
-            savebtn.setTextColor(Color.parseColor("#8b8b8b"));
         }
     }
 

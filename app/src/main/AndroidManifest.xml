@@ -39,7 +39,7 @@
         <activity
             android:name=".AdminPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.Eventtra.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

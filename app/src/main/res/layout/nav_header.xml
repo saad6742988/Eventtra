@@ -6,13 +6,13 @@
     android:layout_height="176dp"
     android:padding="16dp"
     android:gravity="bottom"
-    android:background="#512888">
+    android:background="@color/purple_500">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileContainer"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/dp"
+        android:src="@drawable/profiletemp"
         tools:ignore="MissingClass" />
 
     <TextView

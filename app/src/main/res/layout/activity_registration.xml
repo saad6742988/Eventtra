@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Registration"
-    android:background="@drawable/eventtra">
+    android:background="@drawable/background1">
 
 
 <!--    code-->
@@ -21,7 +21,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498">
+        app:layout_constraintVertical_bias="0.498"
+        android:alpha="0.9">
 
         <ImageView
             android:id="@+id/menulogo"
@@ -53,7 +54,7 @@
                 android:id="@+id/fnameBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="FName"
+                android:hint="First Name"
                 android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
@@ -68,15 +69,16 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:layout_marginTop="5dp">
+
             <EditText
                 android:id="@+id/lnameBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="LName"
-                android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-                android:inputType="text"/>
+                android:hint="Last Name"
+                android:inputType="text"
+                android:textColor="@color/purple_700" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--        Phone Text Box-->

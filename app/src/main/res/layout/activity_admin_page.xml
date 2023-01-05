@@ -18,15 +18,18 @@
         >
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolbar"
             android:elevation="4dp"
-            android:background="@color/purple_200"
-            android:popupTheme="@color/cardview_dark_background"/>
+            android:background="@color/purple_500"
+            android:theme="@style/Theme.MyApplication.AppBarOverlay"
+            android:popupTheme="@style/Theme.MyApplication.PopupOverlay"/>
+
+
         <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/fragment_container"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 <com.google.android.material.navigation.NavigationView
     android:layout_width="wrap_content"
