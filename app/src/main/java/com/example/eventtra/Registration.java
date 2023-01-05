@@ -100,10 +100,11 @@ public class Registration extends AppCompatActivity {
         LayoutInflater inflater = Registration.this.getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.loading, null));
         builder.setCancelable(true);
-        loadingDialog.setCancelable(false);
-        loadingDialog.setCanceledOnTouchOutside(false);
+
         loadingDialog = builder.create();
         loadingDialog.show();
+        loadingDialog.setCancelable(false);
+        loadingDialog.setCanceledOnTouchOutside(false);
     }
 
     public void registeration(View v)
@@ -198,6 +199,8 @@ public class Registration extends AppCompatActivity {
                                             }
                                         });
                                 alertDialog.show();
+                                alertDialog.setCanceledOnTouchOutside(false);
+                                alertDialog.setCancelable(false);
                                 loadingDialog.dismiss();
                             }
                         });
@@ -217,6 +220,8 @@ public class Registration extends AppCompatActivity {
                                     }
                                 });
                         alertDialog.show();
+                        alertDialog.setCanceledOnTouchOutside(false);
+                        alertDialog.setCancelable(false);
                         loadingDialog.dismiss();
                         //Toast.makeText(Registration.this,"Registration Error"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                         Log.d("Registration","Registration UnSuccessful");
@@ -258,6 +263,8 @@ public class Registration extends AppCompatActivity {
                             }
                         });
                 alertDialog.show();
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.setCancelable(false);
                 loadingDialog.dismiss();
                 //Toast.makeText(Registration.this, "User Added", Toast.LENGTH_SHORT).show();
                 Log.d("Add DB","Added");
@@ -274,6 +281,8 @@ public class Registration extends AppCompatActivity {
                             }
                         });
                 alertDialog.show();
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.setCancelable(false);
                 loadingDialog.dismiss();
                 //Toast.makeText(Registration.this, "User Not Added", Toast.LENGTH_SHORT).show();
                 Log.d("Add not DB",e.getMessage());
