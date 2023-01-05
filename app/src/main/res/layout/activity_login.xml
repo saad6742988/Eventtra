@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Login"
     android:layout_gravity="center"
-    android:background="@drawable/eventra">
-
+    android:background="@drawable/eventtra">
 
 
     <LinearLayout
@@ -52,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
+                    android:textColor="@color/purple_700"
                     android:background="@drawable/textback"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Password"
                     android:inputType="textPassword"
+                    android:textColor="@color/purple_700"
                     android:background="@drawable/textback"
                     />
         </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +99,7 @@
 
             <TableLayout
                 android:id="@+id/hr"
-                android:layout_width="70dp"
+                android:layout_width="33dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/white">
@@ -108,20 +109,20 @@
 
             <TextView
                 android:id="@+id/OR"
-                android:layout_width="wrap_content"
+                android:layout_width="133dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="7dp"
                 android:layout_weight="1"
-                android:text="New User"
+                android:text="Don't Have An Account?"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="17sp" />
 
             <TableRow
                 android:id="@+id/dr"
-                android:layout_width="70dp"
+                android:layout_width="32dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/white" />
