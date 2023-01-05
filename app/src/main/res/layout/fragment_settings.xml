@@ -47,17 +47,89 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/updateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/back"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/updateProfileBtn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Update Profile"
-                android:textSize="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/back"
                 android:gravity="center_vertical"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:text="Update Profile"
+                android:textSize="20dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp">
+                <EditText
+                    android:id="@+id/fnameEditBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fname"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp">
+                <EditText
+                    android:id="@+id/lnameEditBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Lname"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp">
+                <EditText
+                    android:id="@+id/phoneEditBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone"
+                    android:inputType="phone"
+                    android:digits="0123456789"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp">
+                <EditText
+                    android:id="@+id/emailEditBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:enabled="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Save"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="2dp"
+                android:layout_gravity="end"
+                android:background="@drawable/buttonsetting"
+                android:textColor="#8b8b8b"
+                android:enabled="false"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/changePicBtn"
