@@ -20,15 +20,15 @@ public class addEventdetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_eventdetails, container, false);
-//        nextBtn=view.findViewById(R.id.nextBtn);
-//
-//
-//        nextBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addSubeventsAndHeads()).addToBackStack(null).commit();
-//            }
-//        });
+        nextBtn=view.findViewById(R.id.nextBtn);
+
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addSubeventsAndHeads()).addToBackStack(null).commit();
+            }
+        });
         return view;
     }
 }
