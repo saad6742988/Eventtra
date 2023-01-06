@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -35,6 +38,7 @@ public class Login extends AppCompatActivity {
     private EditText emailText,passwordText;
     private AlertDialog loadingDialog;
     private AlertDialog alertDialog;
+    private TextInputLayout emailLayout,passwordLayout;
     FirebaseAuth mAuth;
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
     final private CollectionReference userCollection = database.collection("User");
@@ -46,9 +50,46 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         emailText=findViewById(R.id.emailBox);
         passwordText=findViewById(R.id.passwordBox);
+        emailLayout = findViewById(R.id.emailBoxInputlayout);
+        passwordLayout = findViewById(R.id.passwordBoxInputlayout);
         mAuth = FirebaseAuth.getInstance();
         alertDialog = new AlertDialog.Builder(Login.this).create();
         globalData = (GlobalData) getApplicationContext();
+
+        emailText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                emailLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        passwordText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                passwordLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
     }
 
     public void gotoRegistration(View v)
@@ -64,7 +105,6 @@ public class Login extends AppCompatActivity {
         LayoutInflater inflater = Login.this.getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.loading, null));
         builder.setCancelable(true);
-
         loadingDialog = builder.create();
         loadingDialog.show();
         loadingDialog.setCancelable(false);
@@ -78,13 +118,13 @@ public class Login extends AppCompatActivity {
 
         if(email.isEmpty())
         {
-            emailText.setError("Email Can't Be Empty");
-            emailText.requestFocus();
+            emailLayout.setError("Email is Required");
+            passwordLayout.requestFocus();
         }
         else if(pass.isEmpty())
         {
-            passwordText.setError("Password Can't Be Empty");
-            passwordText.requestFocus();
+            passwordLayout.setError("Password Can't Be Empty");
+            passwordLayout.requestFocus();
         }
         else {
             showLoading();
@@ -172,12 +212,10 @@ public class Login extends AppCompatActivity {
 //                    Log.d(task.getException().getMessage(), R.string.invalid_email);
                         if (task.getException().getMessage().equals(getString(R.string.invalid_email))) {
 
-                            emailText.setError("Invalid Email Format!");
-                            emailText.requestFocus();
+                            emailLayout.setError("Invalid Email Format!");
+                            emailLayout.requestFocus();
+                            loadingDialog.dismiss();
                         } else if (task.getException().getMessage().equals(getString(R.string.no_user))) {
-//                            errorView.setText("User Not Found!!!\nIf Your New Make Sure To Register First.");
-//                            errorView.setAlpha(1f);
-//                            errorView.animate().alpha(0f).setDuration(3000);
                             alertDialog.setTitle("Error!");
                             alertDialog.setMessage("User Not Found!!!\nIf Your New Make Sure To Register First.");
                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -193,11 +231,6 @@ public class Login extends AppCompatActivity {
 //                        emailText.setError("User Not Found!");
                             emailText.requestFocus();
                         } else if (task.getException().getMessage().equals(getString(R.string.invalid_password))) {
-//                            errorView.setText("Incorrect Email or Password!!!");
-//                            errorView.setAlpha(1f);
-//                            errorView.animate().alpha(0f).setDuration(3000);
-//                        passwordText.setError("Incorrect Password");
-//                        passwordText.requestFocus();
                             alertDialog.setTitle("Error!");
                             alertDialog.setMessage("Incorrect Email or Password!!!");
                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",

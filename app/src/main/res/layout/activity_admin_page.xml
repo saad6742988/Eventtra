@@ -22,8 +22,8 @@
             android:id="@+id/toolbar"
             android:elevation="4dp"
             android:background="@color/purple_500"
-            android:theme="@style/Theme.MyApplication.AppBarOverlay"
-            android:popupTheme="@style/Theme.MyApplication.PopupOverlay"/>
+            android:theme="@style/Theme.Eventtra.AppBarOverlay"
+            android:popupTheme="@style/Theme.Eventtra.PopupOverlay"/>
 
 
         <FrameLayout

@@ -96,12 +96,14 @@ public class settings extends Fragment {
         updateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final float scale = getContext().getResources().getDisplayMetrics().density;
                 if(updateOpen)
                 {
                     Log.d("update profile", "onClick: true");
                     ViewGroup.LayoutParams params = updateLayout.getLayoutParams();
                     Log.d("height", "onClick: "+params.height);
-                    params.height=105;
+                    int pixels = (int) (40 * scale + 0.5f);
+                    params.height=pixels;
                     updateLayout.setLayoutParams(params);
                     updateOpen=false;
 
@@ -111,7 +113,8 @@ public class settings extends Fragment {
                     Log.d("update profile", "onClick: false");
                     ViewGroup.LayoutParams params = updateLayout.getLayoutParams();
                     Log.d("height", "onClick: "+params.height);
-                    params.height=900;
+                    int pixels = (int) (350 * scale + 0.5f);
+                    params.height=pixels;
                     updateLayout.setLayoutParams(params);
                     updateOpen=true;
                 }

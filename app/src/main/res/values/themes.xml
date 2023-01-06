@@ -19,7 +19,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+    <style name="Theme.Eventtra.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
         <item name="colorControlNormal">@color/white</item>
         <item name="android:titleTextColor">@color/white</item>
         <item name="android:statusBarColor">#512888</item>
@@ -27,5 +27,5 @@
         <item name="colorPrimaryVariant">#512888</item>
     </style>
 
-    <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.Eventtra.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

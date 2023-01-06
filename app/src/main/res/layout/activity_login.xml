@@ -26,7 +26,7 @@
         <ImageView
             android:id="@+id/menulogo"
             android:layout_width="match_parent"
-            android:layout_height="102dp"
+            android:layout_height="74dp"
             app:srcCompat="@drawable/logo1"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -35,8 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="0dp"
             android:text="A smart choice"
             android:textAlignment="center"
             android:textColor="#FFFFFFFF"
@@ -44,30 +43,35 @@
             android:textStyle="bold|italic" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailBoxInputlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                >
+                android:layout_marginTop="10dp"
+                android:hint="Email"
+                app:boxStrokeColor="@android:color/transparent"
+                app:boxStrokeErrorColor="@android:color/transparent">
                 <EditText
                     android:id="@+id/emailBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
-                    android:textColor="@color/purple_700"
                     android:background="@drawable/textback"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordBoxInputlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="10dp"
+            android:hint="Password"
+            app:passwordToggleEnabled="true"
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeErrorColor="@android:color/transparent">
                 <EditText
                     android:id="@+id/passwordBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
                     android:inputType="textPassword"
-                    android:textColor="@color/purple_700"
                     android:background="@drawable/textback"
                     />
         </com.google.android.material.textfield.TextInputLayout>
@@ -89,14 +93,14 @@
             android:layout_gravity="center"
             android:background="@drawable/button_shape"
             android:text="Sign in"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:onClick="login"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TableLayout
@@ -137,6 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/button_shape"
             android:text="Sign up"
             tools:ignore="TouchTargetSizeCheck"

@@ -27,7 +27,7 @@
         <ImageView
             android:id="@+id/menulogo"
             android:layout_width="match_parent"
-            android:layout_height="102dp"
+            android:layout_height="74dp"
             app:srcCompat="@drawable/logo1"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -36,8 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="0dp"
             android:text="A smart choice"
             android:textAlignment="center"
             android:textColor="#FFFFFFFF"
@@ -47,14 +46,16 @@
         <!--        First Name TextBox-->
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fnameBoxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent">
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeErrorColor="@android:color/transparent"
+            android:hint="First Name">
             <EditText
                 android:id="@+id/fnameBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="First Name"
                 android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
@@ -65,10 +66,13 @@
         <!--        Last Name Text Box-->
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lnameBoxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_marginTop="5dp">
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeErrorColor="@android:color/transparent"
+            android:layout_marginTop="5dp"
+            android:hint="Last Name">
 
             <EditText
                 android:id="@+id/lnameBox"
@@ -76,7 +80,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/textback"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-                android:hint="Last Name"
                 android:inputType="text"
                 android:textColor="@color/purple_700" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -84,15 +87,17 @@
         <!--        Phone Text Box-->
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneBoxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_marginTop="5dp">
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeErrorColor="@android:color/transparent"
+            android:layout_marginTop="5dp"
+            android:hint="Phone No.">
             <EditText
                 android:id="@+id/phoneBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone No."
                 android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
                 android:inputType="phone"
@@ -104,15 +109,17 @@
         <!--        Email Text Box-->
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailBoxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_marginTop="5dp">
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeErrorColor="@android:color/transparent"
+            android:layout_marginTop="5dp"
+            android:hint="Email   e.g (user1@gmail.com)">
             <EditText
                 android:id="@+id/emailBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email   e.g (user1@gmail.com)"
                 android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
                 android:inputType="textEmailAddress"
@@ -122,14 +129,18 @@
         <!--        Password Text Box-->
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordBoxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeErrorColor="@android:color/transparent"
+            android:layout_marginTop="5dp"
+            android:hint="Password"
+            app:passwordToggleEnabled="true">
             <EditText
                 android:id="@+id/passwordBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
                 android:inputType="textPassword"
                 android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
@@ -139,14 +150,18 @@
         <!--        Confirm Password Text Box-->
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cpasswordBoxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeErrorColor="@android:color/transparent"
+            android:layout_marginTop="5dp"
+            android:hint="Confirm Password"
+            app:passwordToggleEnabled="true">
             <EditText
                 android:id="@+id/cpasswordBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirm Password"
                 android:inputType="textPassword"
                 android:textColor="@color/purple_700"
                 android:background="@drawable/textback"

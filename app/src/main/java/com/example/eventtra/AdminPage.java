@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -62,7 +60,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         toggle.syncState();
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new createEvent()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addEventdetails()).addToBackStack("addEventDetails").commit();
             navigationView.setCheckedItem(R.id.nav_create_event);
         }
     }
@@ -72,7 +70,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()) {
 
             case R.id.nav_create_event:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new createEvent()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addSubeventsAndHeads()).addToBackStack("addEventDetails").commit();
                 break;
 
             case R.id.nav_edit_event:
@@ -101,21 +99,26 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
             drawerLayout.closeDrawer(GravityCompat.START);
         }
         else {
-            if (doubleBackToExitPressedOnce) {
-                super.onBackPressed();
-                return;
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    return;
+                }
+
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
+            } else {
+                getSupportFragmentManager().popBackStackImmediate("addEventDetails",0);
             }
 
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce=false;
-                }
-            }, 2000);
         }
     }
 }

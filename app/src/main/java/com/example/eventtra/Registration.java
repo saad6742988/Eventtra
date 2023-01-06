@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +41,7 @@ import java.util.regex.Matcher;
 public class Registration extends AppCompatActivity {
 
     private EditText fnameText,lnameText,emailText,phoneText,passwordText,cpasswordText;
+    private TextInputLayout fnameTextLayout,lnameTextLayout,emailTextLayout,phoneTextLayout,passwordTextLayout,cpasswordTextLayout;
     private Button registerBtn;
     private AlertDialog loadingDialog;
     private AlertDialog alertDialog;
@@ -52,19 +56,123 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        if(savedInstanceState == null){
-//            getSupportFragmentManager().beginTransaction().replace(R.id.register_fragment_container, new registration_userData()).addToBackStack("register").commit();
-////            setOpened(fragmentType.Register);
-//        }
+
         alertDialog = new AlertDialog.Builder(Registration.this).create();
         mAuth=FirebaseAuth.getInstance();
+        //getting input feilds
         fnameText=findViewById(R.id.fnameBox);
         lnameText=findViewById(R.id.lnameBox);
         emailText=findViewById(R.id.emailBox);
         phoneText=findViewById(R.id.phoneBox);
         passwordText=findViewById(R.id.passwordBox);
         cpasswordText=findViewById(R.id.cpasswordBox);
+        //getting input feilds layouts
+        fnameTextLayout=findViewById(R.id.fnameBoxLayout);
+        lnameTextLayout=findViewById(R.id.lnameBoxLayout);
+        emailTextLayout=findViewById(R.id.emailBoxLayout);
+        phoneTextLayout=findViewById(R.id.phoneBoxLayout);
+        passwordTextLayout=findViewById(R.id.passwordBoxLayout);
+        cpasswordTextLayout=findViewById(R.id.cpasswordBoxLayout);
+
+
+        fnameText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                fnameTextLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        lnameText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                lnameTextLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        emailText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                emailTextLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        phoneText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                phoneTextLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        passwordText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                passwordTextLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        cpasswordText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                cpasswordTextLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
     }
 
 
@@ -125,40 +233,40 @@ public class Registration extends AppCompatActivity {
         /// Validating data
         if(fname.isEmpty())
         {
-            fnameText.setError("First Name Required");
-            fnameText.requestFocus();
+            fnameTextLayout.setError("First Name Required");
+            fnameTextLayout.requestFocus();
             validData = false;
         }
         if(lname.isEmpty())
         {
-            lnameText.setError("Last Name Required");
-            lnameText.requestFocus();
+            lnameTextLayout.setError("Last Name Required");
+            lnameTextLayout.requestFocus();
             validData = false;
         }
         if(phone.length()!=11)
         {
-            phoneText.setError("Invalid Phone");
-            phoneText.requestFocus();
+            phoneTextLayout.setError("Invalid Phone");
+            phoneTextLayout.requestFocus();
             validData = false;
         }
         if(emailValidate==false)
         {
             //otp check
-            emailText.setError("Invalid Email");
-            emailText.requestFocus();
+            emailTextLayout.setError("Invalid Email");
+            emailTextLayout.requestFocus();
             validData = false;
         }
         if(password.length()<8)
         {
-            passwordText.setError("Password Must Be At Least 8 Characters Long");
-            passwordText.requestFocus();
+            passwordTextLayout.setError("Password Must Be At Least 8 Characters Long");
+            passwordTextLayout.requestFocus();
             validData = false;
         }
         if(!password.equals(cpassword))
         {
             Log.d(password,cpassword);
-            cpasswordText.setError("Password Doesn't Match");
-            cpasswordText.requestFocus();
+            cpasswordTextLayout.setError("Password Doesn't Match");
+            cpasswordTextLayout.requestFocus();
             validData = false;
         }
 
