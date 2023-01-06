@@ -12,10 +12,10 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dp">
         <LinearLayout
             android:orientation="horizontal"
-            android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
@@ -36,15 +36,23 @@
 
 
         </LinearLayout>
-        <EditText
-            android:id="@+id/eventNameBox"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_marginStart="25dp"
-            android:layout_marginBottom="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/eventNameBoxLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeWidthFocused="0dp">
+            <EditText
+                android:id="@+id/eventNameBox"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:background="@drawable/textback"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
 
 
 

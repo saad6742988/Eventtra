@@ -21,7 +21,7 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:background="@drawable/nav_background"
-        tools:context=".MainActivity">
+        android:paddingBottom="10dp">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

@@ -1,5 +1,7 @@
 package com.example.eventtra;
 
+import android.net.Uri;
+
 import com.google.firebase.firestore.Exclude;
 
 import java.util.Arrays;
@@ -12,14 +14,14 @@ public class MyEvent {
     private String eventDes;
     private Date startDate;
     private Date endDate;
-    private String eventPicUri;
+    private Uri eventPicUri;
     private Map<String,String>[] subEvents;
 
     public MyEvent() {
     }
 
 
-    public MyEvent(String eventId, String eventName, String eventDes, Date startDate, Date endDate, String eventPicUri, Map<String, String>[] subEvents) {
+    public MyEvent(String eventId, String eventName, String eventDes, Date startDate, Date endDate, Uri eventPicUri, Map<String, String>[] subEvents) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventDes = eventDes;
@@ -54,11 +56,11 @@ public class MyEvent {
         this.eventDes = eventDes;
     }
 
-    public String getEventPicUri() {
+    public Uri getEventPicUri() {
         return eventPicUri;
     }
 
-    public void setEventPicUri(String eventPicUri) {
+    public void setEventPicUri(Uri eventPicUri) {
         this.eventPicUri = eventPicUri;
     }
 
