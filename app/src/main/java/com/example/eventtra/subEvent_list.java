@@ -23,8 +23,9 @@ public class subEvent_list extends AppCompatActivity {
         //pass user data here. this is the array
         ArrayList <subEventsModel> list = new ArrayList<>();
 
+
         list.add(new subEventsModel(R.drawable.eventtemp1, "Barbque Dinner", "Description", "Price"));
-        list.add(new subEventsModel(R.drawable.eventtemp1, "barbque Dinner", "Description" , "Price"));
+        list.add(new subEventsModel(R.drawable.eventtemp1, "Barbque Dinner", "Description" , "Price"));
 
         //setting subEventsAdapter
         subEventAdapter adapter= new subEventAdapter(list, this);

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="310dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true"
+        tools:cardCornerRAdius="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/ImageView"
+        tools:ignore="NotSibling">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <!--            using another cardview to make picture corner rounded-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="5dp"
+                android:elevation="10dp">
+                <ImageView
+                    android:id="@+id/ImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/eventtemp1"
+                    />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/NameView"
+                android:layout_width="372dp"
+                android:layout_height="28dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rounded_rectangle"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center_horizontal"
+                android:text="Event Name"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/DescView"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rounded_rectangle"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center"
+                android:text="Description"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/dateView"
+                android:layout_width="372dp"
+                android:layout_height="28dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rounded_rectangle"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center_horizontal"
+                android:text="Date"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+
+           />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
