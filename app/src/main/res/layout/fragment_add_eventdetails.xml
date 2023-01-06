@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:background="@drawable/nav_background"
+        android:background="#512888"
         android:paddingBottom="10dp">
         <LinearLayout
             android:orientation="vertical"

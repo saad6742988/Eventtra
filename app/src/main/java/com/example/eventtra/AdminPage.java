@@ -70,7 +70,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()) {
 
             case R.id.nav_create_event:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addSubeventsAndHeads()).addToBackStack("addEventDetails").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addEventdetails()).addToBackStack("addEventDetails").commit();
                 break;
 
             case R.id.nav_edit_event:
