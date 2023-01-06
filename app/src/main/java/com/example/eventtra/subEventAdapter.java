@@ -41,7 +41,8 @@ public class subEventAdapter extends RecyclerView.Adapter<subEventAdapter.viewHo
 
         holder.imageView.setImageResource(model.getPic());
         holder.textView.setText(model.getText());
-
+        holder.textView2.setText(model.getDesc());
+        holder.textView3.setText(model.getPrice());
     }
 
     //recylerView list size, to stop recycler view at max size
@@ -54,10 +55,14 @@ public class subEventAdapter extends RecyclerView.Adapter<subEventAdapter.viewHo
 
         ImageView imageView;
         TextView textView;
+        TextView textView2;
+        TextView textView3;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             imageView= itemView.findViewById(R.id.subImageView);
             textView= itemView.findViewById(R.id.subNameView);
+            textView2= itemView.findViewById(R.id.subDescView);
+            textView3= itemView.findViewById(R.id.subPriceView);
         }
     }
 

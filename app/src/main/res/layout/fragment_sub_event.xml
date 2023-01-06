@@ -3,14 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".subEvent_list">
+    tools:context=".subEvent_list"
+    android:background="#512888">
 
-
-    <androidx.recyclerview.widget.RecyclerView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/subEventRecycleView"
-        tools:listitem="@layout/activity_sub_event_list"
-        />
+        android:layout_height="wrap_content"
+        >
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subEventRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/activity_sub_event_list" />
+    </ScrollView>
 </LinearLayout>

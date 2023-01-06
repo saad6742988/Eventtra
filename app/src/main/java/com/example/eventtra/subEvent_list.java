@@ -23,9 +23,10 @@ public class subEvent_list extends AppCompatActivity {
         //pass user data here. this is the array
         ArrayList <subEventsModel> list = new ArrayList<>();
 
-        list.add(new subEventsModel(R.drawable.eventtemp2, "Event 02"));
-        list.add(new subEventsModel(R.drawable.eventtemp3, "Event 03"));
+        list.add(new subEventsModel(R.drawable.eventtemp2, "Dinner 02", "We will provide lavish dinner", "500 RS"));
+        list.add(new subEventsModel(R.drawable.eventtemp3, "Dinner 03", "We will provide lavish dinner" , "500 RS"));
 
+        //setting subEventsAdapter
         subEventAdapter adapter= new subEventAdapter(list, this);
         recyclerView.setAdapter(adapter);
 

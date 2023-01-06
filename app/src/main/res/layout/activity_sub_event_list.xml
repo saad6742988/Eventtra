@@ -3,53 +3,79 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="165dp">
+    android:layout_height="305dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/subImageView"
-        tools:layout_editor_absoluteX="5dp">
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true"
+        tools:cardCornerRAdius="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/subImageView">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+<!--            using another cardview to make picture corner rounded-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="5dp"
+                android:elevation="10dp">
+                <ImageView
+                    android:id="@+id/subImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/eventtemp1"
+                    />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/subNameView"
+                android:layout_width="372dp"
+                android:layout_height="28dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_rectangle"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center_horizontal"
+                android:text="Barbque Dinner"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/subDescView"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/rounded_rectangle"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center"
+                android:text="Description"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/subPriceView"
+                android:layout_width="372dp"
+                android:layout_height="28dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/rounded_rectangle"
+                android:fontFamily="@font/comfortaa_light"
+                android:gravity="center_horizontal"
+                android:text="Price"
+                android:textColor="@color/black"
+                android:textSize="18sp" /> />
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <ImageView
-        android:id="@+id/subImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="120dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/eventtemp1" />
-
-    <TextView
-        android:id="@+id/subNameView"
-        android:layout_width="412dp"
-        android:layout_height="28dp"
-        android:layout_marginBottom="5dp"
-        android:background="@color/one"
-        android:fontFamily="@font/comfortaa_light"
-        android:gravity="center"
-        android:text="Event 01"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.948" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
