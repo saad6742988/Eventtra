@@ -20,7 +20,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:padding="2dp"
-                android:src="@drawable/ic_person"
+                android:src="@drawable/desc_icon"
                 android:layout_marginStart="5dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>

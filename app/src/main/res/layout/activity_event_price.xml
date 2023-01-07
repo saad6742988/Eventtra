@@ -20,12 +20,12 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:padding="2dp"
-                android:src="@drawable/name_icon"
+                android:src="@drawable/price_logo"
                 android:layout_marginStart="5dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
             <TextView
-                android:text="Event Name"
+                android:text="Event Price"
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
