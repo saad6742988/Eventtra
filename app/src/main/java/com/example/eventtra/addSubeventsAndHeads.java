@@ -181,7 +181,7 @@ public class addSubeventsAndHeads extends Fragment {
 
 
         //posting Event in database
-        newMainEvent = new MyEvent(name,des,startDate,endDate);
+        newMainEvent = new MyEvent(name,des,startDate,endDate,pictureUri);
         Log.d("eventData", "validateAndPostData: "+newMainEvent);
         eventCollection.add(newMainEvent).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override

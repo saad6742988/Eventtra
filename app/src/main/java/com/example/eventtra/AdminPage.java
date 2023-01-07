@@ -60,7 +60,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         toggle.syncState();
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addEventdetails()).addToBackStack("addEventDetails").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainEventList()).addToBackStack("addEventDetails").commit();
             navigationView.setCheckedItem(R.id.nav_create_event);
         }
     }
@@ -74,7 +74,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
                 break;
 
             case R.id.nav_edit_event:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new updateEvent()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainEventList()).commit();
                 break;
 
             case R.id.nav_settings:
@@ -116,7 +116,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
                     }
                 }, 2000);
             } else {
-                getSupportFragmentManager().popBackStackImmediate("addEventDetails",0);
+                getSupportFragmentManager().popBackStack();
             }
 
         }

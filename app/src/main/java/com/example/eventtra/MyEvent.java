@@ -15,24 +15,27 @@ public class MyEvent {
     private String startDate;
     private String endDate;
     private Map<String,String> subEvents;
+    private Uri eventPic;
 
     public MyEvent() {
     }
 
-
-    public MyEvent(String eventName, String eventDes, String startDate, String endDate, Map<String, String> subEvents) {
+    public MyEvent(String eventId, String eventName, String eventDes, String startDate, String endDate, Map<String, String> subEvents, Uri eventPic) {
+        this.eventId = eventId;
         this.eventName = eventName;
         this.eventDes = eventDes;
         this.startDate = startDate;
         this.endDate = endDate;
         this.subEvents = subEvents;
+        this.eventPic = eventPic;
     }
 
-    public MyEvent(String eventName, String eventDes, String startDate, String endDate) {
+    public MyEvent(String eventName, String eventDes, String startDate, String endDate,Uri pic) {
         this.eventName = eventName;
         this.eventDes = eventDes;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.eventPic=pic;
         this.subEvents = null;
     }
 
@@ -86,15 +89,25 @@ public class MyEvent {
         this.endDate = endDate;
     }
 
+    @Exclude
+    public Uri getEventPic() {
+        return eventPic;
+    }
+
+    public void setEventPic(Uri eventPic) {
+        this.eventPic = eventPic;
+    }
+
     @Override
     public String toString() {
         return "MyEvent{" +
                 "eventId='" + eventId + '\'' +
                 ", eventName='" + eventName + '\'' +
                 ", eventDes='" + eventDes + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
                 ", subEvents=" + subEvents +
-                '}';
+                ", eventPic=" + eventPic +
+                "}\n";
     }
 }

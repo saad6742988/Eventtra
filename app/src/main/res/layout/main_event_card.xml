@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="305dp">
+    android:layout_height="310dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/subRecyclerView"
+        android:id="@+id/mainRecyclerViewCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="15dp"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
         tools:cardCornerRAdius="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/subImageView"
+        app:layout_constraintBottom_toTopOf="@+id/mainEventImageView"
         tools:ignore="NotSibling">
 
         <LinearLayout
@@ -22,7 +22,7 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-<!--            using another cardview to make picture corner rounded-->
+            <!--            using another cardview to make picture corner rounded-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
@@ -30,31 +30,33 @@
                 android:layout_margin="5dp"
                 android:elevation="10dp">
                 <ImageView
-                    android:id="@+id/subImageView"
+                    android:id="@+id/mainEventImageView"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/logo1"
                     />
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/subNameView"
+                android:id="@+id/mainEventNameView"
                 android:layout_width="372dp"
                 android:layout_height="28dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
                 android:background="@drawable/rounded_rectangle"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center_horizontal"
-                android:text="Barbque Dinner"
+                android:text="Event Name"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/subDescView"
+                android:id="@+id/mainEventDescView"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
                 android:background="@drawable/rounded_rectangle"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center"
@@ -64,16 +66,21 @@
                 android:textSize="18sp"/>
 
             <TextView
-                android:id="@+id/subPriceView"
+                android:id="@+id/mainEventdateView"
                 android:layout_width="372dp"
                 android:layout_height="28dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
                 android:background="@drawable/rounded_rectangle"
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center_horizontal"
-                android:text="Price"
+                android:text="Date"
                 android:textColor="@color/black"
-                android:textSize="18sp" /> />
+                android:textSize="18sp" />
+
+
+
+           />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

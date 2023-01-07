@@ -17,7 +17,8 @@ public class subEvent_list extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sub_event_card);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.subRecyclerView);
+
 
 
         //pass user data here. this is the array

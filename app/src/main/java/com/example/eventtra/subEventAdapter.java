@@ -39,10 +39,10 @@ public class subEventAdapter extends RecyclerView.Adapter<subEventAdapter.viewHo
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         subEventsModel model = list.get(position);
 
-        holder.imageView.setImageResource(model.getP());
-        holder.textView.setText(model.getName());
-        holder.textView2.setText(model.getDesc());
-        holder.textView3.setText(model.getPrice());
+        holder.subImageView.setImageResource(model.getP());
+        holder.subNameView.setText(model.getName());
+        holder.subDescView.setText(model.getDesc());
+        holder.subPriceView.setText(model.getPrice());
     }
 
     //recylerView list size, to stop recycler view at max size
@@ -53,16 +53,16 @@ public class subEventAdapter extends RecyclerView.Adapter<subEventAdapter.viewHo
 
     public class viewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
-        TextView textView;
-        TextView textView2;
-        TextView textView3;
+        ImageView subImageView;
+        TextView subNameView;
+        TextView subDescView;
+        TextView subPriceView;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView= itemView.findViewById(R.id.subImageView);
-            textView= itemView.findViewById(R.id.subNameView);
-            textView2= itemView.findViewById(R.id.subDescView);
-            textView3= itemView.findViewById(R.id.subPriceView);
+            subImageView= itemView.findViewById(R.id.subImageView);
+            subNameView= itemView.findViewById(R.id.subNameView);
+            subDescView= itemView.findViewById(R.id.subDescView);
+            subPriceView= itemView.findViewById(R.id.subPriceView);
         }
     }
 
