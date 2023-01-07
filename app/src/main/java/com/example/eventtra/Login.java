@@ -106,7 +106,12 @@ public class Login extends AppCompatActivity {
         builder.setView(inflater.inflate(R.layout.loading, null));
         builder.setCancelable(true);
         loadingDialog = builder.create();
+
+        final float scale = getResources().getDisplayMetrics().density;
+        int width = (int) (200 * scale + 0.5f);
+        int height = (int) (200 * scale + 0.5f);
         loadingDialog.show();
+        loadingDialog.getWindow().setLayout(width,height);
         loadingDialog.setCancelable(false);
         loadingDialog.setCanceledOnTouchOutside(false);
     }

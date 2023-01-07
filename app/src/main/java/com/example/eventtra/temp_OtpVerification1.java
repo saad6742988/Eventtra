@@ -11,11 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.HashMap;
-
-public class OtpVerification extends AppCompatActivity {
+public class temp_OtpVerification1 extends AppCompatActivity {
 
     public TextView timerView;
     public EditText otpText;
@@ -24,7 +21,7 @@ public class OtpVerification extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_otp_verification);
+        setContentView(R.layout.temp_otp_verification1);
 //        timerView=findViewById(R.id.viewTime);
 //        otpText = findViewById(R.id.otpBox);
 //        resendBtn = findViewById(R.id.resendBtn);

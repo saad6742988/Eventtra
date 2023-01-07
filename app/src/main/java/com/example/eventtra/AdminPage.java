@@ -101,7 +101,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         else {
             if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
                 if (doubleBackToExitPressedOnce) {
-                    super.onBackPressed();
+                    this.finish();
                     return;
                 }
 

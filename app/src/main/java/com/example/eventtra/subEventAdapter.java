@@ -29,7 +29,7 @@ public class subEventAdapter extends RecyclerView.Adapter<subEventAdapter.viewHo
 
     //will be used for layout only
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.activity_sub_event_list, parent, false);
+        View view= LayoutInflater.from(context).inflate(R.layout.sub_event_card, parent, false);
 
         return new viewHolder(view);
     }
@@ -39,8 +39,8 @@ public class subEventAdapter extends RecyclerView.Adapter<subEventAdapter.viewHo
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         subEventsModel model = list.get(position);
 
-        holder.imageView.setImageResource(model.getPic());
-        holder.textView.setText(model.getText());
+        holder.imageView.setImageResource(model.getP());
+        holder.textView.setText(model.getName());
         holder.textView2.setText(model.getDesc());
         holder.textView3.setText(model.getPrice());
     }

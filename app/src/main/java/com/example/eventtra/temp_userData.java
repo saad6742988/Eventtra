@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.regex.Matcher;
 
 
-public class registration_userData extends Fragment {
+public class temp_userData extends Fragment {
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,7 +65,7 @@ public class registration_userData extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_registration_user_data, container, false);
+        View view = inflater.inflate(R.layout.temp_user_data, container, false);
         registerBtn=view.findViewById(R.id.registerBtn);
         fnameText=view.findViewById(R.id.fnameBox);
         lnameText=view.findViewById(R.id.lnameBox);
@@ -149,7 +149,7 @@ public class registration_userData extends Fragment {
             userData.putString("email",email);
             userData.putString("phone",phone);
             userData.putString("password",password);
-            registration_otpVerification otpVerify = new registration_otpVerification();
+            temp_otpVerification otpVerify = new temp_otpVerification();
             otpVerify.setArguments(userData);
             //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.register_fragment_container, otpVerify).addToBackStack(null).commit();
 

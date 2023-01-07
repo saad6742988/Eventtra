@@ -53,4 +53,7 @@ dependencies {
     implementation 'com.sun.mail:android-activation:1.6.2'
 
     implementation 'com.squareup.picasso:picasso:2.8'
+
+    def lottieVersion = "5.2.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }

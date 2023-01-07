@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="10dp">
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/mainSubEventlayout"
             android:layout_width="match_parent"
@@ -51,13 +51,24 @@
             android:text="Add"
             android:layout_gravity="end"/>
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/dynamicContainer"
+    <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="450dp">
+        <LinearLayout
+            android:id="@+id/dynamicContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/addEventBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
+        android:text="Save Event"
+        android:background="@drawable/button_shape"
+        android:layout_gravity="right"/>
 
 </LinearLayout>
