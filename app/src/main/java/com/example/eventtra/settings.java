@@ -242,7 +242,6 @@ public class settings extends Fragment {
             nav_name.setText(globalData.getGlobalUser().getFname()+" "+globalData.getGlobalUser().getLname());
             nav_email.setText(globalData.getGlobalUser().getEmail());
             savebtn.setEnabled(false);
-            savebtn.setTextColor(Color.parseColor("#8b8b8b"));
         }
     }
 
@@ -332,7 +331,12 @@ public class settings extends Fragment {
         builder.setCancelable(true);
 
         loadingDialog = builder.create();
+
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        int width = (int) (200 * scale + 0.5f);
+        int height = (int) (200 * scale + 0.5f);
         loadingDialog.show();
+        loadingDialog.getWindow().setLayout(width,height);
         loadingDialog.setCancelable(false);
         loadingDialog.setCanceledOnTouchOutside(false);
     }

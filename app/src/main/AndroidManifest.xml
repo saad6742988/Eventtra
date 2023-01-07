@@ -28,35 +28,35 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".event_date"
+            android:name=".temp_event_date"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".event_img"
+            android:name=".temp_event_img"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".event_name"
+            android:name=".temp_event_name"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".event_desc"
+            android:name=".temp_event_desc"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".loginxml"
+            android:name=".temp_loginxml"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -70,7 +70,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".OtpVerification"
+            android:name=".temp_OtpVerification1"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

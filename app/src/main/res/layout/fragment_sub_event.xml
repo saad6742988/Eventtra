@@ -15,6 +15,6 @@
             android:id="@+id/subEventRecycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/activity_sub_event_list" />
+            tools:listitem="@layout/sub_event_card" />
     </ScrollView>
 </LinearLayout>

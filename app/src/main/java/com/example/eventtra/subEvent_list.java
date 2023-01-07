@@ -16,7 +16,7 @@ public class subEvent_list extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sub_event_list);
+        setContentView(R.layout.sub_event_card);
         recyclerView = findViewById(R.id.recyclerView);
 
 

@@ -12,23 +12,28 @@ public class MyEvent {
     private String eventId;
     private String eventName;
     private String eventDes;
-    private Date startDate;
-    private Date endDate;
-    private Uri eventPicUri;
-    private Map<String,String>[] subEvents;
+    private String startDate;
+    private String endDate;
+    private Map<String,String> subEvents;
 
     public MyEvent() {
     }
 
 
-    public MyEvent(String eventId, String eventName, String eventDes, Date startDate, Date endDate, Uri eventPicUri, Map<String, String>[] subEvents) {
-        this.eventId = eventId;
+    public MyEvent(String eventName, String eventDes, String startDate, String endDate, Map<String, String> subEvents) {
         this.eventName = eventName;
         this.eventDes = eventDes;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.eventPicUri = eventPicUri;
         this.subEvents = subEvents;
+    }
+
+    public MyEvent(String eventName, String eventDes, String startDate, String endDate) {
+        this.eventName = eventName;
+        this.eventDes = eventDes;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.subEvents = null;
     }
 
     @Exclude
@@ -56,32 +61,29 @@ public class MyEvent {
         this.eventDes = eventDes;
     }
 
-    public Uri getEventPicUri() {
-        return eventPicUri;
-    }
-
-    public void setEventPicUri(Uri eventPicUri) {
-        this.eventPicUri = eventPicUri;
-    }
-
-    public Map<String, String>[] getSubEvents() {
+    public Map<String, String> getSubEvents() {
         return subEvents;
     }
 
-    public void setSubEvents(Map<String, String>[] subEvents) {
+    public void setSubEvents(Map<String, String> subEvents) {
         this.subEvents = subEvents;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
+    }
+
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     @Override
@@ -92,12 +94,7 @@ public class MyEvent {
                 ", eventDes='" + eventDes + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", eventPicUri='" + eventPicUri + '\'' +
-                ", subEvents=" + Arrays.toString(subEvents) +
+                ", subEvents=" + subEvents +
                 '}';
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 }

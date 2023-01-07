@@ -47,12 +47,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start Date"/>
-            <DatePicker
-                android:id="@+id/startDatePick"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/startDatePickLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:datePickerMode="spinner"
-                android:calendarViewShown="false"/>
+                android:layout_height="wrap_content">
+                <DatePicker
+                    android:id="@+id/startDatePick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
 
         </LinearLayout>
 
@@ -65,12 +71,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="End Date"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/endDatePickLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <DatePicker
                 android:id="@+id/endDatePick"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:datePickerMode="spinner"
                 android:calendarViewShown="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
