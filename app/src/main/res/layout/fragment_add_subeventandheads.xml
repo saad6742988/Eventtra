@@ -10,14 +10,6 @@
     android:padding="10dp">
 
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Your Sub_Events"
-        android:gravity="center_horizontal"
-        android:textSize="25dp"
-        android:textStyle="bold"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +17,7 @@
         android:padding="5dp">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -34,7 +26,7 @@
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:layout_marginStart="15dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:text="Sub-Event"
@@ -57,7 +49,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:card_view="http://schemas.android.com/tools"
             app:cardCornerRadius="15dp"
-            app:cardElevation="10dp"
+            app:cardElevation="0dp"
             app:cardUseCompatPadding="true"
             card_view:cardCornerRAdius="5dp">
             <LinearLayout
@@ -122,7 +114,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:card_view="http://schemas.android.com/tools"
             app:cardCornerRadius="15dp"
-            app:cardElevation="10dp"
+            app:cardElevation="0dp"
             app:cardUseCompatPadding="true"
             card_view:cardCornerRAdius="5dp">
             <LinearLayout
@@ -181,15 +173,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add"
-            android:layout_gravity="center"/>
+            android:layout_gravity="right"/>
     </LinearLayout>
 
     <ScrollView
 
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="285dp"
         android:orientation="vertical"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="2dp">
         <LinearLayout
             android:id="@+id/dynamicContainer"
             android:layout_width="wrap_content"
