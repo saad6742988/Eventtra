@@ -28,9 +28,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -49,7 +52,7 @@ public class settings extends Fragment {
 
 
     private CircleImageView profilePic,navProfile;
-    private TextView usernameText,emailText,changePic,updateProfile;
+    private TextView usernameText,emailText,changePic,updateProfile,resetPassBtn;
     private EditText updateFname,updateLname,updateEmail,updatePhone;
     private Button savebtn;
     private AlertDialog loadingDialog;
@@ -69,6 +72,7 @@ public class settings extends Fragment {
         changePic=view.findViewById(R.id.changePicBtn);
         profilePic=view.findViewById(R.id.profilePic);
         updateProfile=view.findViewById(R.id.updateProfileBtn);
+        resetPassBtn=view.findViewById(R.id.resetPasswordBtn);
         usernameText=view.findViewById(R.id.usernameText);
         emailText=view.findViewById(R.id.emailText);
         updateFname=view.findViewById(R.id.fnameEditBox);
@@ -130,6 +134,20 @@ public class settings extends Fragment {
             @Override
             public void onClick(View v) {
                 updateUserProfile();
+            }
+        });
+        resetPassBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().sendPasswordResetEmail(globalData.getGlobalUser().getEmail())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "Password Reset Email Sent", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
 

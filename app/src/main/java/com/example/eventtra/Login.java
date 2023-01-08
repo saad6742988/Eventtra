@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -31,6 +32,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.regex.Matcher;
 
 public class Login extends AppCompatActivity {
 
@@ -273,4 +276,28 @@ public class Login extends AppCompatActivity {
         Login.this.finish();
     }
 
+    public void resetPassword(View view) {
+        emailLayout.setError(null);
+        //Pattern emailPattern=Patterns.EMAIL_ADDRESS;
+        Matcher emailMatcher = Patterns.EMAIL_ADDRESS.matcher(emailText.getText().toString());
+        Boolean emailValidate = emailMatcher.matches();
+        if(emailText.getText().toString().isEmpty() ||!emailValidate)
+        {
+            emailLayout.setError("Email Required to reset Pasword");
+            emailLayout.requestFocus();
+        }
+        else
+        {
+            FirebaseAuth.getInstance().sendPasswordResetEmail(emailText.getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(Login.this, "Password Reset Email Sent", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+
+    }
 }
