@@ -139,23 +139,7 @@ public class Login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         if(mAuth.getCurrentUser().isEmailVerified()){
                             Toast.makeText(Login.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
-//                            userCollection.whereEqualTo("email", email).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                                @Override
-//                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-//                                        MyUser user = documentSnapshot.toObject(MyUser.class);
-//                                        Log.d("User ID", "onSuccess: " + documentSnapshot.getId());
-//                                        user.setUserId(documentSnapshot.getId());
-//                                        globalData.setglobalUser(user);
-//                                        Log.d("check global USer", "onComplete: " + globalData.getGlobalUser().toString());
-//                                        if (globalData.getGlobalUser().getRole().equals("attendee")) {
-//                                            Intent i = new Intent(Login.this, AttendeePage.class);
-//                                            Login.this.startActivity(i);
-//                                            Login.this.finish();
-//                                        }
-//                                    }
-//                                }
-//                            });
+
                             userCollection.document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -281,23 +265,12 @@ public class Login extends AppCompatActivity {
             Login.this.startActivity(i);
 
         }
+        else if (globalData.getGlobalUser().getRole().equals("organizer")) {
+            Intent i = new Intent(Login.this, OrganizerPage.class);
+            Login.this.startActivity(i);
+        }
         loadingDialog.dismiss();
         Login.this.finish();
     }
-    private void getUser(String email) {
-        userCollection.whereEqualTo("email",email).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                    MyUser user = documentSnapshot.toObject(MyUser.class);
-                    Log.d("User ID", "onSuccess: "+documentSnapshot.getId());
-                    user.setUserId(documentSnapshot.getId());
-//                    globalData.setglobalUser(user.getFname(),user.getLname(),user.getEmail(),user.getPhone(),user.getRole(),user.getUserId());
-                    Log.d("writing", user.toString());
-                    globalData.setglobalUser(user);
-                    Log.d("User Data out", user.toString());
-                }
-            }
-        });
-    }
+
 }

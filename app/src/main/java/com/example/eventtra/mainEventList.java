@@ -52,12 +52,6 @@ public class mainEventList extends Fragment {
         getEventsData();
 
 
-//        Uri p = Uri.parse("https://firebasestorage.googleapis.com/v0/b/eventtra-efb5f.appspot.com" +
-//                "/o/Users%2FProfile%2F7kKGeWBmrHPAvHQDHlGkIxcLS6s2%2Fprofile.jpg?alt=media&token=43518b67-6423-413a-8cab-f385ab535010");
-//        list.add(new MyEvent("hello","hello","hello","hello",globalData.getGlobalUser().getProfilePic()));
-//        list.add(new MyEvent("hello1","hello1","hello","hello",p));
-//        list.add(new MyEvent("hello2","hello2","hello","hello",p));
-
         //setting subEventsAdapter
         mainEventAdapter adapter= new mainEventAdapter(mainEventLists, getContext());
         recyclerView.setAdapter(adapter);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".editSubeventsAndHeads"
     android:orientation="vertical"
-    android:background="#512888"
+    android:background="@color/screens_background"
     android:padding="10dp">
 
     <!-- TODO: Update blank fragment layout -->
@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxStrokeColor="@android:color/transparent"
-
+                    android:maxLines="1"
                     app:boxStrokeWidthFocused="0dp">
                     <EditText
                         android:id="@+id/mainSubEventBox"
@@ -150,7 +150,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxStrokeColor="@android:color/transparent"
-                    app:boxStrokeWidthFocused="0dp">
+                    app:boxStrokeWidthFocused="0dp"
+                    android:maxLines="1">
                     <EditText
                         android:id="@+id/mainHeadBox"
                         android:textColor="@color/black"

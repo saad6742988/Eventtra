@@ -232,16 +232,6 @@ public class addSubeventsAndHeads extends Fragment {
         });
 
 
-////        Map<String,String> subEventsMap = new HashMap<>();
-//        for (int i = 0; i < subEventsList.size(); i++) {
-//            String key = subEventsList.get(i).keySet().iterator().next();
-//            Log.d("key", "postEvent: "+key);
-//            subEvents.put(key,subEventsList.get(i).get(key));
-//        }
-//        MyEvent newEvent = new MyEvent(eventData.getString("name"),eventData.getString("des"),eventData.getString("startDate"),
-//                eventData.getString("endDate"), Uri.parse(eventData.getString("pictureUri")),subEvents);
-//        Log.d("Event", "postEvent: "+newEvent);
-
     }
 
 

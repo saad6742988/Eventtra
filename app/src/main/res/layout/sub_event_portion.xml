@@ -30,7 +30,8 @@
                     android:layout_height="50dp"
                     android:background="@drawable/textback"
                     android:gravity="bottom"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -43,7 +44,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/threedots" />
+                    android:src="@drawable/threedots"
+                    android:layout_marginRight="5dp"/>
             </LinearLayout>
 
 
@@ -67,7 +69,8 @@
                 android:background="@drawable/textback"
                 android:gravity="bottom"
                 android:padding="5dp"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

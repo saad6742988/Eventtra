@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/admin_page_layout"
+    android:id="@+id/organizer_page_layout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".AdminPage">
+    tools:context=".OrganizerPage">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,20 +27,21 @@
 
 
         <FrameLayout
-            android:id="@+id/fragment_container"
+            android:id="@+id/fragment_container_organizer"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
-<com.google.android.material.navigation.NavigationView
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:id="@+id/nav_view"
-    android:layout_gravity="start"
-    app:headerLayout="@layout/nav_header"
-    app:menu="@menu/nav_menu"
-    app:itemIconTint="@color/purple_200"
-    app:itemTextColor="@color/purple_700"
-    android:layout_marginTop="10dp"
-/>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_view"
+        android:layout_marginTop="10dp"
+
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/organizer_menu"
+        app:itemIconTint="@color/purple_200"
+        app:itemTextColor="@color/purple_700"
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -66,7 +66,7 @@ public class mainEventAdapter extends RecyclerView.Adapter<mainEventAdapter.view
         }
         holder.mainEventNameView.setText(mainEvent.getEventName());
         holder.mainEventDescView.setText(mainEvent.getEventDes());
-        holder.mainEventdateView.setText(mainEvent.getStartDate()+"to"+mainEvent.getEndDate());
+        holder.mainEventdateView.setText(mainEvent.getStartDate()+" to "+mainEvent.getEndDate());
 
         holder.mainCardView.setOnClickListener(new View.OnClickListener() {
             @Override

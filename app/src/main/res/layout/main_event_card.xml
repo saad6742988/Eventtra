@@ -40,7 +40,7 @@
 
             <TextView
                 android:id="@+id/mainEventNameView"
-                android:layout_width="372dp"
+                android:layout_width="match_parent"
                 android:layout_height="28dp"
                 android:layout_marginBottom="3dp"
                 android:layout_marginTop="3dp"
@@ -48,7 +48,7 @@
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center_horizontal"
                 android:text="Event Name"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
@@ -62,12 +62,12 @@
                 android:gravity="center"
                 android:text="Description"
                 android:maxLines="2"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/mainEventdateView"
-                android:layout_width="372dp"
+                android:layout_width="match_parent"
                 android:layout_height="28dp"
                 android:layout_marginBottom="3dp"
                 android:layout_marginTop="3dp"
@@ -75,7 +75,7 @@
                 android:fontFamily="@font/comfortaa_light"
                 android:gravity="center_horizontal"
                 android:text="Date"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
 

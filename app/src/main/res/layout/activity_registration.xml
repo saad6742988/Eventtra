@@ -56,7 +56,6 @@
                 android:id="@+id/fnameBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
                 android:inputType="text"/>
@@ -80,8 +79,15 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/textback"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-                android:inputType="text"
-                android:textColor="@color/purple_700" />
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/phoneBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textback"
+                android:digits="0123456789"
+                android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--        Phone Text Box-->
@@ -94,15 +100,7 @@
             app:boxStrokeErrorColor="@android:color/transparent"
             android:layout_marginTop="5dp"
             android:hint="Phone No.">
-            <EditText
-                android:id="@+id/phoneBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/purple_700"
-                android:background="@drawable/textback"
-                android:inputType="phone"
-                android:digits="0123456789"
-                />
+
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -120,7 +118,6 @@
                 android:id="@+id/emailBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
                 android:inputType="textEmailAddress"
                 />
@@ -142,7 +139,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
                 />
         </com.google.android.material.textfield.TextInputLayout>
@@ -163,7 +159,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColor="@color/purple_700"
                 android:background="@drawable/textback"
                 />
         </com.google.android.material.textfield.TextInputLayout>

@@ -10,22 +10,24 @@
     app:cardUseCompatPadding="true"
     card_view:cardCornerRAdius="5dp">
     <LinearLayout
+        android:id="@+id/layoutDateBox"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:clickable="true">
         <LinearLayout
             android:orientation="horizontal"
+            android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
                 android:padding="2dp"
-                android:src="@drawable/price_logo"
+                android:src="@drawable/date_icon"
                 android:layout_marginStart="5dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
             <TextView
-                android:text="Event Price"
+                android:text="Start and End Date"
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -36,25 +38,29 @@
 
 
         </LinearLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/eventPriceBoxLayout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxStrokeColor="@android:color/transparent"
-            app:boxStrokeWidthFocused="0dp">
-            <EditText
-                android:id="@+id/eventPriceBox"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginBottom="15dp"
-                android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:digits="0123456789"
-                android:background="@drawable/textback"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:text="Sub-Event Date"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/subEventDatePickLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <DatePicker
+                    android:id="@+id/subEventDatePick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
+        </LinearLayout>
 
 
     </LinearLayout>

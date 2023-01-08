@@ -111,6 +111,10 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.startActivity(i);
             MainActivity.this.finish();
         }
+        else if (globalData.getGlobalUser().getRole().equals("organizer")) {
+            Intent i = new Intent(MainActivity.this, OrganizerPage.class);
+            MainActivity.this.startActivity(i);
+        }
     }
 
     private Uri getProfilePic(String id) {

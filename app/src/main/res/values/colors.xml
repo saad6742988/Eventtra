@@ -12,5 +12,6 @@
     <color name="two">#EBC2C2</color>
     <color name="three">#E4BE9A</color>
     <color name="four">#D7926A</color>
+    <color name="screens_background">#a864db</color>
 
 </resources>

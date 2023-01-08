@@ -1,5 +1,7 @@
 package com.example.eventtra;
 
+import android.net.Uri;
+
 import com.google.firebase.firestore.Exclude;
 
 import java.util.PrimitiveIterator;
@@ -10,39 +12,33 @@ public class subEventsModel {
     private String desc; //description
     private String price;   //price
     private String head;
-    private String pic;
+    private Uri pic;
     private String mainEventId;
-    private int p;
+    private String subEventDate;
 
     //constructor
 
     public subEventsModel() {
     }
 
-
-    public subEventsModel(String name, String desc, String price, String head, String pic, String mainEventId) {
+    public subEventsModel(String name, String desc, String price, String head, Uri pic, String mainEventId, String subEventDate) {
         this.name = name;
         this.desc = desc;
         this.price = price;
         this.head = head;
         this.pic = pic;
         this.mainEventId = mainEventId;
+        this.subEventDate = subEventDate;
     }
 
-    public subEventsModel(String name, String head,String mainEventId) {
+    public subEventsModel(String name, String head, String mainEventId) {
         this.name = name;
         this.head = head;
         this.mainEventId = mainEventId;
-        this.desc = null;
-        this.price = null;
+        this.desc = "";
+        this.price = "";
         this.pic = null;
-    }
-
-    public subEventsModel(int pic, String text, String desc, String price) {
-        this.p = pic;
-        this.name = text;
-        this.desc = desc;
-        this.price = price;
+        this.subEventDate="";
     }
 
     @Exclude
@@ -86,17 +82,15 @@ public class subEventsModel {
         this.head = head;
     }
 
-    public String getPic() {
+    @Exclude
+    public Uri getPic() {
         return pic;
     }
 
-    public void setPic(String pic) {
+    public void setPic(Uri pic) {
         this.pic = pic;
     }
 
-    public int getP() {
-        return p;
-    }
 
     public String getMainEventId() {
         return mainEventId;
@@ -106,8 +100,12 @@ public class subEventsModel {
         this.mainEventId = mainEventId;
     }
 
-    public void setP(int p) {
-        this.p = p;
+    public String getSubEventDate() {
+        return subEventDate;
+    }
+
+    public void setSubEventDate(String subEventDate) {
+        this.subEventDate = subEventDate;
     }
 
     @Override

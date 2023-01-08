@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +50,7 @@ public class addEventdetails extends Fragment {
     private Button nextBtn;
     private EditText eventName,eventDes;
     private TextInputLayout eventNameLayout,eventDesLayout,startDatePickLayout,endDatePickLayout,eventPicLayout;
-    private TextView addEventPic;
+    private TextView addEventPic,header;
     private ImageView eventPic;
     private DatePicker startDatePick,endDatePick;
     private Uri pictureUri;
@@ -82,6 +84,24 @@ public class addEventdetails extends Fragment {
 
         eventPic=view.findViewById(R.id.eventPicture);
         addEventPic=view.findViewById(R.id.addEventPicBtn);
+        header=view.findViewById(R.id.mainEventHeader);
+
+        eventName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                header.setText(eventName.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
         eventPic.setOnClickListener(new View.OnClickListener() {
