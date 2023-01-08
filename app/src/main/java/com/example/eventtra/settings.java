@@ -139,6 +139,7 @@ public class settings extends Fragment {
         resetPassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showLoading();
                 FirebaseAuth.getInstance().sendPasswordResetEmail(globalData.getGlobalUser().getEmail())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -146,6 +147,7 @@ public class settings extends Fragment {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getActivity(), "Password Reset Email Sent", Toast.LENGTH_SHORT).show();
                                 }
+                                loadingDialog.dismiss();
                             }
                         });
             }

@@ -277,6 +277,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void resetPassword(View view) {
+
         emailLayout.setError(null);
         //Pattern emailPattern=Patterns.EMAIL_ADDRESS;
         Matcher emailMatcher = Patterns.EMAIL_ADDRESS.matcher(emailText.getText().toString());
@@ -288,6 +289,7 @@ public class Login extends AppCompatActivity {
         }
         else
         {
+            showLoading();
             FirebaseAuth.getInstance().sendPasswordResetEmail(emailText.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -295,6 +297,7 @@ public class Login extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(Login.this, "Password Reset Email Sent", Toast.LENGTH_SHORT).show();
                             }
+                            loadingDialog.dismiss();
                         }
                     });
         }

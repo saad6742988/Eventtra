@@ -64,7 +64,7 @@ public class subEventAdapter extends RecyclerView.Adapter<subEventAdapter.viewHo
         }
         if(subEvent.getPrice().equals(""))
         {
-            holder.subPriceView.setText("Add Description");
+            holder.subPriceView.setText("Add Price");
         }
         else
         {
