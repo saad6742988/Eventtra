@@ -16,6 +16,32 @@
         android:orientation="vertical"
         android:padding="5dp">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Add"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:layout_marginStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="Sub-Event"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="33sp"
+                android:layout_marginStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+
         <androidx.cardview.widget.CardView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
