@@ -376,6 +376,16 @@ public class editSubeventsAndHeads extends Fragment {
                         subEventsList.remove(indexLocal-1);
                         ((LinearLayout)addView.getParent()).removeView(addView);
                         Log.d("sub events removesd", subEventsList.toString());
+
+                        Log.d("indexLocal", indexLocal+" : "+oldSubEvents.size());
+                        if(indexLocal-1<oldSubEvents.size())
+                        {
+                            String oldsubEventName = oldSubEvents.get(indexLocal-1).keySet().iterator().next();
+                            String oldsubEventId = oldSubEvents.get(indexLocal-1).get(oldsubEventName);
+                            Log.d("deleting", "onMenuItemClick: "+oldsubEventName);
+                            subEventCollection.document(oldsubEventId).delete();
+                        }
+                        saveEventBtn.setEnabled(true);
                         return true;
                     }
                 });
