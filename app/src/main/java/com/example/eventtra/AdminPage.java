@@ -60,7 +60,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         toggle.syncState();
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainEventList()).addToBackStack("addEventDetails").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addEventdetails()).addToBackStack("addEventDetails").commit();
             navigationView.setCheckedItem(R.id.nav_create_event);
         }
     }

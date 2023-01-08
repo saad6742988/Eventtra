@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addSubeventsAndHeads"
+    tools:context=".editSubeventsAndHeads"
     android:orientation="vertical"
     android:background="#512888"
     android:padding="10dp">
@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Your Sub_Events"
+        android:text="Edit Your Sub_Events"
         android:gravity="center_horizontal"
         android:textSize="25dp"
         android:textStyle="bold"/>
@@ -45,12 +45,14 @@
             android:layout_marginTop="10dp"
             android:hint="Head Email"
             app:boxStrokeColor="@android:color/transparent"
-            app:boxStrokeErrorColor="@android:color/transparent">
+            app:boxStrokeErrorColor="@android:color/transparent"
+            android:importantForAutofill="no">
             <EditText
                 android:id="@+id/mainHeadBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/textback"/>
+                android:background="@drawable/textback"
+                android:importantForAutofill="no"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/addSubEventBtn"
@@ -59,30 +61,23 @@
             android:text="Add"
             android:layout_gravity="end"/>
     </LinearLayout>
-
-    <ScrollView
-
+    <LinearLayout
+        android:id="@+id/dynamicContainer"
         android:layout_width="match_parent"
         android:layout_height="420dp"
         android:orientation="vertical"
         android:layout_marginTop="5dp">
-        <LinearLayout
-            android:id="@+id/dynamicContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
     <Button
-        android:id="@+id/addEventBtn"
+        android:id="@+id/saveEventBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="add event"
+        android:text="save event"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_shape"
         android:layout_gravity="right"/>
+
 
 </LinearLayout>

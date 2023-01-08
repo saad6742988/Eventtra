@@ -143,7 +143,6 @@ public class addSubeventsAndHeads extends Fragment {
                         updateOrganizersStatus();
                     }
 
-
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

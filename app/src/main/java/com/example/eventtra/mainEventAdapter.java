@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,11 +28,13 @@ public class mainEventAdapter extends RecyclerView.Adapter<mainEventAdapter.view
 
     ArrayList<MyEvent> list;
     Context context;
+    GlobalData globalData;
     //Constructors of ArrayList and Context
 
     public mainEventAdapter(ArrayList<MyEvent> list, Context context) {
         this.list = list;
         this.context = context;
+        globalData = (GlobalData) context.getApplicationContext();
     }
 
     //by default 3 methods
@@ -69,6 +72,9 @@ public class mainEventAdapter extends RecyclerView.Adapter<mainEventAdapter.view
             @Override
             public void onClick(View v) {
                 Log.d("clicked event", "onClick: "+mainEvent);
+                globalData.globalEvent=mainEvent;
+                AppCompatActivity act = (AppCompatActivity)v.getContext();
+                act.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new editEventDetails()).addToBackStack("addEventDetails").commit();
             }
         });
     }

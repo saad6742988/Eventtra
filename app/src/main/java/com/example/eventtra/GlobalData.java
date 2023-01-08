@@ -5,13 +5,13 @@ import android.util.Log;
 
 public class GlobalData extends Application {
      MyUser globalUser;
+     MyEvent globalEvent;
 
     public GlobalData() {
         this.globalUser = new MyUser();
     }
 
     public MyUser getGlobalUser() {
-        Log.d("global user in get", "getUser: "+this.globalUser.toString());
         return this.globalUser;
     }
     public void setglobalUser(MyUser u) {

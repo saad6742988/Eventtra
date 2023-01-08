@@ -48,9 +48,7 @@ public class mainEventList extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_event_list, container, false);
         recyclerView = view.findViewById(R.id.mainEventRecycleView);
         globalData = (GlobalData) getActivity().getApplicationContext();
-
-
-
+        mainEventLists.clear();
         getEventsData();
 
 
@@ -78,46 +76,53 @@ public class mainEventList extends Fragment {
 
                 Log.d("Count events", "onSuccess: "+queryDocumentSnapshots.size());
                 counterEvent = 0;
-                for (QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots) {
-                    MyEvent event = documentSnapshot.toObject(MyEvent.class);
-                    event.setEventId(documentSnapshot.getId());
+               if(queryDocumentSnapshots.size()>0)
+               {
+                   for (QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots) {
+                       MyEvent event = documentSnapshot.toObject(MyEvent.class);
+                       event.setEventId(documentSnapshot.getId());
 
 
-                    //get event Picture
-                    StorageReference file = storageReference.child("Event/"+documentSnapshot.getId()+"/event.jpg");
-                    file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Log.d("main get image", "onSuccess: fetch success");
-                            if(uri!=null)
-                            {
-                                Log.d("Image uri", "onSuccess: "+uri);
-                                event.setEventPic(uri);
-                                mainEventLists.add(event);
-                                counterEvent++;
-                                if(counterEvent==queryDocumentSnapshots.size())
-                                {
-                                    populateList();
-                                }
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
+                       //get event Picture
+                       StorageReference file = storageReference.child("Event/"+documentSnapshot.getId()+"/event.jpg");
+                       file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                           @Override
+                           public void onSuccess(Uri uri) {
+                               Log.d("main get image", "onSuccess: fetch success");
+                               if(uri!=null)
+                               {
+                                   Log.d("Image uri", "onSuccess: "+uri);
+                                   event.setEventPic(uri);
+                                   mainEventLists.add(event);
+                                   counterEvent++;
+                                   if(counterEvent==queryDocumentSnapshots.size())
+                                   {
+                                       populateList();
+                                   }
+                               }
+                           }
+                       }).addOnFailureListener(new OnFailureListener() {
+                           @Override
+                           public void onFailure(@NonNull Exception e) {
 
-                            event.setEventPic(null);
-                            Log.d("Error", "onFailure: "+e.getMessage());
-                            Log.d("null event", "onFailure: "+event);
-                            mainEventLists.add(event);
-                            counterEvent++;
-                            if(counterEvent==queryDocumentSnapshots.size())
-                            {
-                                populateList();
-                            }
-                        }
-                    });
+                               event.setEventPic(null);
+                               Log.d("Error", "onFailure: "+e.getMessage());
+                               Log.d("null event", "onFailure: "+event);
+                               mainEventLists.add(event);
+                               counterEvent++;
+                               if(counterEvent==queryDocumentSnapshots.size())
+                               {
+                                   populateList();
+                               }
+                           }
+                       });
 
-                }
+                   }
+               }
+               else
+               {
+                   loadingDialog.dismiss();
+               }
 
                 Log.d("TAG", "onSuccess: ");
 

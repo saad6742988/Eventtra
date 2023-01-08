@@ -58,14 +58,16 @@
             android:hint="Head Email"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
-            android:theme="@style/Theme.Eventtra">
+            android:theme="@style/Theme.Eventtra"
+            android:importantForAutofill="no">
             <EditText
                 android:id="@+id/headBox"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/textback"
                 android:gravity="bottom"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:importantForAutofill="no"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
