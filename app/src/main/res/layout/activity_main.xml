@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="303dp"
-        android:layout_height="330dp"
+        android:layout_width="368dp"
+        android:layout_height="350dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:adjustViewBounds="false"
@@ -30,7 +30,7 @@
         android:fontFamily="cursive"
         android:text="EVENTTRA"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
