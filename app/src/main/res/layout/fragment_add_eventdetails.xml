@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".addEventdetails"
-    android:background="@color/screens_background">
+    android:background="@color/white">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -35,7 +35,7 @@
                     android:id="@+id/mainEventHeader"
                     android:text="Your Event"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
+                    android:textColor="@color/purple_500"
                     android:textSize="33sp"
                     android:layout_marginStart="15dp"
                     android:layout_width="match_parent"
