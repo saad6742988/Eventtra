@@ -6,7 +6,7 @@
     android:layout_height="176dp"
     android:padding="16dp"
     android:gravity="bottom"
-    android:background="@color/screens_background">
+    android:background="#ADD8E6">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileContainer"

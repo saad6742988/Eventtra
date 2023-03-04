@@ -30,7 +30,7 @@
         android:fontFamily="cursive"
         android:text="EVENTTRA"
         android:textAlignment="center"
-        android:textColor="#8C15BD"
+        android:textColor="#051094"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

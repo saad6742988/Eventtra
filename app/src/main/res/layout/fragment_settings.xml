@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".addSubeventsAndHeads"
     android:orientation="vertical"
-    android:background="@color/screens_background">
+    android:background="@color/white">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -28,7 +28,7 @@
             android:layout_marginStart="23dp"
             android:layout_toEndOf="@+id/profilePic"
             android:layout_marginTop="20dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:text="Username"
             android:textSize="30dp"
             android:textStyle="bold"/>
@@ -43,7 +43,7 @@
             android:layout_toEndOf="@+id/profilePic"
             android:text="Email"
             android:textSize="20dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
     </RelativeLayout>
 
     <LinearLayout
