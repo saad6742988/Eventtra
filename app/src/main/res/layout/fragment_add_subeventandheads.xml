@@ -180,7 +180,7 @@
     <ScrollView
 
         android:layout_width="match_parent"
-        android:layout_height="285dp"
+        android:layout_height="185dp"
         android:orientation="vertical"
         android:layout_marginTop="2dp">
         <LinearLayout
@@ -191,8 +191,8 @@
 
         </LinearLayout>
 
-    </ScrollView>
 
+    </ScrollView>
     <Button
         android:id="@+id/addEventBtn"
         android:layout_width="match_parent"
@@ -200,6 +200,7 @@
         android:text="add event"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_shape"
-        android:layout_gravity="right"/>
+        android:layout_gravity="center"/>
+
 
 </LinearLayout>
