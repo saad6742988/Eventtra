@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_events"
+            android:icon="@drawable/create_event_icon1"
+            android:title="Events"/>
+
+        <item
+            android:id="@+id/chat"
+            android:icon="@drawable/chat_icon"
+            android:title="Chat"/>
+
+        <item
+            android:id="@+id/enrollments"
+            android:icon="@drawable/enroll_icon"
+            android:title="Enrollments"/>
+        <item
+            android:id="@+id/event_requests"
+            android:icon="@drawable/event_request_icon"
+            android:title="Event Requests"/>
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings_icon"
+            android:title="Settings"/>
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="Logout"/>
+
+
+
+
+    </group>
+
+</menu>
