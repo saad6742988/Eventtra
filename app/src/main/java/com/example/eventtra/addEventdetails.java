@@ -3,6 +3,7 @@ package com.example.eventtra;
 
 
 import android.app.Activity;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,6 +43,7 @@ import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class addEventdetails extends Fragment {
@@ -55,6 +58,7 @@ public class addEventdetails extends Fragment {
     private DatePicker startDatePick,endDatePick;
     private Uri pictureUri;
 
+
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
     final private CollectionReference eventCollection = database.collection("Event");
 
@@ -68,12 +72,10 @@ public class addEventdetails extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_eventdetails, container, false);
         nextBtn=view.findViewById(R.id.nextBtn);
-
         eventName=view.findViewById(R.id.eventNameBox);
         eventDes=view.findViewById(R.id.eventDesBox);
         eventNameLayout=view.findViewById(R.id.eventNameBoxLayout);
         eventDesLayout=view.findViewById(R.id.eventDesBoxLayout);
-
         startDatePick=view.findViewById(R.id.startDatePick);
         startDatePickLayout=view.findViewById(R.id.startDatePickLayout);
         endDatePick=view.findViewById(R.id.endDatePick);
@@ -249,6 +251,10 @@ public class addEventdetails extends Fragment {
             }
         }
     }
+
+
+
+
     private void showLoading() {
         // adding ALERT Dialog builder object and passing activity as parameter
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
