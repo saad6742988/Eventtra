@@ -35,6 +35,10 @@
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Logout"/>
+        <item
+            android:id="@+id/nav_reg_temp"
+            android:icon="@drawable/logout"
+            android:title="Registration Temp"/>
 
 
 

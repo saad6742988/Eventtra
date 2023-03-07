@@ -8,28 +8,24 @@
     app:cardCornerRadius="15dp"
     app:cardElevation="10dp"
     app:cardUseCompatPadding="true"
-
-    tools:context=".event_time"
-    xmlns:tools="http://schemas.android.com/tools">
+    card_view:cardCornerRAdius="5dp">
     <LinearLayout
-        android:id="@+id/layoutDateBox"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true">
+        android:padding="5dp">
         <LinearLayout
             android:orientation="horizontal"
-            android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
                 android:padding="2dp"
-                android:src="@drawable/date_icon"
+                android:src="@drawable/desc_icon"
                 android:layout_marginStart="5dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
             <TextView
-                android:text="Event TIme"
+                android:text="Enter No. Of Participants:"
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -40,20 +36,21 @@
 
 
         </LinearLayout>
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/eventDesBoxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <TimePicker
-                android:id="@+id/time_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-
-
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeWidthFocused="0dp">
+            <EditText
+                android:id="@+id/eventDesBox"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textback"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
 

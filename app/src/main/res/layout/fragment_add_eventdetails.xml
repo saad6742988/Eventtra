@@ -65,7 +65,6 @@
                 <include layout="@layout/activity_event_name"/>
                 <include layout="@layout/activity_event_desc"/>
                 <include layout="@layout/activity_event_date"/>
-                <include layout="@layout/activity_event_time"/>
                 <Button
                     android:id="@+id/nextBtn"
                     android:layout_width="wrap_content"
