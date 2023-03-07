@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,10 +31,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 
-public class mainEventList extends Fragment {
+public class attendee_main_event_list extends Fragment {
+
 
 
     RecyclerView recyclerView;
@@ -50,23 +49,17 @@ public class mainEventList extends Fragment {
     private AlertDialog loadingDialog;
     MenuItem searchViewItem;
     int counterEvent = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main_event_list, container, false);
-        recyclerView = view.findViewById(R.id.mainEventRecycleView);
+        View view=inflater.inflate(R.layout.fragment_attendee_main_event_list, container, false);
+        recyclerView = view.findViewById(R.id.attendeeMainRecyclerView);
         globalData = (GlobalData) getActivity().getApplicationContext();
         mainEventLists.clear();
         getEventsData();
 
 
-        //setting subEventsAdapter
-//        mainEventAdapter adapter= new mainEventAdapter(mainEventLists, getContext());
-//        recyclerView.setAdapter(adapter);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
         return view;
     }
 
@@ -79,53 +72,53 @@ public class mainEventList extends Fragment {
 
                 Log.d("Count events", "onSuccess: "+queryDocumentSnapshots.size());
                 counterEvent = 0;
-               if(queryDocumentSnapshots.size()>0)
-               {
-                   for (QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots) {
-                       MyEvent event = documentSnapshot.toObject(MyEvent.class);
-                       event.setEventId(documentSnapshot.getId());
+                if(queryDocumentSnapshots.size()>0)
+                {
+                    for (QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots) {
+                        MyEvent event = documentSnapshot.toObject(MyEvent.class);
+                        event.setEventId(documentSnapshot.getId());
 
 
-                       //get event Picture
-                       StorageReference file = storageReference.child("Event/"+documentSnapshot.getId()+"/event.jpg");
-                       file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                           @Override
-                           public void onSuccess(Uri uri) {
-                               Log.d("main get image", "onSuccess: fetch success");
-                               if(uri!=null)
-                               {
-                                   Log.d("Image uri", "onSuccess: "+uri);
-                                   event.setEventPic(uri);
-                                   mainEventLists.add(event);
-                                   counterEvent++;
-                                   if(counterEvent==queryDocumentSnapshots.size())
-                                   {
-                                       populateList();
-                                   }
-                               }
-                           }
-                       }).addOnFailureListener(new OnFailureListener() {
-                           @Override
-                           public void onFailure(@NonNull Exception e) {
+                        //get event Picture
+                        StorageReference file = storageReference.child("Event/"+documentSnapshot.getId()+"/event.jpg");
+                        file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Log.d("main get image", "onSuccess: fetch success");
+                                if(uri!=null)
+                                {
+                                    Log.d("Image uri", "onSuccess: "+uri);
+                                    event.setEventPic(uri);
+                                    mainEventLists.add(event);
+                                    counterEvent++;
+                                    if(counterEvent==queryDocumentSnapshots.size())
+                                    {
+                                        populateList();
+                                    }
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
 
-                               event.setEventPic(null);
-                               Log.d("Error", "onFailure: "+e.getMessage());
-                               Log.d("null event", "onFailure: "+event);
-                               mainEventLists.add(event);
-                               counterEvent++;
-                               if(counterEvent==queryDocumentSnapshots.size())
-                               {
-                                   populateList();
-                               }
-                           }
-                       });
+                                event.setEventPic(null);
+                                Log.d("Error", "onFailure: "+e.getMessage());
+                                Log.d("null event", "onFailure: "+event);
+                                mainEventLists.add(event);
+                                counterEvent++;
+                                if(counterEvent==queryDocumentSnapshots.size())
+                                {
+                                    populateList();
+                                }
+                            }
+                        });
 
-                   }
-               }
-               else
-               {
-                   loadingDialog.dismiss();
-               }
+                    }
+                }
+                else
+                {
+                    loadingDialog.dismiss();
+                }
 
                 Log.d("TAG", "onSuccess: ");
 
@@ -137,17 +130,15 @@ public class mainEventList extends Fragment {
             }
         });
     }
-
     private void populateList() {
 
         Log.d("all Events", "populateList: "+mainEventLists);
-        mainEventAdapter adapter= new mainEventAdapter(mainEventLists, getContext());
+        attendeeMainAdapter adapter= new attendeeMainAdapter(mainEventLists, getContext());
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         loadingDialog.dismiss();
     }
-
     private void showLoading() {
         // adding ALERT Dialog builder object and passing activity as parameter
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -201,7 +192,7 @@ public class mainEventList extends Fragment {
                             filtered.add(mainEventLists.get(i));
                         }
                     }
-                    mainEventAdapter adapter= new mainEventAdapter(filtered, getContext());
+                    attendeeMainAdapter adapter= new attendeeMainAdapter(filtered, getContext());
                     recyclerView.setAdapter(adapter);
 
                 }

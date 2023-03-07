@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -18,39 +19,51 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AttendeePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 
-    boolean doubleBackToExitPressedOnce = false;
+    private DrawerLayout drawerLayout;
     final private FirebaseAuth mAuth=FirebaseAuth.getInstance();
-    TextView tv;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Toolbar toolbar;
+    private TextView username,email;
+    boolean doubleBackToExitPressedOnce = false;
+    CircleImageView profile;
+    GlobalData globalData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendee_page);
 
-        drawerLayout = findViewById(R.id.attendee_page_layout);
-        navigationView = findViewById(R.id.nav_view);
-        toolbar = findViewById(R.id.toolbar);
+        globalData = (GlobalData) getApplicationContext();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-       //setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.attendee_page_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        username=navigationView.getHeaderView(0).findViewById(R.id.usernameContainer);
+        email=navigationView.getHeaderView(0).findViewById(R.id.emailContainer);
+        profile=navigationView.getHeaderView(0).findViewById(R.id.profileContainer);
+        username.setText(globalData.getGlobalUser().getFname()+" "+globalData.getGlobalUser().getLname());
+        email.setText(globalData.getGlobalUser().getEmail());
+        Log.d("admin pic", "onCreate: "+globalData.getGlobalUser().getProfilePic());
+        if(globalData.getGlobalUser().getProfilePic()!=null)
+        {
+            Picasso.get().load(globalData.getGlobalUser().getProfilePic()).into(profile);
+        }
         navigationView.setNavigationItemSelectedListener(this);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new subEvent_list()).addToBackStack("addEventDetails").commit();
-            navigationView.setCheckedItem(R.id.nav_events);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_main_event_list()).commit();
+            navigationView.setCheckedItem(R.id.nav_create_event);
         }
-
-       // tv=findViewById(R.id.toolbar);
-        //GlobalData globalData=(GlobalData) getApplicationContext();
-       // tv.setText(globalData.getGlobalUser().toString());
     }
 
 
@@ -77,17 +90,9 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
 
-           /* case R.id.nav_create_event:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addEventdetails()).addToBackStack("addEventDetails").commit();
+            case R.id.nav_events:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_main_event_list()).commit();
                 break;
-
-            case R.id.nav_edit_event:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainEventList()).commit();
-                break;
-
-            case R.id.nav_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new settings()).commit();
-                break;*/
 
             case R.id.nav_logout:
                 mAuth.signOut();

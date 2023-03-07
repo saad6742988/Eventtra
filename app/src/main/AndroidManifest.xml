@@ -86,7 +86,8 @@
         </activity>
         <activity
             android:name=".AttendeePage"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.Eventtra.NoActionBar">>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

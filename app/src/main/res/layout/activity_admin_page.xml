@@ -21,7 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolbar"
             android:elevation="4dp"
-            android:background="@color/white"
+            android:background="@color/purple_500"
             android:theme="@style/Theme.Eventtra.AppBarOverlay"
             android:popupTheme="@style/Theme.Eventtra.PopupOverlay"/>
 

@@ -66,6 +66,7 @@
                 <include layout="@layout/activity_event_desc"/>
                 <include layout="@layout/activity_event_price"/>
                 <include layout="@layout/activity_subevent_date"/>
+                <include layout="@layout/activity_event_time"/>
 
                 <Button
                     android:id="@+id/saveBtn"

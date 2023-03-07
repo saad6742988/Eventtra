@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".attendee_sub_events"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/mainEventName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:textColor="@color/purple_500"/>
+            <TextView
+                android:id="@+id/mainEventDes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="des"
+                android:textColor="@color/black"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/mainEventDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date" />
+
+            <TableRow
+                android:id="@+id/dr"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/black" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
