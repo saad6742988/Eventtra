@@ -15,13 +15,14 @@ public class subEventsModel {
     private Uri pic;
     private String mainEventId;
     private String subEventDate;
+    private String subEventTime;
 
     //constructor
 
     public subEventsModel() {
     }
 
-    public subEventsModel(String name, String desc, String price, String head, Uri pic, String mainEventId, String subEventDate) {
+    public subEventsModel(String name, String desc, String price, String head, Uri pic, String mainEventId, String subEventDate,String subEventTime) {
         this.name = name;
         this.desc = desc;
         this.price = price;
@@ -29,6 +30,7 @@ public class subEventsModel {
         this.pic = pic;
         this.mainEventId = mainEventId;
         this.subEventDate = subEventDate;
+        this.subEventTime=subEventTime;
     }
 
     public subEventsModel(String name, String head, String mainEventId) {
@@ -39,6 +41,7 @@ public class subEventsModel {
         this.price = "";
         this.pic = null;
         this.subEventDate="";
+        this.subEventTime="";
     }
 
     @Exclude
@@ -108,6 +111,14 @@ public class subEventsModel {
         this.subEventDate = subEventDate;
     }
 
+    public String getSubEventTime() {
+        return subEventTime;
+    }
+
+    public void setSubEventTime(String subEventTime) {
+        this.subEventTime = subEventTime;
+    }
+
     @Override
     public String toString() {
         return "subEventsModel{" +
@@ -116,8 +127,10 @@ public class subEventsModel {
                 ", desc='" + desc + '\'' +
                 ", price='" + price + '\'' +
                 ", head='" + head + '\'' +
-                ", pic='" + pic + '\'' +
+                ", pic=" + pic +
                 ", mainEventId='" + mainEventId + '\'' +
+                ", subEventDate='" + subEventDate + '\'' +
+                ", subEventTime='" + subEventTime + '\'' +
                 '}';
     }
 }

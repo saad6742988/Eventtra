@@ -20,7 +20,7 @@ public class event_time extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_time);
-        timePicker= findViewById(R.id.time_picker);
+        timePicker= findViewById(R.id.sub_event_time_picker);
     }
 
 

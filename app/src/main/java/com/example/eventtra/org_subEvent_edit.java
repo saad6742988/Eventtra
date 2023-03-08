@@ -23,6 +23,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +50,7 @@ public class org_subEvent_edit extends Fragment {
     private ImageView eventPic;
     private Uri pictureUri;
     private TextView header;
+    TimePicker subEventTime;
 
 
     private DatePicker subDatePick;
@@ -84,6 +87,9 @@ public class org_subEvent_edit extends Fragment {
         eventPic=view.findViewById(R.id.eventPicture);
         addEventPic=view.findViewById(R.id.addEventPicBtn);
         header=view.findViewById(R.id.headSubEventEdittv);
+        subEventTime = view.findViewById(R.id.sub_event_time_picker);
+        subEventTime.setIs24HourView(true);
+        subEventTime.setHour(subEventTime.getHour()+1);
 
         setData();
 
@@ -122,6 +128,7 @@ public class org_subEvent_edit extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 saveSubEvent();
             }
         });
@@ -153,11 +160,13 @@ public class org_subEvent_edit extends Fragment {
             globalData.globalSubEvent.setDesc(subDes);
             globalData.globalSubEvent.setPrice(subPrice);
             globalData.globalSubEvent.setSubEventDate(getDateString(subDatePick));
+            globalData.globalSubEvent.setSubEventTime(subEventTime.getHour()+":"+subEventTime.getMinute());
             Map<String,Object> updateSubEvent = new HashMap<>();
             updateSubEvent.put("name",globalData.globalSubEvent.getName());
             updateSubEvent.put("desc",globalData.globalSubEvent.getDesc());
             updateSubEvent.put("price",globalData.globalSubEvent.getPrice());
             updateSubEvent.put("subEventDate",globalData.globalSubEvent.getSubEventDate());
+            updateSubEvent.put("subEventTime",globalData.globalSubEvent.getSubEventTime());
             subEventCollection.document(globalData.globalSubEvent.getSubEventId()).update(updateSubEvent);
             if(picChangeCheck)
             {
@@ -200,7 +209,7 @@ public class org_subEvent_edit extends Fragment {
     private void goBackToSubEventList() {
         loadingDialog.dismiss();
         getActivity().getSupportFragmentManager().popBackStack();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer, new subEvent_list()).commit();
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer, new subEvent_list()).commit();
     }
 
     private String getDateString(DatePicker startDatePick) {
@@ -241,6 +250,12 @@ public class org_subEvent_edit extends Fragment {
         {
             int[] temp = getDateInt(globalData.globalSubEvent.getSubEventDate());
             subDatePick.updateDate(temp[2],temp[1],temp[0]);
+        }
+        if(!globalData.globalSubEvent.getSubEventTime().equals(""))
+        {
+            String[] temp = globalData.globalSubEvent.getSubEventTime().split(":");
+            subEventTime.setHour(Integer.parseInt(temp[0]));
+            subEventTime.setMinute(Integer.parseInt(temp[1]));
         }
 
 

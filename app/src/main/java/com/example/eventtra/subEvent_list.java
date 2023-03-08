@@ -1,8 +1,10 @@
 package com.example.eventtra;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,8 +13,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,11 +58,11 @@ public class subEvent_list extends Fragment {
 
 
         //setting subEventsAdapter
-        subEventAdapter adapter= new subEventAdapter(subEventList, getContext());
-        recyclerView.setAdapter(adapter);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+//        subEventAdapter adapter= new subEventAdapter(subEventList, getContext());
+//        recyclerView.setAdapter(adapter);
+//
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        recyclerView.setLayoutManager(layoutManager);
         return view;
     }
     private void getEventsData() {
@@ -152,5 +159,50 @@ public class subEvent_list extends Fragment {
         loadingDialog.getWindow().setLayout(width,height);
         loadingDialog.setCancelable(false);
         loadingDialog.setCanceledOnTouchOutside(false);
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_bar, menu);
+        MenuItem searchViewItem = menu.findItem(R.id.app_bar_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.isEmpty())
+                {
+                    populateList();
+                }
+                else
+                {
+                    ArrayList<subEventsModel> filtered = new ArrayList<>();
+                    for (int i = 0; i < subEventList.size(); i++) {
+                        if(subEventList.get(i).getName().toLowerCase().contains(newText.toLowerCase()))
+                        {
+                            Toast.makeText(getContext(), subEventList.get(i).getName(), Toast.LENGTH_SHORT).show();
+                            filtered.add(subEventList.get(i));
+                        }
+                    }
+                    subEventAdapter adapter= new subEventAdapter(filtered, getContext());
+                    recyclerView.setAdapter(adapter);
+
+                }
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
