@@ -61,29 +61,41 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_main_event_list()).commit();
-            navigationView.setCheckedItem(R.id.nav_create_event);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_main_event_list()).addToBackStack("attendeeMainEventList").commit();
+            navigationView.setCheckedItem(R.id.nav_events);
         }
     }
 
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
         }
+        else {
+            Log.d("in else", "onBackPressed: "+getSupportFragmentManager().getBackStackEntryCount());;
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+                if (doubleBackToExitPressedOnce) {
+                    this.finish();
+                    return;
+                }
 
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
 
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
             }
-        }, 2000);
+            else {
+                getSupportFragmentManager().popBackStack();
+            }
+
+        }
     }
 
     @Override

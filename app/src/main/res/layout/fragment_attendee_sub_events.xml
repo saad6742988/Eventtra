@@ -9,7 +9,7 @@
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
         <TextView
@@ -40,11 +40,16 @@
             android:layout_marginTop="20dp"
             android:background="@color/black" />
     </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/attendeeSubRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/attendee_seb_event_card" />
+<!--    </ScrollView>-->
 
 
-    </ScrollView>
 
 </LinearLayout>

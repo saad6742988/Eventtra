@@ -57,7 +57,7 @@ public class attendeeMainAdapter extends RecyclerView.Adapter<attendeeMainAdapte
                 Log.d("clicked event", "onClick: "+mainEvent);
                 globalData.globalEvent=mainEvent;
                 AppCompatActivity act = (AppCompatActivity)v.getContext();
-                act.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_sub_events()).commit();
+                act.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_sub_events()).addToBackStack("attendeeSubEventList").commit();
             }
         });
     }
