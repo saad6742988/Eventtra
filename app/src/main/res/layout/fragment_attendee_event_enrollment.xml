@@ -23,51 +23,85 @@
         android:textSize="30dp"
         android:textStyle="bold"
         android:textColor="@color/purple_500"/>
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/tools"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true"
+        card_view:cardCornerRAdius="5dp">
 
-        <TextView
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Details"
-            android:textColor="@color/black"
-            android:textSize="18dp"/>
+            android:padding="5dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:padding="2dp"
+                    android:src="@drawable/desc_icon"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+                <TextView
+                    android:text="Your Details"
+                    android:layout_marginStart="10dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textColor="#605E5E"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/attendeeMainRegisterNamelayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Name"
-            app:boxStrokeColor="@android:color/transparent"
-            app:boxStrokeErrorColor="@android:color/transparent">
-            <EditText
-                android:id="@+id/attendeeMainRegisterName"
+
+            </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/attendeeMainRegisterNamelayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/textback"
-                android:enabled="false"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/attendeeMainRegisterCniclayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Cnic"
-            app:boxStrokeColor="@android:color/transparent"
-            app:boxStrokeErrorColor="@android:color/transparent">
-            <EditText
-                android:id="@+id/attendeeMainRegisterCnic"
+                app:boxStrokeColor="@android:color/transparent"
+                app:boxStrokeWidthFocused="0dp">
+                <EditText
+                    android:id="@+id/attendeeMainRegisterName"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textback"
+                    android:hint="Name"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/attendeeMainRegisterCniclayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:background="@drawable/textback"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                app:boxStrokeColor="@android:color/transparent"
+                app:boxStrokeWidthFocused="0dp">
+                <EditText
+                    android:id="@+id/attendeeMainRegisterCnic"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textback"
+                    android:hint="CNIC"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
