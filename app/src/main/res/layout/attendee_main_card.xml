@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:elevation="10dp"
-        app:cardCornerRadius="6dp"
+        app:cardCornerRadius="8dp"
         android:layout_gravity="center">
 
         <RelativeLayout
@@ -45,7 +45,8 @@
                 android:textSize="20dp"
                 android:padding="5dp"
                 android:text="TextView"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/attendeeMainDes"
@@ -59,7 +60,8 @@
                 android:layout_marginEnd="30dp"
                 android:textSize="17dp"
                 android:padding="5dp"
-                android:text="TextViewbfgbfgnfgngfnfgnfgnffgnffgnnfnfnfnfnf" />
+                android:text="TextViewbfgbfgnfgngfnfgnfgnffgnffgnnfnfnfnfnf"
+                android:gravity="center"/>
             <TextView
                 android:id="@+id/attendeeMainDate"
                 android:layout_width="300dp"
@@ -72,7 +74,8 @@
                 android:layout_marginEnd="30dp"
                 android:textSize="15dp"
                 android:padding="5dp"
-                android:text="Date" />
+                android:text="Date"
+                android:gravity="center"/>
 <!--            <androidx.appcompat.widget.LinearLayoutCompat-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
