@@ -87,7 +87,7 @@ public class attendee_event_enrollment extends Fragment {
                 }
                 else if(cnic.equals(""))
                 {
-                    editNameLayout.setError("Please Enter Cnic");
+                    editCnicLayout.setError("Please Enter Cnic");
                 }
                 else
                 {
