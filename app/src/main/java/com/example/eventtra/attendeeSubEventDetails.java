@@ -27,7 +27,7 @@ public class attendeeSubEventDetails extends Fragment {
         subDes=view.findViewById(R.id.subDetailDes);
         subTime=view.findViewById(R.id.subDetailDate);
         subPrice=view.findViewById(R.id.subDetailPrice);
-        subEventEnrollBtn = view.findViewById(R.id.subEventEnrollBtn);
+        subEventEnrollBtn = view.findViewById(R.id.EnrollBtn);
 
         subName.setText(globalData.globalSubEvent.getName());
         subDes.setText(globalData.globalSubEvent.getDesc());

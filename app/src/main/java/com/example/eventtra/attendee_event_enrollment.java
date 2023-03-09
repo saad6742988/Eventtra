@@ -27,8 +27,9 @@ import java.util.ArrayList;
 public class attendee_event_enrollment extends Fragment {
 
 
-    Button addNewParticipant;
+    Button addNewParticipant,PaymentBtn;
     EditText attendeeMainRegisterName;
+    TextInputLayout attendeeMainRegisterCniclayout;
     TextView registeringEventName;
     RecyclerView otherParRecyclerView;
     ArrayList<OtherParticipant> otherParticipantsList = new ArrayList<>();
@@ -45,14 +46,12 @@ public class attendee_event_enrollment extends Fragment {
         registeringEventName = view.findViewById(R.id.registeringEventName);
         registeringEventName.setText(globalData.globalSubEvent.getName());
         addNewParticipant = view.findViewById(R.id.addNewParticipantBtn);
+        attendeeMainRegisterCniclayout = view.findViewById(R.id.attendeeMainRegisterCniclayout);
 
 
-        //temp code
-        attendeeOtherParticipantsAdapter adapter= new attendeeOtherParticipantsAdapter();
-        otherParRecyclerView.setAdapter(adapter);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         otherParRecyclerView.setLayoutManager(layoutManager);
-
 
         addNewParticipant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +60,20 @@ public class attendee_event_enrollment extends Fragment {
             }
         });
 
+        PaymentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePayment();
+            }
+        });
+
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void makePayment() {
+
     }
 
     private void addOtherParticipant() {
@@ -94,6 +105,7 @@ public class attendee_event_enrollment extends Fragment {
                     OtherParticipant otherParticipant = new OtherParticipant(name,cnic);
                     otherParticipantsList.add(otherParticipant);
                     Log.d("Others list", otherParticipantsList.toString());
+                    updateOthersList();
                     alertDialog.dismiss();
                 }
 
@@ -106,6 +118,11 @@ public class attendee_event_enrollment extends Fragment {
 
         alertDialog.show();
 
+    }
+
+    private void updateOthersList() {
+        attendeeOtherParticipantsAdapter adapter= new attendeeOtherParticipantsAdapter();
+        otherParRecyclerView.setAdapter(adapter);
     }
 
 
@@ -159,13 +176,14 @@ public class attendee_event_enrollment extends Fragment {
 
             holder.otherParName.setText(otherParticipant.getName());
             holder.otherParCnic.setText(otherParticipant.getCnic());
-            holder.otherParNo.setText("Participant "+position);
+            holder.otherParNo.setText("Participant "+(position+1));
             int pos=position;
 
             holder.deletePar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                    otherParticipantsList.remove(pos);
+                   updateOthersList();
                 }
             });
         }
