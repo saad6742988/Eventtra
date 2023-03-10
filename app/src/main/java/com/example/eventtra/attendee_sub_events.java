@@ -62,6 +62,7 @@ public class attendee_sub_events extends Fragment {
         mainDes.setText(globalData.globalEvent.getEventDes());
         mainDate.setText(globalData.globalEvent.getStartDate()+" to "+globalData.globalEvent.getEndDate());
         recyclerView=view.findViewById(R.id.attendeeSubRecyclerView);
+        subEventList.clear();
         getEventsData();
 
         return view;
