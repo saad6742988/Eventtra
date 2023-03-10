@@ -9,12 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
 
 public class attendeeSubEventDetails extends Fragment {
 
-    TextView subName,subDes,subTime,subPrice;
+    TextView subName,subDes,subDate,subPrice,subTime;
+    ImageView subImg;
+    EditText cnic;
+    TextInputLayout cniclayout;
     GlobalData globalData;
     Button subEventEnrollBtn;
     @SuppressLint("SetTextI18n")
@@ -25,15 +33,27 @@ public class attendeeSubEventDetails extends Fragment {
         globalData = (GlobalData) getContext().getApplicationContext();
         subName=view.findViewById(R.id.subDetailName);
         subDes=view.findViewById(R.id.subDetailDes);
-        subTime=view.findViewById(R.id.subDetailDate);
+        subDate=view.findViewById(R.id.subDetailDate);
+        subTime=view.findViewById(R.id.subDetailTime);
         subPrice=view.findViewById(R.id.subDetailPrice);
         subEventEnrollBtn = view.findViewById(R.id.EnrollBtn);
+        subImg = view.findViewById(R.id.subDetailImg);
+
+
+        if(globalData.globalSubEvent.getPic()!=null)
+        {
+            Picasso.get().load(globalData.globalSubEvent.getPic()).into(subImg);
+        }
+        else{
+            subImg.setImageResource(R.drawable.logo1);
+        }
 
         subName.setText(globalData.globalSubEvent.getName());
         subDes.setText(globalData.globalSubEvent.getDesc());
         subDes.setText(globalData.globalSubEvent.getDesc());
         subPrice.setText("Ticket : Rs."+globalData.globalSubEvent.getPrice()+" Per Participant");
-        subTime.setText("Date&Time : "+globalData.globalSubEvent.getSubEventDate()+" At "+globalData.globalSubEvent.getSubEventTime());
+        subDate.setText(globalData.globalSubEvent.getSubEventDate());
+        subTime.setText(globalData.globalSubEvent.getSubEventTime());
 
         subEventEnrollBtn.setOnClickListener(new View.OnClickListener() {
             @Override

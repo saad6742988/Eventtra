@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".attendee_main_event_list"
-    android:background="@color/purple_700">
+    tools:context=".attendee_main_event_list">
 
     <!-- TODO: Update blank fragment layout -->
     <ScrollView

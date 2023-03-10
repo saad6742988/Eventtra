@@ -40,6 +40,13 @@ public class attendeeSubEventAdapter extends RecyclerView.Adapter<attendeeSubEve
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         subEventsModel subEvent = list.get(position);
 
+        if(subEvent.getPic()!=null)
+        {
+            Picasso.get().load(subEvent.getPic()).into(holder.attendeeSubImg);
+        }
+        else{
+            holder.attendeeSubImg.setImageResource(R.drawable.logo1);
+        }
         holder.subEventNameView.setText(subEvent.getName());
         holder.subEventdateView.setText(subEvent.getSubEventDate()+" At "+subEvent.getSubEventTime());
 
@@ -63,12 +70,14 @@ public class attendeeSubEventAdapter extends RecyclerView.Adapter<attendeeSubEve
 
         TextView subEventNameView;
         TextView subEventdateView;
+        ImageView attendeeSubImg;
         CardView mainCardView;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             subEventNameView= itemView.findViewById(R.id.attendeeSubName);
             subEventdateView= itemView.findViewById(R.id.attendeeSubDate);
             mainCardView=itemView.findViewById(R.id.attendeeSubCard);
+            attendeeSubImg=itemView.findViewById(R.id.attendeeSubimageView);
 
 
         }
