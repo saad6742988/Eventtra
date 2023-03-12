@@ -4,8 +4,6 @@ import android.net.Uri;
 
 import com.google.firebase.firestore.Exclude;
 
-import java.util.PrimitiveIterator;
-
 public class subEventsModel {
     private String subEventId;
     private String name; //name
@@ -16,13 +14,16 @@ public class subEventsModel {
     private String mainEventId;
     private String subEventDate;
     private String subEventTime;
+    private int minParticipants;
+    private boolean openRegistration;
 
     //constructor
 
     public subEventsModel() {
     }
 
-    public subEventsModel(String name, String desc, String price, String head, Uri pic, String mainEventId, String subEventDate,String subEventTime) {
+    public subEventsModel(String subEventId, String name, String desc, String price, String head, Uri pic, String mainEventId, String subEventDate, String subEventTime, int minParticipants, boolean openRegistration) {
+        this.subEventId = subEventId;
         this.name = name;
         this.desc = desc;
         this.price = price;
@@ -30,7 +31,9 @@ public class subEventsModel {
         this.pic = pic;
         this.mainEventId = mainEventId;
         this.subEventDate = subEventDate;
-        this.subEventTime=subEventTime;
+        this.subEventTime = subEventTime;
+        this.minParticipants = minParticipants;
+        this.openRegistration = openRegistration;
     }
 
     public subEventsModel(String name, String head, String mainEventId) {
@@ -42,6 +45,8 @@ public class subEventsModel {
         this.pic = null;
         this.subEventDate="";
         this.subEventTime="";
+        this.minParticipants=0;
+        this.openRegistration = false;
     }
 
     @Exclude
@@ -119,6 +124,22 @@ public class subEventsModel {
         this.subEventTime = subEventTime;
     }
 
+    public int getMinParticipants() {
+        return minParticipants;
+    }
+
+    public void setMinParticipants(int minParticipants) {
+        this.minParticipants = minParticipants;
+    }
+
+    public boolean isOpenRegistration() {
+        return openRegistration;
+    }
+
+    public void setOpenRegistration(boolean openRegistration) {
+        this.openRegistration = openRegistration;
+    }
+
     @Override
     public String toString() {
         return "subEventsModel{" +
@@ -131,6 +152,8 @@ public class subEventsModel {
                 ", mainEventId='" + mainEventId + '\'' +
                 ", subEventDate='" + subEventDate + '\'' +
                 ", subEventTime='" + subEventTime + '\'' +
+                ", minParticipants=" + minParticipants +
+                ", openRegistration=" + openRegistration +
                 '}';
     }
 }

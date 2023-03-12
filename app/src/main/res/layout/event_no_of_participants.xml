@@ -20,12 +20,12 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:padding="2dp"
-                android:src="@drawable/ic_baseline_attach_money_24"
+                android:src="@drawable/ic_baseline_people_outline_24"
                 android:layout_marginStart="5dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
             <TextView
-                android:text="Event Price"
+                android:text="Minimum Participants Required"
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -37,20 +37,20 @@
 
         </LinearLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/eventPriceBoxLayout"
+            android:id="@+id/eventNoParticipantsBoxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxStrokeColor="@android:color/transparent"
             app:boxStrokeWidthFocused="0dp">
             <EditText
-                android:id="@+id/eventPriceBox"
+                android:id="@+id/eventNoParticipantsBox"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_marginBottom="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:digits="0123456789"
+                android:digits="123456789"
                 android:background="@drawable/textback"/>
         </com.google.android.material.textfield.TextInputLayout>
 

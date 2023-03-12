@@ -97,10 +97,9 @@ public class attendee_event_enrollment extends Fragment {
     }
 
     private void makePayment() {
-        float amount  = (Float.parseFloat(globalData.globalSubEvent.getPrice())/299)*(otherParticipantsList.size()+1);
-        int temp = (int)(amount*100);
-        Log.d("amount", "makePayment: "+(int)(amount*100));
-        Fuel.INSTANCE.post("https://stripe-payment-production.up.railway.app/payment?amount="+temp+"&email="+globalData.globalUser.getEmail()+"&des=this is test", null).responseString(new Handler<String>() {
+        int amount  = Integer.parseInt(globalData.globalSubEvent.getPrice())*100*(otherParticipantsList.size()+1);
+        Log.d("amount", "makePayment: "+(amount));
+        Fuel.INSTANCE.post("https://stripe-payment-production.up.railway.app/payment?amount="+amount+"&email="+globalData.globalUser.getEmail()+"&des=this is test", null).responseString(new Handler<String>() {
             @Override
             public void success(String s) {
                 try {

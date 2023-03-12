@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -44,8 +45,9 @@ public class org_subEvent_edit extends Fragment {
 
 
     private Button saveBtn;
-    private EditText eventName,eventDes,eventPrice;
-    private TextInputLayout eventNameLayout,eventDesLayout,subDatePickLayout,eventPicLayout,eventPriceLayout;
+    private EditText eventName,eventDes,eventPrice,eventNoOfPar;
+    private TextInputLayout eventNameLayout,eventDesLayout,subDatePickLayout,eventPicLayout,eventPriceLayout,eventNoOfParlayout;
+    Switch openEnrollmentSwitch;
     private TextView addEventPic;
     private ImageView eventPic;
     private Uri pictureUri;
@@ -76,9 +78,12 @@ public class org_subEvent_edit extends Fragment {
         eventName=view.findViewById(R.id.eventNameBox);
         eventDes=view.findViewById(R.id.eventDesBox);
         eventPrice=view.findViewById(R.id.eventPriceBox);
+        eventNoOfPar = view.findViewById(R.id.eventNoParticipantsBox);
+        eventNoOfParlayout=view.findViewById(R.id.eventNoParticipantsBoxLayout);
         eventNameLayout=view.findViewById(R.id.eventNameBoxLayout);
         eventDesLayout=view.findViewById(R.id.eventDesBoxLayout);
         eventPriceLayout=view.findViewById(R.id.eventPriceBoxLayout);
+        openEnrollmentSwitch=view.findViewById(R.id.openEnrollmentSwitch);
 
         subDatePick=view.findViewById(R.id.subEventDatePick);
         subDatePickLayout=view.findViewById(R.id.subEventDatePickLayout);
@@ -139,8 +144,9 @@ public class org_subEvent_edit extends Fragment {
         String subName = eventName.getText().toString();
         String subDes = eventDes.getText().toString();
         String subPrice = eventPrice.getText().toString();
+        String noOfPar=eventNoOfPar.getText().toString();
 
-        showLoading();
+
         if(subName.isEmpty())
         {
             eventNameLayout.setError("Sub-Event Name Required");
@@ -155,18 +161,31 @@ public class org_subEvent_edit extends Fragment {
             eventPriceLayout.setError("Sub-Event Price Required");
             eventPriceLayout.requestFocus();
         }
+        else if(noOfPar.isEmpty() || Integer.parseInt(noOfPar)<1)
+        {
+            eventNoOfParlayout.setError("Minmum No. of Participants Must be Greater than 1");
+            eventNoOfParlayout.requestFocus();
+        }
         else{
+            showLoading();
             globalData.globalSubEvent.setName(subName);
             globalData.globalSubEvent.setDesc(subDes);
             globalData.globalSubEvent.setPrice(subPrice);
             globalData.globalSubEvent.setSubEventDate(getDateString(subDatePick));
             globalData.globalSubEvent.setSubEventTime(subEventTime.getHour()+":"+subEventTime.getMinute());
+            globalData.globalSubEvent.setMinParticipants(Integer.parseInt(noOfPar));
+            if(openEnrollmentSwitch.isChecked())
+                globalData.globalSubEvent.setOpenRegistration(true);
+            else
+                globalData.globalSubEvent.setOpenRegistration(false);
             Map<String,Object> updateSubEvent = new HashMap<>();
             updateSubEvent.put("name",globalData.globalSubEvent.getName());
             updateSubEvent.put("desc",globalData.globalSubEvent.getDesc());
             updateSubEvent.put("price",globalData.globalSubEvent.getPrice());
             updateSubEvent.put("subEventDate",globalData.globalSubEvent.getSubEventDate());
             updateSubEvent.put("subEventTime",globalData.globalSubEvent.getSubEventTime());
+            updateSubEvent.put("minParticipants",globalData.globalSubEvent.getMinParticipants());
+            updateSubEvent.put("openRegistration",globalData.globalSubEvent.isOpenRegistration());
             subEventCollection.document(globalData.globalSubEvent.getSubEventId()).update(updateSubEvent);
             if(picChangeCheck)
             {
@@ -242,6 +261,7 @@ public class org_subEvent_edit extends Fragment {
 
         eventName.setText(globalData.globalSubEvent.getName());
         header.setText(globalData.globalSubEvent.getName());
+        eventNoOfPar.setText(String.valueOf(globalData.globalSubEvent.getMinParticipants()));
         if(!globalData.globalSubEvent.getDesc().equals(""))
             eventDes.setText(globalData.globalSubEvent.getDesc());
         if(!globalData.globalSubEvent.getPrice().equals(""))
@@ -257,6 +277,10 @@ public class org_subEvent_edit extends Fragment {
             subEventTime.setHour(Integer.parseInt(temp[0]));
             subEventTime.setMinute(Integer.parseInt(temp[1]));
         }
+        if(globalData.globalSubEvent.isOpenRegistration())
+            openEnrollmentSwitch.setChecked(true);
+        else
+            openEnrollmentSwitch.setChecked(false);
 
 
 

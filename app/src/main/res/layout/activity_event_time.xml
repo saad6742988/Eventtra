@@ -24,7 +24,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:padding="2dp"
-                android:src="@drawable/date_icon"
+                android:src="@drawable/ic_baseline_access_time_24"
                 android:layout_marginStart="5dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
