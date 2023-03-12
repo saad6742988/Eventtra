@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".attendee_event_enrollment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#f2d4d5">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -115,13 +116,26 @@
         android:layout_height="345dp"
         android:orientation="vertical"
         android:padding="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Other Participants"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other Participants"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+            <TextView
+                android:id="@+id/requiredOtherPar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" (Required 1 more)"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/otherParRecyclerView"

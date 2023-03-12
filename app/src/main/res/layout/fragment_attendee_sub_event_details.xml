@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".attendeeSubEventDetails"
     android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#f2d4d5">
 
 
     <androidx.cardview.widget.CardView

@@ -1,6 +1,7 @@
 package com.example.eventtra;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,11 +19,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.kittinunf.fuel.Fuel;
 import com.github.kittinunf.fuel.core.FuelError;
 import com.github.kittinunf.fuel.core.Handler;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
@@ -40,20 +46,25 @@ public class attendee_event_enrollment extends Fragment {
     Button addNewParticipant,PaymentBtn;
     EditText attendeeMainRegisterName,attendeeMainRegisterCnic;
     TextInputLayout attendeeMainRegisterCniclayout;
-    TextView registeringEventName;
+    TextView registeringEventName,requiredOtherPar;
     RecyclerView otherParRecyclerView;
     ArrayList<OtherParticipant> otherParticipantsList = new ArrayList<>();
     GlobalData globalData;
+    PaymentInfo paymentInfo=new PaymentInfo();
 
     PaymentSheet paymentSheet;
     String paymentIntentClientSecret;
     PaymentSheet.CustomerConfiguration customerConfig;
+
+    final private FirebaseFirestore database =FirebaseFirestore.getInstance();
+    final private CollectionReference paymentsCollection = database.collection("Payments");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_attendee_event_enrollment, container, false);
         globalData=(GlobalData)getContext().getApplicationContext();
+        Log.d("user data", "onCreateView: "+globalData.globalUser);
         addNewParticipant = view.findViewById(R.id.addNewParticipantBtn);
         otherParRecyclerView = view.findViewById(R.id.otherParRecyclerView);
         attendeeMainRegisterCnic= view.findViewById(R.id.attendeeMainRegisterCnic);
@@ -62,8 +73,11 @@ public class attendee_event_enrollment extends Fragment {
         registeringEventName = view.findViewById(R.id.registeringEventName);
         registeringEventName.setText(globalData.globalSubEvent.getName());
         addNewParticipant = view.findViewById(R.id.addNewParticipantBtn);
+        requiredOtherPar = view.findViewById(R.id.requiredOtherPar);
+        requiredOtherPar.setText(" (Required "+(globalData.globalSubEvent.getMinParticipants()-1)+" more)");
         attendeeMainRegisterCniclayout = view.findViewById(R.id.attendeeMainRegisterCniclayout);
         PaymentBtn=view.findViewById(R.id.PaymentBtn);
+        paymentInfo.setMadeBy(globalData.globalUser.getUserId());
 
         paymentSheet = new PaymentSheet(this, this::onPaymentSheetResult);
 
@@ -84,6 +98,21 @@ public class attendee_event_enrollment extends Fragment {
                 {
                     attendeeMainRegisterCniclayout.setError("Cnic Required");
                 }
+                else if(otherParticipantsList.size()+1<globalData.globalSubEvent.getMinParticipants())
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    AlertDialog dialog;
+                    builder.setTitle("Error!");
+                    builder.setMessage("Please Add "+(globalData.globalSubEvent.getMinParticipants()-1-otherParticipantsList.size())+
+                            " More Participants");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog = builder.create();
+                    dialog.show();
+                }
                 else{
                     makePayment();
                 }
@@ -99,6 +128,7 @@ public class attendee_event_enrollment extends Fragment {
     private void makePayment() {
         int amount  = Integer.parseInt(globalData.globalSubEvent.getPrice())*100*(otherParticipantsList.size()+1);
         Log.d("amount", "makePayment: "+(amount));
+
         Fuel.INSTANCE.post("https://stripe-payment-production.up.railway.app/payment?amount="+amount+"&email="+globalData.globalUser.getEmail()+"&des=this is test", null).responseString(new Handler<String>() {
             @Override
             public void success(String s) {
@@ -108,6 +138,8 @@ public class attendee_event_enrollment extends Fragment {
                             result.getString("customer"),
                             result.getString("ephemeralKey")
                     );
+                    paymentInfo.setTid(result.getString("pid"));
+                    Log.d("pid", "success: "+result.getString("pid"));
                     paymentIntentClientSecret = result.getString("paymentIntent");
                     PaymentConfiguration.init(getContext().getApplicationContext(), result.getString("publishableKey"));
                     getActivity().runOnUiThread(new Runnable() {
@@ -140,17 +172,44 @@ public class attendee_event_enrollment extends Fragment {
         );
     }
 
-    private void onPaymentSheetResult(
-            final PaymentSheetResult paymentSheetResult
-    ) {
+    private void onPaymentSheetResult(final PaymentSheetResult paymentSheetResult)
+    {
         if (paymentSheetResult instanceof PaymentSheetResult.Canceled) {
             Log.d("Payment status", "onPaymentSheetResult: canncled");
+            Toast.makeText(getContext(), "Payment canceled", Toast.LENGTH_SHORT).show();
         } else if (paymentSheetResult instanceof PaymentSheetResult.Failed) {
             Log.d("App", "Got error: ", ((PaymentSheetResult.Failed) paymentSheetResult).getError());
-        } else if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
-            // Display for example, an order confirmation screen
-            Log.d("Payment status", "onPaymentSheetResult: success");
+            Toast.makeText(getContext(), "Payment Failed", Toast.LENGTH_SHORT).show();
         }
+        else if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
+            // Display for example, an order confirmation screen
+            paymentInfo.setAmount(Integer.parseInt(globalData.globalSubEvent.getPrice()));
+            paymentInfo.setStatus(true);
+            paymentInfo.setSubEventID(globalData.globalSubEvent.getSubEventId());
+            paymentInfo.setSubEventName(globalData.globalSubEvent.getName());
+            paymentInfo.setParticipantName(attendeeMainRegisterName.getText().toString());
+            paymentInfo.setParticipantCnic(attendeeMainRegisterCnic.getText().toString());
+            Log.d("Payment status", "onPaymentSheetResult: success");
+            paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+
+                }
+            });
+            for (int i = 0; i < otherParticipantsList.size(); i++) {
+                paymentInfo.setParticipantName(otherParticipantsList.get(i).getName());
+                paymentInfo.setParticipantCnic(otherParticipantsList.get(i).getCnic());
+                Log.d("Payment status", "onPaymentSheetResult: success");
+                paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+
+                    }
+                });
+            }
+            Toast.makeText(getContext(), "Payment Successful", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void addOtherParticipant() {
@@ -183,6 +242,9 @@ public class attendee_event_enrollment extends Fragment {
                     otherParticipantsList.add(otherParticipant);
                     Log.d("Others list", otherParticipantsList.toString());
                     updateOthersList();
+                    if((globalData.globalSubEvent.getMinParticipants()-1-otherParticipantsList.size())>=0)
+                        requiredOtherPar.setText(" (Required "+(globalData.globalSubEvent.getMinParticipants()-1-otherParticipantsList.size())+" more)");
+
                     alertDialog.dismiss();
                 }
 
@@ -260,6 +322,7 @@ public class attendee_event_enrollment extends Fragment {
                 @Override
                 public void onClick(View v) {
                    otherParticipantsList.remove(pos);
+                    requiredOtherPar.setText(" (Required "+(globalData.globalSubEvent.getMinParticipants()-1-otherParticipantsList.size())+" more)");
                    updateOthersList();
                 }
             });

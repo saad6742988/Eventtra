@@ -84,38 +84,43 @@ public class attendee_sub_events extends Fragment {
                         event.setSubEventId(documentSnapshot.getId());
 
 
-                        //get event Picture
-                        StorageReference file = storageReference.child("SubEvent/"+documentSnapshot.getId()+"/subevent.jpg");                        file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Log.d("main get image", "onSuccess: fetch success");
-                                if(uri!=null)
-                                {
-                                    Log.d("Image uri", "onSuccess: "+uri);
-                                    event.setPic(uri);
+                        if(event.isOpenRegistration()) {
+                            //get event Picture
+                            StorageReference file = storageReference.child("SubEvent/" + documentSnapshot.getId() + "/subevent.jpg");
+                            file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Log.d("main get image", "onSuccess: fetch success");
+                                    if (uri != null) {
+                                        Log.d("Image uri", "onSuccess: " + uri);
+                                        event.setPic(uri);
+
+
+                                        subEventList.add(event);
+
+                                        counterEvent++;
+                                        if (counterEvent == queryDocumentSnapshots.size()) {
+                                            populateList();
+                                        }
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                    event.setPic(null);
+                                    Log.d("Error", "onFailure: " + e.getMessage());
+                                    Log.d("null event", "onFailure: " + event);
                                     subEventList.add(event);
                                     counterEvent++;
-                                    if(counterEvent==queryDocumentSnapshots.size())
-                                    {
+                                    if (counterEvent == queryDocumentSnapshots.size()) {
                                         populateList();
                                     }
                                 }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-
-                                event.setPic(null);
-                                Log.d("Error", "onFailure: "+e.getMessage());
-                                Log.d("null event", "onFailure: "+event);
-                                subEventList.add(event);
-                                counterEvent++;
-                                if(counterEvent==queryDocumentSnapshots.size())
-                                {
-                                    populateList();
-                                }
-                            }
-                        });
+                            });
+                        }
+                        else
+                            counterEvent++;
 
                     }
                 }
