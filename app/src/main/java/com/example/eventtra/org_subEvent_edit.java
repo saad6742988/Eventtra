@@ -163,7 +163,7 @@ public class org_subEvent_edit extends Fragment {
         }
         else if(noOfPar.isEmpty() || Integer.parseInt(noOfPar)<1)
         {
-            eventNoOfParlayout.setError("Minmum No. of Participants Must be Greater than 1");
+            eventNoOfParlayout.setError("Minimum No. of Participants Must be Greater than 1");
             eventNoOfParlayout.requestFocus();
         }
         else{
