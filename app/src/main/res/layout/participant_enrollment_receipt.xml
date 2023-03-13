@@ -87,7 +87,7 @@
         android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Total Participants"
+        android:text="Participant Name"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -98,7 +98,7 @@
         android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Total Amount"
+        android:text="Participant Cnic"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -149,7 +149,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/tidtv" />
     <TextView
-        android:id="@+id/parNotv"
+        android:id="@+id/parNametv"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -159,7 +159,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/timetv" />
     <TextView
-        android:id="@+id/amounttv"
+        android:id="@+id/parCnictv"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -167,7 +167,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/parNotv" />
+        app:layout_constraintTop_toBottomOf="@+id/parNametv" />
     <TextView
         android:id="@+id/madeBytv"
         android:layout_width="120dp"
@@ -177,7 +177,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/amounttv" />
+        app:layout_constraintTop_toBottomOf="@+id/parCnictv" />
     <TextView
         android:id="@+id/statustv"
         android:layout_width="120dp"
@@ -188,5 +188,17 @@
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/madeBytv" />
+
+    <Button
+        android:id="@+id/recievePaymentBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="payment recieved"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/madeBytv"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

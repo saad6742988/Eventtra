@@ -103,9 +103,11 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
 
             case R.id.nav_events:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_main_event_list()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_main_event_list()).addToBackStack("attendeeMainEventList").commit();
                 break;
-
+            case R.id.my_enrollments:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_my_enrollments()).addToBackStack("attendee_my_enrollments").commit();
+                break;
             case R.id.nav_logout:
                 mAuth.signOut();
                 Intent intent = new Intent(AttendeePage.this, Login.class);

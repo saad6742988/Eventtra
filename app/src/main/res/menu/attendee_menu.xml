@@ -19,7 +19,7 @@
             android:title="Chat"/>
 
         <item
-            android:id="@+id/enrollments"
+            android:id="@+id/my_enrollments"
             android:icon="@drawable/enroll_icon"
             android:title="Enrollments"/>
         <item

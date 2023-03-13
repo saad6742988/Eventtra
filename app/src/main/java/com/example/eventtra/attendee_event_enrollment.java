@@ -59,6 +59,7 @@ public class attendee_event_enrollment extends Fragment {
 
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
     final private CollectionReference paymentsCollection = database.collection("Payments");
+    private AlertDialog loadingDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,8 +134,27 @@ public class attendee_event_enrollment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+    private void showLoading() {
+        // adding ALERT Dialog builder object and passing activity as parameter
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        // layoutinflater object and use activity to get layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.loading, null));
+        builder.setCancelable(true);
+        loadingDialog = builder.create();
+
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        int width = (int) (200 * scale + 0.5f);
+        int height = (int) (200 * scale + 0.5f);
+        loadingDialog.show();
+        loadingDialog.getWindow().setLayout(width,height);
+        loadingDialog.setCancelable(false);
+        loadingDialog.setCanceledOnTouchOutside(false);
+    }
 
     private void payLater() {
+        showLoading();
         paymentInfo.setTid("Cash");
         paymentInfo.setAmount(Integer.parseInt(globalData.globalSubEvent.getPrice()));
         paymentInfo.setStatus(false);
@@ -142,6 +162,7 @@ public class attendee_event_enrollment extends Fragment {
         paymentInfo.setSubEventName(globalData.globalSubEvent.getName());
         paymentInfo.setParticipantName(attendeeMainRegisterName.getText().toString());
         paymentInfo.setParticipantCnic(attendeeMainRegisterCnic.getText().toString());
+        paymentInfo.setTimeStamp(System.currentTimeMillis());
         paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -155,6 +176,7 @@ public class attendee_event_enrollment extends Fragment {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
+                                loadingDialog.dismiss();
                                 gotoStartPage();
                             }
                         });
@@ -163,6 +185,7 @@ public class attendee_event_enrollment extends Fragment {
                 else
                 {
                     Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
                     gotoStartPage();
                 }
             }
@@ -172,7 +195,7 @@ public class attendee_event_enrollment extends Fragment {
     private void makePayment() {
         int amount  = Integer.parseInt(globalData.globalSubEvent.getPrice())*100*(otherParticipantsList.size()+1);
         Log.d("amount", "makePayment: "+(amount));
-
+        showLoading();
         Fuel.INSTANCE.post("https://stripe-payment-production.up.railway.app/payment?amount="+amount+"&email="+globalData.globalUser.getEmail()+"&des=this is test", null).responseString(new Handler<String>() {
             @Override
             public void success(String s) {
@@ -183,13 +206,15 @@ public class attendee_event_enrollment extends Fragment {
                             result.getString("ephemeralKey")
                     );
                     paymentInfo.setTid(result.getString("pid"));
-                    paymentInfo.setTimeStamp(result.getLong("timeStamp"));
+                    paymentInfo.setTimeStamp(result.getLong("timeStamp")*1000);
                     Log.d("pid", "success: "+result);
                     paymentIntentClientSecret = result.getString("paymentIntent");
                     PaymentConfiguration.init(getContext().getApplicationContext(), result.getString("publishableKey"));
+                    loadingDialog.dismiss();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             presentPaymentSheet();
                         }
                     });
@@ -227,6 +252,7 @@ public class attendee_event_enrollment extends Fragment {
             Toast.makeText(getContext(), "Payment Failed", Toast.LENGTH_SHORT).show();
         }
         else if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
+            showLoading();
             // Display for example, an order confirmation screen
             paymentInfo.setAmount(Integer.parseInt(globalData.globalSubEvent.getPrice()));
             paymentInfo.setStatus(true);
@@ -248,6 +274,7 @@ public class attendee_event_enrollment extends Fragment {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
+                                    loadingDialog.dismiss();
                                     showReceipt();
                                 }
                             });
@@ -256,6 +283,7 @@ public class attendee_event_enrollment extends Fragment {
                     else
                     {
                         Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
+                        loadingDialog.dismiss();
                         showReceipt();
                     }
                 }
@@ -270,10 +298,12 @@ public class attendee_event_enrollment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View view = LayoutInflater.from(getContext()).inflate(R.layout.overall_enrollment_receipt, null);
         builder.setView(view);
+        final TextView subeventNametv = view.findViewById(R.id.subeventNametv);
+        subeventNametv.setText(paymentInfo.getSubEventName());
         final TextView tidtv = view.findViewById(R.id.tidtv);
         tidtv.setText(paymentInfo.getTid());
         final TextView timetv = view.findViewById(R.id.timetv);
-        Date d = new Date(paymentInfo.getTimeStamp());
+        Date d = new Date(paymentInfo.getTimeStamp()*1000);
         timetv.setText(d.toString());
         final TextView parNotv = view.findViewById(R.id.parNotv);
         parNotv.setText(String.valueOf(otherParticipantsList.size()+1));

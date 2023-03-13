@@ -13,6 +13,10 @@
             android:id="@+id/nav_edit_subEvent"
             android:icon="@drawable/edit_event_icon"
             android:title="Edit Sub-Event"/>
+        <item
+            android:id="@+id/organizer_enrollments"
+            android:icon="@drawable/enroll_icon"
+            android:title="All Enrollments"/>
 
         <item
             android:id="@+id/nav_settings"

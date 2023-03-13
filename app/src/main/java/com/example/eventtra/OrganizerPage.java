@@ -71,6 +71,9 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
             case R.id.nav_edit_subEvent:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer, new subEvent_list()).addToBackStack("addEventDetails").commit();
                 break;
+            case R.id.organizer_enrollments:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer, new organizer_event_enrollments()).addToBackStack("organizer_event_enrollments").commit();
+                break;
 
             case R.id.nav_settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer, new settings()).commit();
