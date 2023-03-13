@@ -38,12 +38,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class attendee_event_enrollment extends Fragment {
 
 
-    Button addNewParticipant,PaymentBtn;
+    Button addNewParticipant,PaymentBtn,PayLaterBtn;
     EditText attendeeMainRegisterName,attendeeMainRegisterCnic;
     TextInputLayout attendeeMainRegisterCniclayout;
     TextView registeringEventName,requiredOtherPar;
@@ -77,6 +78,7 @@ public class attendee_event_enrollment extends Fragment {
         requiredOtherPar.setText(" (Required "+(globalData.globalSubEvent.getMinParticipants()-1)+" more)");
         attendeeMainRegisterCniclayout = view.findViewById(R.id.attendeeMainRegisterCniclayout);
         PaymentBtn=view.findViewById(R.id.PaymentBtn);
+        PayLaterBtn=view.findViewById(R.id.PayLaterBtn);
         paymentInfo.setMadeBy(globalData.globalUser.getUserId());
 
         paymentSheet = new PaymentSheet(this, this::onPaymentSheetResult);
@@ -120,9 +122,51 @@ public class attendee_event_enrollment extends Fragment {
             }
         });
 
+        PayLaterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                payLater();
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void payLater() {
+        paymentInfo.setTid("Cash");
+        paymentInfo.setAmount(Integer.parseInt(globalData.globalSubEvent.getPrice()));
+        paymentInfo.setStatus(false);
+        paymentInfo.setSubEventID(globalData.globalSubEvent.getSubEventId());
+        paymentInfo.setSubEventName(globalData.globalSubEvent.getName());
+        paymentInfo.setParticipantName(attendeeMainRegisterName.getText().toString());
+        paymentInfo.setParticipantCnic(attendeeMainRegisterCnic.getText().toString());
+        paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+
+                if(otherParticipantsList.size()>0) {
+                    for (int i = 0; i < otherParticipantsList.size(); i++) {
+                        paymentInfo.setParticipantName(otherParticipantsList.get(i).getName());
+                        paymentInfo.setParticipantCnic(otherParticipantsList.get(i).getCnic());
+                        Log.d("Registration status", "Registered Successfully, Payment Pending");
+                        paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
+                                gotoStartPage();
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
+                    gotoStartPage();
+                }
+            }
+        });
     }
 
     private void makePayment() {
@@ -139,7 +183,8 @@ public class attendee_event_enrollment extends Fragment {
                             result.getString("ephemeralKey")
                     );
                     paymentInfo.setTid(result.getString("pid"));
-                    Log.d("pid", "success: "+result.getString("pid"));
+                    paymentInfo.setTimeStamp(result.getLong("timeStamp"));
+                    Log.d("pid", "success: "+result);
                     paymentIntentClientSecret = result.getString("paymentIntent");
                     PaymentConfiguration.init(getContext().getApplicationContext(), result.getString("publishableKey"));
                     getActivity().runOnUiThread(new Runnable() {
@@ -194,22 +239,70 @@ public class attendee_event_enrollment extends Fragment {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
 
+                    if(otherParticipantsList.size()>0) {
+                        for (int i = 0; i < otherParticipantsList.size(); i++) {
+                            paymentInfo.setParticipantName(otherParticipantsList.get(i).getName());
+                            paymentInfo.setParticipantCnic(otherParticipantsList.get(i).getCnic());
+                            Log.d("Registration status", "Registered Successfully, Payment Pending");
+                            paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
+                                    showReceipt();
+                                }
+                            });
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
+                        showReceipt();
+                    }
                 }
             });
-            for (int i = 0; i < otherParticipantsList.size(); i++) {
-                paymentInfo.setParticipantName(otherParticipantsList.get(i).getName());
-                paymentInfo.setParticipantCnic(otherParticipantsList.get(i).getCnic());
-                Log.d("Payment status", "onPaymentSheetResult: success");
-                paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
 
-                    }
-                });
-            }
-            Toast.makeText(getContext(), "Payment Successful", Toast.LENGTH_SHORT).show();
+
         }
 
+    }
+    private void showReceipt()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.overall_enrollment_receipt, null);
+        builder.setView(view);
+        final TextView tidtv = view.findViewById(R.id.tidtv);
+        tidtv.setText(paymentInfo.getTid());
+        final TextView timetv = view.findViewById(R.id.timetv);
+        Date d = new Date(paymentInfo.getTimeStamp());
+        timetv.setText(d.toString());
+        final TextView parNotv = view.findViewById(R.id.parNotv);
+        parNotv.setText(String.valueOf(otherParticipantsList.size()+1));
+        final TextView amounttv = view.findViewById(R.id.amounttv);
+        amounttv.setText(String.valueOf(paymentInfo.getAmount()*(otherParticipantsList.size()+1)));
+        final TextView madeBytv = view.findViewById(R.id.madeBytv);
+        madeBytv.setText(globalData.globalUser.getFname()+" "+globalData.globalUser.getLname());
+        final TextView statustv = view.findViewById(R.id.statustv);
+        statustv.setText("Paid");
+        ImageButton closeBtn = view.findViewById(R.id.closeBtn);
+        AlertDialog alertDialog = builder.create();
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                gotoStartPage();
+            }
+        });
+
+        alertDialog.show();
+        alertDialog.setCancelable(false);
+        alertDialog.setCanceledOnTouchOutside(false);
+    }
+
+    private void gotoStartPage() {
+        getActivity().getSupportFragmentManager().popBackStack();
+        getActivity().getSupportFragmentManager().popBackStack();
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 
     private void addOtherParticipant() {

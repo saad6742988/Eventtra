@@ -9,6 +9,7 @@ public class PaymentInfo {
     private Boolean status;
     private int amount;
     private String participantName,participantCnic,subEventID,subEventName;
+    private long timeStamp;
 
     public PaymentInfo(String id, String tid, String madeBy, int totalParticipants, Boolean status, int totalAmount) {
         this.id = id;
@@ -95,6 +96,14 @@ public class PaymentInfo {
         this.subEventName = subEventName;
     }
 
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
     @Override
     public String toString() {
         return "PaymentInfo{" +
@@ -107,6 +116,7 @@ public class PaymentInfo {
                 ", participantCnic='" + participantCnic + '\'' +
                 ", subEventID='" + subEventID + '\'' +
                 ", subEventName='" + subEventName + '\'' +
+                ", timeStamp=" + timeStamp +
                 '}';
     }
 }

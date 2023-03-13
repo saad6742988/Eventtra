@@ -128,11 +128,20 @@
                 android:textSize="18dp" />
             <TextView
                 android:id="@+id/requiredOtherPar"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:text=" (Required 1 more)"
                 android:textColor="@color/black"
                 android:textSize="14dp" />
+
+            <Button
+                android:id="@+id/addNewParticipantBtn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:text="+"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:padding="0dp"/>
         </LinearLayout>
 
 
@@ -141,7 +150,8 @@
             android:id="@+id/otherParRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="329dp"
-            tools:listitem="@layout/attendee_other_participants_card" />
+            tools:listitem="@layout/attendee_other_participants_card"
+            android:elevation="10dp"/>
 
     </LinearLayout>
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -151,10 +161,11 @@
         android:padding="10dp"
         android:elevation="8dp">
         <Button
-            android:id="@+id/addNewParticipantBtn"
+            android:id="@+id/PayLaterBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add more participants"/>
+            android:text="Pay Later"
+            android:layout_marginLeft="65dp"/>
         <Button
             android:id="@+id/PaymentBtn"
             android:layout_width="wrap_content"
