@@ -23,7 +23,7 @@
             android:icon="@drawable/enroll_icon"
             android:title="Enrollments"/>
         <item
-            android:id="@+id/event_requests"
+            android:id="@+id/attendee_event_requests"
             android:icon="@drawable/event_request_icon"
             android:title="Event Requests"/>
         <item

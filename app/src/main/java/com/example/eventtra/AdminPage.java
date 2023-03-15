@@ -74,14 +74,21 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()) {
 
             case R.id.nav_create_event:
+                getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addEventdetails()).addToBackStack("addEventDetails").commit();
                 break;
 
             case R.id.nav_edit_event:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainEventList()).commit();
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainEventList()).addToBackStack("mainEventList").commit();
+                break;
+            case R.id.admin_event_requests:
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new adminEventRequests()).addToBackStack("adminEventRequests").commit();
                 break;
 
             case R.id.nav_settings:
+                getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new settings()).commit();
                 break;
 
