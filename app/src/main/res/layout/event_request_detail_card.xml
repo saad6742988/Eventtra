@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="#f2d4d5">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,19 +16,28 @@
             android:padding="5dp">
             <TextView
                 android:id="@+id/requestDetailName"
+                android:text="Event Name"
+                android:textStyle="bold"
+                android:textColor="@color/purple_500"
+                android:textSize="25sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Event name"
-                android:textColor="@color/purple_500"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
+                android:text="Description"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"></TextView>
             <TextView
                 android:id="@+id/requestDetailDes"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Event Description"
-                android:textSize="16dp"
-                android:layout_marginTop="5dp"/>
+                android:text="Hello, this is start of description"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="15sp"
+                android:layout_marginTop="5dp"></TextView>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,11 +52,17 @@
                     android:id="@+id/requestDetailByName"
                     android:layout_width="201dp"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:layout_marginLeft="5dp"
                     android:text="name"
                     android:textSize="16dp"
-                    android:textColor="@color/black"/>
+                    android:textStyle="bold"
+                    android:background="@color/white"
+                    android:textColor="@color/black"
+                    android:shadowColor="@color/light_gray"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="4"
+                    android:padding="5dp"
+                    />
             </LinearLayout>
             <TextView
                 android:id="@+id/requestDetailStatus"
@@ -54,7 +70,12 @@
                 android:layout_height="wrap_content"
                 android:text="Status"
                 android:textSize="16dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/holo_green_dark"/>
+
+
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
