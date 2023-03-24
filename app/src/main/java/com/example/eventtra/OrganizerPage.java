@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -39,6 +43,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        globalData.setRegistrationToken();
 
         drawerLayout = findViewById(R.id.organizer_page_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -61,6 +66,10 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer, new subEvent_list()).addToBackStack("addEventDetails").commit();
             navigationView.setCheckedItem(R.id.nav_create_event);
+        }
+        if(!checkPermission()) {
+            Log.d("Check Per", "onCreate: ");
+            requestPermission();
         }
     }
 
@@ -120,6 +129,29 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
                 getSupportFragmentManager().popBackStack();
             }
 
+        }
+    }
+    public Boolean checkPermission()
+    {
+        int notificationPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS);
+        int wakeLockPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WAKE_LOCK);
+        if(notificationPermission == PackageManager.PERMISSION_GRANTED&&wakeLockPermission==PackageManager.PERMISSION_GRANTED)
+            return true;
+        Log.d("Check Per", "checkPermission:not ");
+        return false;
+    }
+    public void requestPermission()
+    {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                &&ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WAKE_LOCK))
+        {
+            Toast.makeText(this, "Please Allow Notification Permission From Settings", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.WAKE_LOCK},
+                    101);
         }
     }
 }

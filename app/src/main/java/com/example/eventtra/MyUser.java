@@ -12,6 +12,7 @@ public class MyUser {
     private String role;
     private String userId;
     private Uri profilePic;
+    private String deviceToken;
 
 
     public MyUser() {
@@ -42,49 +43,68 @@ public class MyUser {
         this.email = email;
         this.phone = phone;
         this.role = "attendee";
+        deviceToken = "";
     }
 
     public String getFname() {
         return fname;
     }
 
-    public String getLname() {
-        return lname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
     public void setFname(String fname) {
         this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
     }
 
     public void setLname(String lname) {
         this.lname = lname;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
     @Override
     public String toString() {
-        return "user{" +
+        return "MyUser{" +
                 "fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", role='" + role + '\'' +
                 ", userId='" + userId + '\'' +
+                ", profilePic=" + profilePic +
+                ", deviceToken='" + deviceToken + '\'' +
                 '}';
     }
 }

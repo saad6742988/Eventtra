@@ -119,8 +119,10 @@ public class attendee_sub_events extends Fragment {
                                 }
                             });
                         }
-                        else
+                        else {
                             counterEvent++;
+                            loadingDialog.dismiss();
+                        }
 
                     }
                 }

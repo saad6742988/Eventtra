@@ -2,11 +2,18 @@ package com.example.eventtra;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -34,9 +41,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         globalData = (GlobalData) getApplicationContext();
+
+
+
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
+
                 if (mAuth.getCurrentUser() != null&&mAuth.getCurrentUser().isEmailVerified()) {
                     userCollection.document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
@@ -78,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
+
                     /* Create an Intent that will start the Menu-Activity. */
                     Intent mainIntent = new Intent(MainActivity.this, Login.class);
                     MainActivity.this.startActivity(mainIntent);
@@ -101,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void moveToOtherActivity(MyUser user) {
         globalData.setglobalUser(user);
+
         Log.d("check global USer", "onComplete: " + globalData.getGlobalUser().toString());
         if (globalData.getGlobalUser().getRole().equals("attendee")) {
             Intent i = new Intent(MainActivity.this, AttendeePage.class);
@@ -131,4 +144,6 @@ public class MainActivity extends AppCompatActivity {
         });
         return pic;
     }
+
+
 }

@@ -176,6 +176,7 @@ public class Login extends AppCompatActivity {
                                     else
                                     {
                                         Toast.makeText(Login.this, "Failed to get user data", Toast.LENGTH_SHORT).show();
+                                        loadingDialog.dismiss();
                                     }
                                 }
                             });
