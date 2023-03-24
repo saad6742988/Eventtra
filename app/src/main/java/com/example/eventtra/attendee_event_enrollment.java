@@ -29,6 +29,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
@@ -163,6 +164,10 @@ public class attendee_event_enrollment extends Fragment {
         paymentInfo.setParticipantName(attendeeMainRegisterName.getText().toString());
         paymentInfo.setParticipantCnic(attendeeMainRegisterCnic.getText().toString());
         paymentInfo.setTimeStamp(System.currentTimeMillis());
+
+        FirebaseMessaging.getInstance().subscribeToTopic(globalData.globalSubEvent.getName()+"_"+
+                globalData.globalSubEvent.getSubEventId());
+
         paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -253,6 +258,12 @@ public class attendee_event_enrollment extends Fragment {
         }
         else if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
             showLoading();
+            //subscribing for this event topic
+            FirebaseMessaging.getInstance().subscribeToTopic(globalData.globalSubEvent.getName()+"_"+
+                    globalData.globalSubEvent.getSubEventId());
+
+
+
             // Display for example, an order confirmation screen
             paymentInfo.setAmount(Integer.parseInt(globalData.globalSubEvent.getPrice()));
             paymentInfo.setStatus(true);

@@ -54,6 +54,11 @@ public class attendeeSubEventDetails extends Fragment {
         subPrice.setText("Ticket : Rs."+globalData.globalSubEvent.getPrice()+" Per Participant");
         subDate.setText(globalData.globalSubEvent.getSubEventDate());
         subTime.setText(globalData.globalSubEvent.getSubEventTime());
+        if(!globalData.globalSubEvent.isOpenRegistration())
+        {
+            subEventEnrollBtn.setEnabled(false);
+            subEventEnrollBtn.setText("Enrollment Closed");
+        }
 
         subEventEnrollBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -53,6 +53,14 @@ public class GlobalData extends Application {
                         HashMap<String,Object> updateToken = new HashMap<>();
                         updateToken.put("deviceToken",globalUser.getDeviceToken());
                         userCollection.document(globalUser.getUserId()).update(updateToken);
+                        FirebaseMessaging.getInstance().subscribeToTopic("All").addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+
+                                    Log.d("check Subscription", "onComplete: ");
+                            }
+                        });
                     }
                 }
 
@@ -63,7 +71,7 @@ public class GlobalData extends Application {
             // Run your code here that you want to execute only on first install
             Toast.makeText(this, "first run", Toast.LENGTH_SHORT).show();
             Log.d("first run", "first run: ");
-//            FirebaseMessaging.getInstance().subscribeToTopic("all");
+
             // Set the isFirstRun flag to false so that the code doesn't run again
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("isFirstRun", false);

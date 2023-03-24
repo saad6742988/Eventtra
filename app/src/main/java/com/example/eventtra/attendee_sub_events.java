@@ -84,7 +84,7 @@ public class attendee_sub_events extends Fragment {
                         event.setSubEventId(documentSnapshot.getId());
 
 
-                        if(event.isOpenRegistration()) {
+                        if(!event.getDesc().equals("")) {
                             //get event Picture
                             StorageReference file = storageReference.child("SubEvent/" + documentSnapshot.getId() + "/subevent.jpg");
                             file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
