@@ -28,14 +28,16 @@ public class organizerEnrollmentAdapter extends RecyclerView.Adapter<organizerEn
     Context context;
     GlobalData globalData;
     HashMap<String,String> userData = new HashMap<>();
+    HashMap<String,String> userDeviceTokens = new HashMap<>();
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
     final private CollectionReference paymentCollection = database.collection("Payments");
 
-    public organizerEnrollmentAdapter(ArrayList<PaymentInfo> paymentInfoArrayList, HashMap<String, String> userData, Context context) {
+    public organizerEnrollmentAdapter(ArrayList<PaymentInfo> paymentInfoArrayList, HashMap<String, String> userData,HashMap<String,String> userDeviceTokens, Context context) {
         this.paymentInfoArrayList = paymentInfoArrayList;
         this.context = context;
         this.globalData =(GlobalData) context.getApplicationContext();
         this.userData = userData;
+        this.userDeviceTokens=userDeviceTokens;
     }
 
     @NonNull
@@ -134,6 +136,14 @@ public class organizerEnrollmentAdapter extends RecyclerView.Adapter<organizerEn
                 recievePaymentBtn.setEnabled(false);
                 statustv.setText("Paid");
                 statustv.setTextColor(Color.GREEN);
+                //sending Payment recieve Notification
+                FCMSend.pushNotification(
+                        context,
+                        userDeviceTokens.get(paymentInfo.getMadeBy()),
+                        "Payment Recieved",
+                        "Your Payment has been recieved for "+paymentInfo.getSubEventName(),
+                        "MianActivity","Payment Recieved"
+                );
                 alertDialog.dismiss();
                 AppCompatActivity act = (AppCompatActivity)v.getContext();
                 act.getSupportFragmentManager().popBackStack();

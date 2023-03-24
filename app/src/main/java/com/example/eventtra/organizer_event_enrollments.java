@@ -44,6 +44,7 @@ public class organizer_event_enrollments extends Fragment {
     final private CollectionReference subEventCollection = database.collection("SubEvent");
     final private CollectionReference userCollection = database.collection("User");
     HashMap<String,String> userData = new HashMap<>();
+    HashMap<String,String> userDeviceTokens = new HashMap<>();
     private AlertDialog loadingDialog;
     int counter = 0;
     @Override
@@ -126,6 +127,7 @@ public class organizer_event_enrollments extends Fragment {
                     {
                         for (QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots) {
                             userData.put(documentSnapshot.getId(),documentSnapshot.get("fname")+" "+documentSnapshot.get("lname"));
+                            userDeviceTokens.put(documentSnapshot.getId(),documentSnapshot.get("deviceToken").toString());
                             counter++;
                             if(counter==queryDocumentSnapshots.size())
                             {
@@ -152,7 +154,7 @@ public class organizer_event_enrollments extends Fragment {
 
     private void populateList() {
         Log.d("all Payments", "populateList: "+paymentInfoArrayList);
-        organizerEnrollmentAdapter adapter= new organizerEnrollmentAdapter(paymentInfoArrayList,userData, getContext());
+        organizerEnrollmentAdapter adapter= new organizerEnrollmentAdapter(paymentInfoArrayList,userData,userDeviceTokens, getContext());
         organizerEnrollmentRecyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         organizerEnrollmentRecyclerView.setLayoutManager(layoutManager);
@@ -212,7 +214,7 @@ public class organizer_event_enrollments extends Fragment {
                             filtered.add(paymentInfoArrayList.get(i));
                         }
                     }
-                    organizerEnrollmentAdapter adapter= new organizerEnrollmentAdapter(filtered,userData, getContext());
+                    organizerEnrollmentAdapter adapter= new organizerEnrollmentAdapter(filtered,userData,userDeviceTokens, getContext());
                     organizerEnrollmentRecyclerView.setAdapter(adapter);
 
                 }
