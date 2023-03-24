@@ -281,12 +281,16 @@ public class attendee_event_enrollment extends Fragment {
                             paymentInfo.setParticipantName(otherParticipantsList.get(i).getName());
                             paymentInfo.setParticipantCnic(otherParticipantsList.get(i).getCnic());
                             Log.d("Registration status", "Registered Successfully, Payment Pending");
+                            int finalI = i;
                             paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
                                     loadingDialog.dismiss();
-                                    showReceipt();
+                                    if(finalI ==otherParticipantsList.size()-1)
+                                    {
+                                        showReceipt();
+                                    }
                                 }
                             });
                         }
