@@ -71,6 +71,7 @@ public class addSubeventsAndHeads extends Fragment {
 
     private AlertDialog loadingDialog;
     RequestQueue requestQueue;
+    Context context;
 
 
     private String[] emails = {"ms6742988@gmail.com","hello@gmail.com","abc@gmail.com"};
@@ -79,6 +80,7 @@ public class addSubeventsAndHeads extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_add_subeventandheads, container, false);
+        context=getContext();
         eventData=this.getArguments();
         requestQueue = Volley.newRequestQueue(getActivity());
 
@@ -148,7 +150,7 @@ public class addSubeventsAndHeads extends Fragment {
 
                     Log.d(headEmail, headsDeviceTokens.get(headEmail));
                     //sending notificatiions to organizerss
-                    FCMSend.pushNotification(getContext(),headsDeviceTokens.get(headEmail),
+                    FCMSend.pushNotification(context,headsDeviceTokens.get(headEmail),
                             "Event Organizer","You have been Assigned a role of Organizer in "+newSubEvent.getName()
                             ,"MainActivity","Organizer");
 

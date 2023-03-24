@@ -69,12 +69,14 @@ public class editSubeventsAndHeads extends Fragment {
     private boolean changeCheck = false;
 
     private GlobalData globalData;
+    Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_edit_subevents_and_heads, container, false);
         eventData=this.getArguments();
+        context=getContext();
 
 
         globalData = (GlobalData) getActivity().getApplicationContext();
@@ -221,7 +223,7 @@ public class editSubeventsAndHeads extends Fragment {
                 updateSub.put("head", headId);
                 Log.d("updating", oldSubEventsMap.get(subEventName));
                 subEventCollection.document(oldSubEventsMap.get(subEventName)).update(updateSub);
-                FCMSend.pushNotification(getContext(),headsDeviceTokens.get(headEmail),
+                FCMSend.pushNotification(context,headsDeviceTokens.get(headEmail),
                         "Event Organizer","You have been Assigned a role of Organizer in "+subEventName
                         ,"MainActivity","Organizer");
                 subEvent_userID.put(oldSubEventsMap.get(subEventName), headId);
@@ -242,7 +244,7 @@ public class editSubeventsAndHeads extends Fragment {
                         subEvent_userID.put(newSubEvent.getSubEventId(), headId);
                         Log.d("Sub Event Added", "onSuccess: " + newSubEvent);
                         //sending notification
-                        FCMSend.pushNotification(getContext(),headsDeviceTokens.get(headEmail),
+                        FCMSend.pushNotification(context,headsDeviceTokens.get(headEmail),
                                 "Event Organizer","You have been Assigned a role of Organizer in "+newSubEvent.getName()
                                 ,"MainActivity","Organizer");
                         if (index == subEventsList.size() - 1) {

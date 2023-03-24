@@ -1,6 +1,7 @@
 package com.example.eventtra;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -47,14 +48,17 @@ public class attendeeEventRequest extends Fragment {
     final private CollectionReference eventRequestsCollection = database.collection("EventRequests");
     final private CollectionReference userCollection = database.collection("User");
     HashMap<String,String> userData = new HashMap<>();
+    HashMap<String,String> userDeviceTokens = new HashMap<>();
     private AlertDialog loadingDialog;
     GlobalData globalData;
     int counter=0;
+    Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_attendee_event_request, container, false);
         globalData = (GlobalData) getContext().getApplicationContext();
+        context= getContext();
         recyclerView = view.findViewById(R.id.attendeeRequestRecyclerView);
         eventRequestModelArrayList.clear();
         getRequestsData();
@@ -108,6 +112,7 @@ public class attendeeEventRequest extends Fragment {
                 {
                     for (QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots) {
                         userData.put(documentSnapshot.getId(),documentSnapshot.get("fname")+" "+documentSnapshot.get("lname"));
+                        userDeviceTokens.put(documentSnapshot.getId(),documentSnapshot.get("deviceToken").toString());
                         counter++;
                         if(counter==queryDocumentSnapshots.size())
                         {
@@ -133,7 +138,7 @@ public class attendeeEventRequest extends Fragment {
     }
     private void populateList() {
         Log.d("all Events", "populateList: "+eventRequestModelArrayList);
-        EventRequestAdapter adapter= new EventRequestAdapter(eventRequestModelArrayList, getContext(),userData);
+        EventRequestAdapter adapter= new EventRequestAdapter(eventRequestModelArrayList, getContext(),userData,userDeviceTokens);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -217,6 +222,28 @@ public class attendeeEventRequest extends Fragment {
                     eventRequestsCollection.add(request).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
+                            userCollection.whereEqualTo("role","admin").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if(queryDocumentSnapshots.size()>0) {
+                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                            FCMSend.pushNotification(
+                                                    context,
+                                                    documentSnapshot.get("deviceToken").toString(),
+                                                    "Event Request",
+                                                    globalData.globalUser.getFname()+" "+globalData.globalUser.getLname()+
+                                                            " has requested to arrange "+request.getRequestName(),
+                                                    "MianActivity","Event Request"
+                                            );
+                                        }
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
                             requireActivity().getSupportFragmentManager().popBackStack();
                             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendeeEventRequest()).addToBackStack("attendeeEventRequest").commit();
                             loadingDialog.dismiss();
