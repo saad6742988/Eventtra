@@ -19,7 +19,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.HashMap;
 
 public class GlobalData extends Application {
-     MyUser globalUser;
+     public MyUser globalUser;
      MyEvent globalEvent;
      subEventsModel globalSubEvent;
 

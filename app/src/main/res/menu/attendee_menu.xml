@@ -14,8 +14,8 @@
             android:title="Events"/>
 
         <item
-            android:id="@+id/chat"
-            android:icon="@drawable/chat_icon"
+            android:id="@+id/attendee_chat"
+            android:icon="@drawable/ic_baseline_chat_24"
             android:title="Chat"/>
 
         <item

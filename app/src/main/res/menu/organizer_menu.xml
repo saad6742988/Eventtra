@@ -21,6 +21,11 @@
             android:id="@+id/organizer_notification"
             android:icon="@drawable/ic_baseline_notifications_24"
             android:title="Notify"/>
+        <item
+            android:id="@+id/organizer_chat"
+            android:icon="@drawable/ic_baseline_chat_24"
+            android:title="Chat"/>
+
 
         <item
             android:id="@+id/nav_settings"

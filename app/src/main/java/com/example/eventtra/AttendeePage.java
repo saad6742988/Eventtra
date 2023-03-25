@@ -7,6 +7,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.eventtra.ChatRooms.chatScreen;
 import com.google.android.material.navigation.NavigationView;
 
 import android.Manifest;
@@ -22,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -119,6 +120,10 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
             case R.id.my_enrollments:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_my_enrollments()).addToBackStack("attendee_my_enrollments").commit();
+                break;
+            case R.id.attendee_chat:
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new chatScreen()).addToBackStack("chatScreen").commit();
                 break;
             case R.id.attendee_event_requests:
                 getSupportFragmentManager().popBackStack();
