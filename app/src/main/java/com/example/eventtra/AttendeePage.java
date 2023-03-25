@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.eventtra.ChatRooms.chatRoomsList;
 import com.example.eventtra.ChatRooms.chatScreen;
 import com.google.android.material.navigation.NavigationView;
 
@@ -123,7 +124,7 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.attendee_chat:
                 getSupportFragmentManager().popBackStack();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new chatScreen()).addToBackStack("chatScreen").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new chatRoomsList()).addToBackStack("chatRoomsList").commit();
                 break;
             case R.id.attendee_event_requests:
                 getSupportFragmentManager().popBackStack();

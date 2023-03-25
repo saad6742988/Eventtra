@@ -145,6 +145,13 @@ public class addSubeventsAndHeads extends Fragment {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     newSubEvent.setSubEventId(documentReference.getId());
+
+                    //create chat room of that event if need to be created
+                    //on event create with some data
+//                    FirebaseFirestore.getInstance().collection("ChatRooms").
+//                            document(documentReference.getId()).collection("Messages");
+
+
                     subEvent_userID.put(newSubEvent.getSubEventId(),headId);
                     Log.d("Sub Event Added", "onSuccess: "+newSubEvent);
 

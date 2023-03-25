@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.eventtra.ChatRooms.chatRoomsList;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -90,6 +91,10 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
             case R.id.nav_edit_event:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainEventList()).addToBackStack("mainEventList").commit();
+                break;
+            case R.id.admin_Chat:
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new chatRoomsList()).addToBackStack("chatRoomsList").commit();
                 break;
             case R.id.admin_event_requests:
                 getSupportFragmentManager().popBackStack();

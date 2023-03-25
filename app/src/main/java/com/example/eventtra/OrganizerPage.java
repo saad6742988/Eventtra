@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.eventtra.ChatRooms.chatRoomsList;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -84,6 +85,10 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
             case R.id.organizer_enrollments:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer, new organizer_event_enrollments()).addToBackStack("organizer_event_enrollments").commit();
+                break;
+            case R.id.organizer_chat:
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer, new chatRoomsList()).addToBackStack("chatRoomsList").commit();
                 break;
             case R.id.organizer_notification:
                 getSupportFragmentManager().popBackStack();
