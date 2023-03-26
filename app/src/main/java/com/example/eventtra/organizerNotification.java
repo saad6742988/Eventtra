@@ -142,6 +142,12 @@ public class organizerNotification extends Fragment {
                         }
                     }
                 }
+                else
+                {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,subEventNames);
+                    eventsDropDown.setAdapter(adapter);
+                    loadingDialog.dismiss();
+                }
 
             }
         }).addOnFailureListener(new OnFailureListener() {

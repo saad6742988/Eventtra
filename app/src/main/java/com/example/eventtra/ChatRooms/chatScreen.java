@@ -54,9 +54,7 @@ public class chatScreen extends Fragment {
 
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
     final private CollectionReference chatRoomsCollection = database.collection("ChatRooms");
-    private CollectionReference chatMessagesCollection = chatRoomsCollection.
-            document("thEg7DGkDfOiufL0619H").
-            collection("messages");
+    private CollectionReference chatMessagesCollection;
 
     private AlertDialog loadingDialog;
     int counterMessages = 0;
@@ -65,6 +63,11 @@ public class chatScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat_screen, container, false);
+
+        assert getArguments() != null;
+        String id = getArguments().getString("id");
+        chatMessagesCollection = chatRoomsCollection.document(id).collection("messages");
+
         globalData = (GlobalData) getActivity().getApplicationContext();
         adapter= new MessageAdapter(messageList, getContext(),globalData);
         messageRecycleView=view.findViewById(R.id.messageRecycleView);
