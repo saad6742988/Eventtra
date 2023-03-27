@@ -20,17 +20,21 @@ import com.example.eventtra.PaymentInfo;
 import com.example.eventtra.R;
 import com.example.eventtra.mainEventAdapter;
 import com.example.eventtra.subEventsModel;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -44,6 +48,7 @@ public class chatRoomsList extends Fragment {
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
     final private CollectionReference subEventCollection = database.collection("SubEvent");
     final private CollectionReference paymentsCollection = database.collection("Payments");
+    final private CollectionReference chatRoomsCollection = database.collection("ChatRooms");
     GlobalData globalData;
     private AlertDialog loadingDialog;
     ChatRoomsListAdapter adapter;
@@ -81,6 +86,21 @@ public class chatRoomsList extends Fragment {
 
     private void setManagementListener() {
         ChatRoomModel room = new ChatRoomModel(getString(R.string.ManagementRoomId),"Management Room");
+        chatRoomsCollection.document(getString(R.string.ManagementRoomId)).collection("messages").
+                orderBy("timeStamp", Query.Direction.DESCENDING).limit(1).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.size()>0)
+                        {
+                            for (QueryDocumentSnapshot document: queryDocumentSnapshots) {
+                                MessageModel message = document.toObject(MessageModel.class);
+                                room.setMessage(message.getMessage());
+                                room.setTimeStamp(message.getTimeStamp());
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
         chatRoomsList.add(room);
         adapter.notifyItemInserted(chatRoomsList.size()-1);
         subEventCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -93,6 +113,24 @@ public class chatRoomsList extends Fragment {
                             subEventsModel subEventsModel= dc.getDocument().toObject(subEventsModel.class);
                             subEventsModel.setSubEventId(dc.getDocument().getId());
                             ChatRoomModel room = new ChatRoomModel(dc.getDocument().getId(),subEventsModel.getName());
+                            //get first document
+                            chatRoomsCollection.document(dc.getDocument().getId()).collection("messages").
+                                    orderBy("timeStamp", Query.Direction.DESCENDING).limit(1).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                            if(queryDocumentSnapshots.size()>0)
+                                            {
+                                                for (QueryDocumentSnapshot document: queryDocumentSnapshots) {
+                                                    MessageModel message = document.toObject(MessageModel.class);
+                                                    room.setMessage(message.getMessage());
+                                                    room.setTimeStamp(message.getTimeStamp());
+                                                    adapter.notifyDataSetChanged();
+
+                                                }
+                                            }
+                                        }
+                                    });
+
                             Log.d("check rooms", "onSuccess: "+room);
                             if(globalData.globalUser.getRole().equals(getString(R.string.ADMIN)))
                             {

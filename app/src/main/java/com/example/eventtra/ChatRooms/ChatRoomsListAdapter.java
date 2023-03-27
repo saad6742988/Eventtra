@@ -16,8 +16,11 @@ import com.example.eventtra.GlobalData;
 import com.example.eventtra.R;
 import com.example.eventtra.attendee_sub_events;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class ChatRoomsListAdapter extends RecyclerView.Adapter<ChatRoomsListAdapter.ViewHolder>{
 
@@ -42,6 +45,14 @@ public class ChatRoomsListAdapter extends RecyclerView.Adapter<ChatRoomsListAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ChatRoomModel room = chatRoomsList.get(position);
         holder.chatRoomName.setText(room.getRoomName());
+        if(!room.getMessage().isEmpty())
+        {
+            holder.chatRoomMessage.setText(room.getMessage());
+            Date date=room.getTimeStamp().toDate();
+            SimpleDateFormat format = new SimpleDateFormat("hh:mm a", Locale.US);
+            String time = format.format(date);
+            holder.chatRoomTime.setText(time);
+        }
         holder.chatRoomCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,11 +88,13 @@ public class ChatRoomsListAdapter extends RecyclerView.Adapter<ChatRoomsListAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        TextView chatRoomName;
+        TextView chatRoomName,chatRoomMessage,chatRoomTime;
         CardView chatRoomCard;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             chatRoomName = itemView.findViewById(R.id.chatRoomName);
+            chatRoomMessage = itemView.findViewById(R.id.chatRoomMessage);
+            chatRoomTime = itemView.findViewById(R.id.chatRoomTime);
             chatRoomCard = itemView.findViewById(R.id.chatRoomCard);
         }
     }

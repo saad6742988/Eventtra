@@ -181,7 +181,7 @@ public class addEventdetails extends Fragment {
 
     }
 
-    private boolean validDate(DatePicker start,DatePicker end)
+    public boolean validDate(DatePicker start,DatePicker end)
     {
 
         if(start.getYear()>end.getYear())
