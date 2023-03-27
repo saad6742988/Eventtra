@@ -10,4 +10,8 @@
     <string name="no_user">There is no user record corresponding to this identifier. The user may have been deleted.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ADMIN">admin</string>
+    <string name="ORGANIZER">organizer</string>
+    <string name="ATTENDEE">attendee</string>
+    <string name="ManagementRoomId">PrivateRoom</string>
 </resources>

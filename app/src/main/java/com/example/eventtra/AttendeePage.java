@@ -3,10 +3,18 @@ package com.example.eventtra;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.eventtra.ChatRooms.chatRoomsList;
+import com.example.eventtra.ChatRooms.chatScreen;
 import com.google.android.material.navigation.NavigationView;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +48,7 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        globalData.setRegistrationToken();
 
         drawerLayout = findViewById(R.id.attendee_page_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -63,6 +71,10 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_main_event_list()).addToBackStack("attendeeMainEventList").commit();
             navigationView.setCheckedItem(R.id.nav_events);
+        }
+        if(!checkPermission()) {
+            Log.d("Check Per", "onCreate: ");
+            requestPermission();
         }
     }
 
@@ -110,6 +122,10 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_my_enrollments()).addToBackStack("attendee_my_enrollments").commit();
                 break;
+            case R.id.attendee_chat:
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new chatRoomsList()).addToBackStack("chatRoomsList").commit();
+                break;
             case R.id.attendee_event_requests:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendeeEventRequest()).addToBackStack("attendeeEventRequest").commit();
@@ -131,5 +147,28 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(AttendeePage.this, Login.class);
         AttendeePage.this.finish();
         AttendeePage.this.startActivity(intent);
+    }
+    public Boolean checkPermission()
+    {
+        int notificationPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS);
+        int wakeLockPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WAKE_LOCK);
+        if(notificationPermission == PackageManager.PERMISSION_GRANTED&&wakeLockPermission==PackageManager.PERMISSION_GRANTED)
+            return true;
+        Log.d("Check Per", "checkPermission:not ");
+        return false;
+    }
+    public void requestPermission()
+    {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                &&ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WAKE_LOCK))
+        {
+            Toast.makeText(this, "Please Allow Notification Permission From Settings", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.WAKE_LOCK},
+                    101);
+        }
     }
 }

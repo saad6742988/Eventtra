@@ -58,7 +58,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/textback"
-                    android:enabled="false"
                     android:hint="Name"
                     android:textColor="@color/black"
                     android:textSize="16sp" />

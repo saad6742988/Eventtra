@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -20,6 +21,13 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -57,10 +65,14 @@ public class addSubeventsAndHeads extends Fragment {
 
     private Map<String,String> heads =new HashMap<>();
     private Map<String,String> subEvent_userID=new HashMap<>();
+    private Map<String,String> headsDeviceTokens=new HashMap<>();
 
     private MyEvent newMainEvent;
 
     private AlertDialog loadingDialog;
+    RequestQueue requestQueue;
+    Context context;
+
 
     private String[] emails = {"ms6742988@gmail.com","hello@gmail.com","abc@gmail.com"};
     @Override
@@ -68,7 +80,9 @@ public class addSubeventsAndHeads extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_add_subeventandheads, container, false);
+        context=getContext();
         eventData=this.getArguments();
+        requestQueue = Volley.newRequestQueue(getActivity());
 
 
         //getting all views
@@ -131,8 +145,21 @@ public class addSubeventsAndHeads extends Fragment {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     newSubEvent.setSubEventId(documentReference.getId());
+
+                    //create chat room of that event if need to be created
+                    //on event create with some data
+//                    FirebaseFirestore.getInstance().collection("ChatRooms").
+//                            document(documentReference.getId()).collection("Messages");
+
+
                     subEvent_userID.put(newSubEvent.getSubEventId(),headId);
                     Log.d("Sub Event Added", "onSuccess: "+newSubEvent);
+
+                    Log.d(headEmail, headsDeviceTokens.get(headEmail));
+                    //sending notificatiions to organizerss
+                    FCMSend.pushNotification(context,headsDeviceTokens.get(headEmail),
+                            "Event Organizer","You have been Assigned a role of Organizer in "+newSubEvent.getName()
+                            ,"MainActivity","Organizer");
 
                     if(index==subEventsList.size()-1)
                     {
@@ -140,6 +167,7 @@ public class addSubeventsAndHeads extends Fragment {
                         Map<String,Object> updateEvent = new HashMap<>();
                         updateEvent.put("subEvents",subEvent_userID);
                         eventCollection.document(newMainEvent.getEventId()).update(updateEvent);
+
                         updateOrganizersStatus();
                     }
 
@@ -161,7 +189,9 @@ public class addSubeventsAndHeads extends Fragment {
             Map<String,Object> roleUpdate = new HashMap<>();
             roleUpdate.put("role","organizer");
             userCollection.document(heads.get(headEmail)).update(roleUpdate);
+
         }
+
         loadingDialog.dismiss();
 
         getActivity().getSupportFragmentManager().popBackStack();
@@ -277,6 +307,7 @@ public class addSubeventsAndHeads extends Fragment {
                     else
                     {
                         heads.put(head,user.getUserId());
+                        headsDeviceTokens.put(head,user.getDeviceToken());
                         if(index==-1)
                         {
                             addFields(subEventName,head);

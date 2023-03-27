@@ -29,14 +29,16 @@ public class EventRequestAdapter extends RecyclerView.Adapter<EventRequestAdapte
     Context context;
     GlobalData globalData;
     HashMap<String,String> userData = new HashMap<>();
+    HashMap<String,String> userDeviceTokens = new HashMap<>();
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
     final private CollectionReference eventRequestsCollection = database.collection("EventRequests");
 
-    public EventRequestAdapter(ArrayList<EventRequestModel> eventRequestModelArrayList, Context context, HashMap<String, String> userData) {
+    public EventRequestAdapter(ArrayList<EventRequestModel> eventRequestModelArrayList, Context context, HashMap<String, String> userData,HashMap<String, String> userDeviceTokens) {
         this.eventRequestModelArrayList = eventRequestModelArrayList;
         this.context = context;
         this.globalData = (GlobalData) context.getApplicationContext();
         this.userData = userData;
+        this.userDeviceTokens=userDeviceTokens;
     }
 
     @NonNull
@@ -143,6 +145,15 @@ public class EventRequestAdapter extends RecyclerView.Adapter<EventRequestAdapte
                 HashMap<String,Object> updateRequest = new HashMap<>();
                 updateRequest.put("requestStatus","Accepted");
                 eventRequestsCollection.document(request.getRequestId()).update(updateRequest);
+                //sending Accept Notification
+                FCMSend.pushNotification(
+                        context,
+                        userDeviceTokens.get(request.getUserID()),
+                        "Event Request",
+                        "Your Request for "+request.getRequestName()+" has Accepted",
+                        "MianActivity","Event Request"
+                );
+
                 alertDialog.dismiss();
                 AppCompatActivity act = (AppCompatActivity)v.getContext();
                 act.getSupportFragmentManager().popBackStack();
@@ -155,6 +166,15 @@ public class EventRequestAdapter extends RecyclerView.Adapter<EventRequestAdapte
                 HashMap<String,Object> updateRequest = new HashMap<>();
                 updateRequest.put("requestStatus","Rejected");
                 eventRequestsCollection.document(request.getRequestId()).update(updateRequest);
+                //sending Reject Notification
+                FCMSend.pushNotification(
+                        context,
+                        userDeviceTokens.get(request.getUserID()),
+                        "Event Request",
+                        "Your Request for "+request.getRequestName()+" has Rejected",
+                        "MianActivity","Event Request"
+                );
+
                 alertDialog.dismiss();
                 AppCompatActivity act = (AppCompatActivity)v.getContext();
                 act.getSupportFragmentManager().popBackStack();

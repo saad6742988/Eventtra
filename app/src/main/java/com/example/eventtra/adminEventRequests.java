@@ -41,6 +41,7 @@ public class adminEventRequests extends Fragment {
     final private CollectionReference eventRequestsCollection = database.collection("EventRequests");
     final private CollectionReference userCollection = database.collection("User");
     HashMap<String,String> userData = new HashMap<>();
+    HashMap<String,String> userDeviceTokens = new HashMap<>();
     private AlertDialog loadingDialog;
     GlobalData globalData;
     int counter=0;
@@ -104,6 +105,7 @@ public class adminEventRequests extends Fragment {
                 {
                     for (QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots) {
                         userData.put(documentSnapshot.getId(),documentSnapshot.get("fname")+" "+documentSnapshot.get("lname"));
+                        userDeviceTokens.put(documentSnapshot.getId(),documentSnapshot.get("deviceToken").toString());
                         counter++;
                         if(counter==queryDocumentSnapshots.size())
                         {
@@ -129,7 +131,7 @@ public class adminEventRequests extends Fragment {
     }
     private void populateList() {
         Log.d("all Events", "populateList: "+eventRequestModelArrayList);
-        EventRequestAdapter adapter= new EventRequestAdapter(eventRequestModelArrayList, getContext(),userData);
+        EventRequestAdapter adapter= new EventRequestAdapter(eventRequestModelArrayList, getContext(),userData,userDeviceTokens);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -188,7 +190,7 @@ public class adminEventRequests extends Fragment {
                             filtered.add(eventRequestModelArrayList.get(i));
                         }
                     }
-                    EventRequestAdapter adapter= new EventRequestAdapter(filtered, getContext(),userData);
+                    EventRequestAdapter adapter= new EventRequestAdapter(filtered, getContext(),userData,userDeviceTokens);
                     recyclerView.setAdapter(adapter);
 
                 }

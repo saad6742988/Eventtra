@@ -1,6 +1,7 @@
 package com.example.eventtra;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -63,6 +64,7 @@ public class org_subEvent_edit extends Fragment {
 
     private AlertDialog loadingDialog;
     GlobalData globalData;
+    private Context context;
 
     private boolean picChangeCheck;
 
@@ -72,6 +74,7 @@ public class org_subEvent_edit extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_org_sub_event_edit, container, false);
         globalData = (GlobalData) getActivity().getApplicationContext();
+        context=getContext();
 
         saveBtn=view.findViewById(R.id.saveBtn);
 
@@ -174,8 +177,11 @@ public class org_subEvent_edit extends Fragment {
             globalData.globalSubEvent.setSubEventDate(getDateString(subDatePick));
             globalData.globalSubEvent.setSubEventTime(subEventTime.getHour()+":"+subEventTime.getMinute());
             globalData.globalSubEvent.setMinParticipants(Integer.parseInt(noOfPar));
-            if(openEnrollmentSwitch.isChecked())
+            String registrationStatus="Registrations are closed Now!";
+            if(openEnrollmentSwitch.isChecked()) {
                 globalData.globalSubEvent.setOpenRegistration(true);
+                registrationStatus = "Registrations are open Now!";
+            }
             else
                 globalData.globalSubEvent.setOpenRegistration(false);
             Map<String,Object> updateSubEvent = new HashMap<>();
@@ -187,6 +193,10 @@ public class org_subEvent_edit extends Fragment {
             updateSubEvent.put("minParticipants",globalData.globalSubEvent.getMinParticipants());
             updateSubEvent.put("openRegistration",globalData.globalSubEvent.isOpenRegistration());
             subEventCollection.document(globalData.globalSubEvent.getSubEventId()).update(updateSubEvent);
+
+            //send registration open/close notification
+            FCMSend.pushNotification(context,"/topics/All",globalData.globalSubEvent.getName(),
+                    registrationStatus,"MianActivity","Registration Status");
             if(picChangeCheck)
             {
                 StorageReference file = storageReference.child("SubEvent/"+globalData.globalSubEvent.getSubEventId()+"/subevent.jpg");

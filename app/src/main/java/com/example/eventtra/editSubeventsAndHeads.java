@@ -61,6 +61,7 @@ public class editSubeventsAndHeads extends Fragment {
     private Map<String,String> heads =new HashMap<>();
     private ArrayList<Map<String,String>> oldSubEvents =new ArrayList<Map<String,String>>();
     private Map<String,String> subEvent_userID=new HashMap<>();
+    private Map<String,String> headsDeviceTokens=new HashMap<>();
 
     private AlertDialog loadingDialog;
 
@@ -68,12 +69,14 @@ public class editSubeventsAndHeads extends Fragment {
     private boolean changeCheck = false;
 
     private GlobalData globalData;
+    Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_edit_subevents_and_heads, container, false);
         eventData=this.getArguments();
+        context=getContext();
 
 
         globalData = (GlobalData) getActivity().getApplicationContext();
@@ -220,6 +223,9 @@ public class editSubeventsAndHeads extends Fragment {
                 updateSub.put("head", headId);
                 Log.d("updating", oldSubEventsMap.get(subEventName));
                 subEventCollection.document(oldSubEventsMap.get(subEventName)).update(updateSub);
+                FCMSend.pushNotification(context,headsDeviceTokens.get(headEmail),
+                        "Event Organizer","You have been Assigned a role of Organizer in "+subEventName
+                        ,"MainActivity","Organizer");
                 subEvent_userID.put(oldSubEventsMap.get(subEventName), headId);
                 if (i == subEventsList.size() - 1) {
                     Log.d("Updating Main Event", subEvent_userID.toString());
@@ -237,6 +243,10 @@ public class editSubeventsAndHeads extends Fragment {
                         newSubEvent.setSubEventId(documentReference.getId());
                         subEvent_userID.put(newSubEvent.getSubEventId(), headId);
                         Log.d("Sub Event Added", "onSuccess: " + newSubEvent);
+                        //sending notification
+                        FCMSend.pushNotification(context,headsDeviceTokens.get(headEmail),
+                                "Event Organizer","You have been Assigned a role of Organizer in "+newSubEvent.getName()
+                                ,"MainActivity","Organizer");
                         if (index == subEventsList.size() - 1) {
                             Log.d("Updating Main Event", subEvent_userID.toString());
                             Map<String, Object> updateEvent = new HashMap<>();
@@ -303,6 +313,7 @@ public class editSubeventsAndHeads extends Fragment {
                                MyUser user = documentSnapshot.toObject(MyUser.class);
                                user.setUserId(documentSnapshot.getId());
                                heads.put(user.getEmail(),user.getUserId());
+                               headsDeviceTokens.put(user.getEmail(),user.getDeviceToken());
                                addFields(subEvent.getName(),user.getEmail());
 
                            }
@@ -474,6 +485,7 @@ public class editSubeventsAndHeads extends Fragment {
                     else
                     {
                         heads.put(head,user.getUserId());
+                        headsDeviceTokens.put(head,user.getDeviceToken());
                         if(index==-1)
                         {
                             addFields(subEventName,head);

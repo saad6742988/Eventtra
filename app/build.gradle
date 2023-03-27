@@ -41,6 +41,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:21.2.0'
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation "androidx.cardview:cardview:1.0.0"
+    implementation 'com.google.firebase:firebase-messaging:23.0.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -60,4 +61,6 @@ dependencies {
     implementation 'com.stripe:stripe-android:20.19.5'
     implementation 'com.github.kittinunf.fuel:fuel:2.3.1'
     implementation 'com.github.kittinunf.fuel:fuel-json:2.3.1'
+    implementation 'com.android.volley:volley:1.2.1'
+
 }
