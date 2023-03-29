@@ -156,4 +156,40 @@ public class subEventsModel {
                 ", openRegistration=" + openRegistration +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        subEventsModel that = (subEventsModel) o;
+
+        if (minParticipants != that.minParticipants) return false;
+        if (openRegistration != that.openRegistration) return false;
+        if (!subEventId.equals(that.subEventId)) return false;
+        if (!name.equals(that.name)) return false;
+        if (!desc.equals(that.desc)) return false;
+        if (!price.equals(that.price)) return false;
+        if (!head.equals(that.head)) return false;
+        if (!pic.equals(that.pic)) return false;
+        if (!mainEventId.equals(that.mainEventId)) return false;
+        if (!subEventDate.equals(that.subEventDate)) return false;
+        return subEventTime.equals(that.subEventTime);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = subEventId.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + desc.hashCode();
+        result = 31 * result + price.hashCode();
+        result = 31 * result + head.hashCode();
+        result = 31 * result + pic.hashCode();
+        result = 31 * result + mainEventId.hashCode();
+        result = 31 * result + subEventDate.hashCode();
+        result = 31 * result + subEventTime.hashCode();
+        result = 31 * result + minParticipants;
+        result = 31 * result + (openRegistration ? 1 : 0);
+        return result;
+    }
 }
