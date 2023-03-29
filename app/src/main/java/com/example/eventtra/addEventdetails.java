@@ -48,7 +48,7 @@ import java.util.Locale;
 
 public class addEventdetails extends Fragment {
 
-
+//
 
     private Button nextBtn;
     private EditText eventName,eventDes;
