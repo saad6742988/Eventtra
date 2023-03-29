@@ -53,14 +53,16 @@ public class adminEventRequests extends Fragment {
         globalData = (GlobalData) getContext().getApplicationContext();
         recyclerView = view.findViewById(R.id.adminRequestRecyclerView);
         eventRequestModelArrayList.clear();
-        getRequestsData();
+        getRequestsData(false);
         // Inflate the layout for this fragment
         return view;
     }
 
-    private void getRequestsData() {
-        showLoading();
-
+   public void getRequestsData(boolean test) {
+       Log.d("getData Temp", "getRequestsData: ");
+        if(test==false) {
+            showLoading();
+        }
         eventRequestsCollection.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -77,7 +79,8 @@ public class adminEventRequests extends Fragment {
                         counter++;
                         if(counter==queryDocumentSnapshots.size())
                         {
-                            getUsersName();
+                            getUsersName(false);
+
                         }
                     }
                 }
@@ -93,10 +96,12 @@ public class adminEventRequests extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("TAG", "onFailure: ");
+
             }
         });
+
     }
-    private void getUsersName() {
+    public void getUsersName(boolean test) {
         counter = 0;
         userCollection.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -109,7 +114,7 @@ public class adminEventRequests extends Fragment {
                         counter++;
                         if(counter==queryDocumentSnapshots.size())
                         {
-                            populateList();
+                            populateList(test);
                         }
 
 
@@ -129,17 +134,23 @@ public class adminEventRequests extends Fragment {
 
 
     }
-    private void populateList() {
+    public ArrayList<EventRequestModel> populateList(boolean test) {
+        if(test==true){
+            return eventRequestModelArrayList;
+        }
+
         Log.d("all Events", "populateList: "+eventRequestModelArrayList);
         EventRequestAdapter adapter= new EventRequestAdapter(eventRequestModelArrayList, getContext(),userData,userDeviceTokens);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         loadingDialog.dismiss();
+
+        return eventRequestModelArrayList;
     }
 
 
-    private void showLoading() {
+    public void showLoading() {
         // adding ALERT Dialog builder object and passing activity as parameter
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -179,7 +190,7 @@ public class adminEventRequests extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 if(newText.isEmpty())
                 {
-                    populateList();
+                    populateList(false);
                 }
                 else
                 {
