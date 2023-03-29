@@ -152,7 +152,7 @@ public class addEventdetails extends Fragment {
             eventDesLayout.setError("Event Name Can't Be Empty");
             eventDesLayout.requestFocus();
         }
-        else if(!validDate(startDatePick,endDatePick))
+        else if(!validDate(startDatePick.getYear(),startDatePick.getMonth(),startDatePick.getDayOfMonth(),endDatePick.getYear(),endDatePick.getMonth(),endDatePick.getDayOfMonth()))
         {
             endDatePickLayout.setError("End Date can't Be Before Start Date");
         }
@@ -181,18 +181,18 @@ public class addEventdetails extends Fragment {
 
     }
 
-    public boolean validDate(DatePicker start,DatePicker end)
+    public boolean validDate(int startYear, int startMonth,int startDay,int endYear, int endMonth, int endDay)
     {
 
-        if(start.getYear()>end.getYear())
+        if(startYear>endYear)
             return false;
-        if(start.getYear()==end.getYear())
+        if(startYear==endYear)
         {
-            if(start.getMonth()>end.getMonth())
+            if(startMonth>endMonth)
                 return false;
-            if(start.getMonth()==end.getMonth())
+            if(startMonth==endMonth)
             {
-                if(start.getDayOfMonth()>end.getDayOfMonth())
+                if(startDay>endDay)
                     return false;
             }
         }
