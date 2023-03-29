@@ -21,13 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -70,7 +63,7 @@ public class addSubeventsAndHeads extends Fragment {
     private MyEvent newMainEvent;
 
     private AlertDialog loadingDialog;
-    RequestQueue requestQueue;
+
     Context context;
 
 
@@ -82,7 +75,7 @@ public class addSubeventsAndHeads extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_add_subeventandheads, container, false);
         context=getContext();
         eventData=this.getArguments();
-        requestQueue = Volley.newRequestQueue(getActivity());
+
 
 
         //getting all views

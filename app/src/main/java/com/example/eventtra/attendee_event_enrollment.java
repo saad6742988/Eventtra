@@ -249,6 +249,7 @@ public class attendee_event_enrollment extends Fragment {
 
     private void onPaymentSheetResult(final PaymentSheetResult paymentSheetResult)
     {
+        Log.d("paymentSheetResult1", "onPaymentSheetResult: "+paymentSheetResult);
         if (paymentSheetResult instanceof PaymentSheetResult.Canceled) {
             Log.d("Payment status", "onPaymentSheetResult: canncled");
             Toast.makeText(getContext(), "Payment canceled", Toast.LENGTH_SHORT).show();
