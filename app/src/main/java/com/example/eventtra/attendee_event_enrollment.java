@@ -127,7 +127,28 @@ public class attendee_event_enrollment extends Fragment {
         PayLaterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                payLater();
+                if(attendeeMainRegisterCnic.getText().toString().equals(""))
+                {
+                    attendeeMainRegisterCniclayout.setError("Cnic Required");
+                }
+                else if(otherParticipantsList.size()+1<globalData.globalSubEvent.getMinParticipants())
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    AlertDialog dialog;
+                    builder.setTitle("Error!");
+                    builder.setMessage("Please Add "+(globalData.globalSubEvent.getMinParticipants()-1-otherParticipantsList.size())+
+                            " More Participants");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog = builder.create();
+                    dialog.show();
+                }
+                else{
+                    payLater();
+                }
             }
         });
 
@@ -232,6 +253,8 @@ public class attendee_event_enrollment extends Fragment {
             @Override
             public void failure(@NonNull FuelError fuelError) {
                 Log.d("Error", "failure: "+fuelError.getMessage());
+                Toast.makeText(getContext(), "Error in getting Payment Method", Toast.LENGTH_SHORT).show();
+                loadingDialog.dismiss();
             }
         });
 

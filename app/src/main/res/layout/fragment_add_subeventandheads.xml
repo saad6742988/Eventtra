@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@color/screens_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,7 +31,7 @@
                 <TextView
                     android:text="Add Subevent"
                     android:textStyle="bold"
-                    android:textColor="#051094"
+                    android:textColor="@color/aboveColor"
                     android:textSize="33sp"
                     android:layout_marginStart="15dp"
                     android:layout_width="match_parent"
@@ -38,15 +41,13 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:card_view="http://schemas.android.com/tools"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="10dp"
                 app:cardUseCompatPadding="true"
-                card_view:cardCornerRAdius="5dp">
+                card_view:cardCornerRAdius="5dp"
+                android:backgroundTint="@color/aboveColor">
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -55,20 +56,22 @@
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:padding="2dp"
-                            android:src="@drawable/name_icon"
-                            android:layout_marginStart="5dp"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"/>
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/animationView"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            app:lottie_rawRes="@raw/textanimatedicon"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"/>
                         <TextView
                             android:text="Sub-Event Name"
                             android:layout_marginStart="10dp"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"
-                            android:textColor="#605E5E"
+                            android:textColor="@color/DarkGreen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -88,7 +91,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:background="@drawable/textback"/>
+                            android:background="@drawable/textback"
+                            android:backgroundTint="@color/aboveColor"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -99,15 +103,13 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:card_view="http://schemas.android.com/tools"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="10dp"
                 app:cardUseCompatPadding="true"
-                card_view:cardCornerRAdius="5dp">
+                card_view:cardCornerRAdius="5dp"
+                android:backgroundTint="@color/aboveColor">
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -116,10 +118,11 @@
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
                         <ImageView
                             android:padding="2dp"
-                            android:src="@drawable/email_icon"
+                            android:src="@drawable/ic_outline_email_24"
                             android:layout_marginStart="5dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"/>
@@ -149,7 +152,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:background="@drawable/textback"/>
+                            android:background="@drawable/textback"
+                            android:backgroundTint="@color/aboveColor"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -167,7 +171,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add"
-                android:layout_gravity="right"/>
+                android:background="@drawable/button_shape"
+                android:layout_gravity="right"
+                android:textColor="@color/aboveColor"/>
 
 
 
@@ -180,17 +186,15 @@
                 </LinearLayout>
 
 
-
-
-
             <Button
                 android:id="@+id/addEventBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="add event"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_shape"
-                android:layout_gravity="center"/>
+                android:text="add event"
+                android:textColor="@color/aboveColor"/>
         </LinearLayout>
 
     </ScrollView>

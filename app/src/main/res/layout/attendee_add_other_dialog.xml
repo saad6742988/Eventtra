@@ -1,97 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
-    <androidx.cardview.widget.CardView
+    android:padding="5dp"
+    app:cardCornerRadius="15dp"
+    android:backgroundTint="@color/screens_background">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="10dp"
-        app:cardUseCompatPadding="true"
-        >
-
-
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp">
+            android:layout_height="240dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
+            android:backgroundTint="@color/aboveColor">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="5dp">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="5dp"
-                    android:padding="2dp"
-                    android:src="@drawable/desc_icon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:text="Enter Participant Details"
-                    android:textColor="#605E5E"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animationView"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:lottie_rawRes="@raw/textanimatedicon"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:text="Enter Participant Details"
+                        android:textColor="@color/DarkGreen"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/otherParNameInputlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeColor="@android:color/transparent"
+                    app:boxStrokeWidthFocused="0dp">
+
+                    <EditText
+                        android:id="@+id/otherParNameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/textback"
+                        android:backgroundTint="@color/aboveColor"
+                        android:hint="Name"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/otherParCnicInputlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeColor="@android:color/transparent"
+                    app:boxStrokeWidthFocused="0dp">
+
+                    <EditText
+                        android:id="@+id/otherParCnicInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/textback"
+                        android:hint="CNIC"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:backgroundTint="@color/aboveColor"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
 
             </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/otherParNameInputlayout"
-                android:layout_width="match_parent"
+
+        </androidx.cardview.widget.CardView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:boxStrokeColor="@android:color/transparent"
-                app:boxStrokeWidthFocused="0dp">
-
-                <EditText
-                    android:id="@+id/otherParNameInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/textback"
-                    android:hint="Name"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/otherParCnicInputlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxStrokeColor="@android:color/transparent"
-                app:boxStrokeWidthFocused="0dp">
-
-                <EditText
-                    android:id="@+id/otherParCnicInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/textback"
-                    android:hint="CNIC"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_centerHorizontal="true"
+                android:text="Add"
+                android:textColor="@color/aboveColor"/>
+        </RelativeLayout>
+    </LinearLayout>
 
 
-        </LinearLayout>
 
-
-    </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="128dp"
-        android:text="Add" />
-</LinearLayout>
+</androidx.cardview.widget.CardView>

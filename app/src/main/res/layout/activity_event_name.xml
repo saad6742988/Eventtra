@@ -8,7 +8,8 @@
     app:cardCornerRadius="15dp"
     app:cardElevation="10dp"
     app:cardUseCompatPadding="true"
-    card_view:cardCornerRAdius="5dp">
+    card_view:cardCornerRAdius="5dp"
+    android:backgroundTint="#F4F4F4">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -17,20 +18,22 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:padding="2dp"
-                android:src="@drawable/name_icon"
-                android:layout_marginStart="5dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:lottie_rawRes="@raw/textanimatedicon"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
             <TextView
                 android:text="Event Name"
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textColor="#605E5E"
+                android:textColor="@color/DarkGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -50,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:background="@drawable/textback"/>
+                android:background="@drawable/textback"
+                android:backgroundTint="#F4F4F4"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 

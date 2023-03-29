@@ -40,13 +40,14 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
     boolean doubleBackToExitPressedOnce = false;
     CircleImageView profile;
     GlobalData globalData;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_page);
         globalData = (GlobalData) getApplicationContext();
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         globalData.setRegistrationToken();
@@ -86,24 +87,29 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
             case R.id.nav_create_event:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addEventdetails()).addToBackStack("addEventDetails").commit();
+                toolbar.setTitle("Add Event");
                 break;
 
             case R.id.nav_edit_event:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new mainEventList()).addToBackStack("mainEventList").commit();
+                toolbar.setTitle("Edit Event");
                 break;
             case R.id.admin_Chat:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new chatRoomsList()).addToBackStack("chatRoomsList").commit();
+                toolbar.setTitle("Discussions");
                 break;
             case R.id.admin_event_requests:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new adminEventRequests()).addToBackStack("adminEventRequests").commit();
+                toolbar.setTitle("Event Requests");
                 break;
 
             case R.id.nav_settings:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new settings()).commit();
+                toolbar.setTitle("Settings");
                 break;
 
             case R.id.nav_logout:

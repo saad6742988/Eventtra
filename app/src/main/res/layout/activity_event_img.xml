@@ -17,7 +17,8 @@
             app:cardUseCompatPadding="true"
             card_view:cardCornerRAdius="5dp"
             android:layout_width="match_parent"
-            android:layout_height="240dp">
+            android:layout_height="240dp"
+            android:backgroundTint="#F4F4F4">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_marginTop="23dp"
@@ -64,10 +65,18 @@
 
     </RelativeLayout>
     <com.google.android.material.imageview.ShapeableImageView
-        android:src="@drawable/temp_profile_img"
         android:elevation="15dp"
         android:padding="5dp"
         android:layout_centerHorizontal="true"
         android:layout_width="300dp"
         android:layout_height="150dp"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:lottie_rawRes="@raw/picanimation"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
 </RelativeLayout>
