@@ -47,7 +47,7 @@ public class addSubeventsAndHeads extends Fragment {
     private LinearLayout dynamicContainer;
     private int subEventCount;
     private ArrayList<Map<String,String>> subEventsList=new ArrayList<Map<String,String>>();
-//    private Map<String,String> subEvents=new HashMap<>();
+//    private Map<String,String> subEvents=new HashMap<>();//
     private Bundle eventData;
 
     final private StorageReference storageReference= FirebaseStorage.getInstance().getReference();
