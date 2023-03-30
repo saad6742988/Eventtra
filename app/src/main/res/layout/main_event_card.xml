@@ -75,10 +75,8 @@
                 android:text="TextViewbfgbfgnfgngfnfgnfgnffgnffgnnfnfnfnfnf"
                 android:maxLines="2"
                 android:ellipsize="end" />
-
-            <TextView
-                android:id="@+id/mainEventdateView"
-                android:layout_width="300dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/mainEventDescView"
                 android:layout_alignParentStart="true"
@@ -86,14 +84,25 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="8dp"
-                android:textSize="15dp"
-                android:textColor="#8C8C8C"
-                android:padding="5dp"
-                android:text="Date" />
+                android:padding="5dp">
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animationView"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    app:lottie_rawRes="@raw/calender"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"/>
+                <TextView
+                    android:id="@+id/mainEventdateView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="#8C8C8C"
+                    android:text="Date"
+                    android:layout_gravity="center_vertical"/> />
+            </LinearLayout>
 
-
-
-           />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -52,7 +53,8 @@ public class settings extends Fragment {
 
 
     private CircleImageView profilePic,navProfile;
-    private TextView usernameText,emailText,changePic,updateProfile,resetPassBtn;
+    private TextView usernameText,emailText,updateProfile,resetPassBtn;
+    FloatingActionButton changePic;
     private EditText updateFname,updateLname,updateEmail,updatePhone;
     private Button savebtn;
     private AlertDialog loadingDialog;
@@ -106,7 +108,7 @@ public class settings extends Fragment {
                     Log.d("update profile", "onClick: true");
                     ViewGroup.LayoutParams params = updateLayout.getLayoutParams();
                     Log.d("height", "onClick: "+params.height);
-                    int pixels = (int) (40 * scale + 0.5f);
+                    int pixels = (int) (43 * scale + 0.5f);
                     params.height=pixels;
                     updateLayout.setLayoutParams(params);
                     updateOpen=false;

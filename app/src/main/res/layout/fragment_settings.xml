@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".addSubeventsAndHeads"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/screens_background">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -21,6 +22,22 @@
             android:src="@drawable/profiletemp"
             />
 
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/changePicBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/profilePic"
+            android:layout_alignBottom="@+id/profilePic"
+            android:layout_marginEnd="-5dp"
+            android:layout_marginBottom="-3dp"
+            android:src="@drawable/ic_baseline_add_a_photo_24"
+            app:backgroundTint="@color/aboveColor"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="@+id/profilePic"
+            app:layout_constraintEnd_toEndOf="@+id/profilePic"
+            app:tint="@color/DarkGreen" />
+
         <TextView
             android:id="@+id/usernameText"
             android:layout_width="wrap_content"
@@ -28,9 +45,9 @@
             android:layout_marginStart="23dp"
             android:layout_toEndOf="@+id/profilePic"
             android:layout_marginTop="20dp"
-            android:textColor="@color/black"
-            android:text="Username"
-            android:textSize="30dp"
+            android:textColor="@color/aboveColor"
+            android:text="Muhammad Saad"
+            android:textSize="24dp"
             android:textStyle="bold"/>
 
         <TextView
@@ -41,9 +58,9 @@
             android:layout_marginStart="23dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/profilePic"
-            android:text="Email"
+            android:text="ms6742988@gmail.com"
             android:textSize="20dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/aboveColor"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -53,96 +70,115 @@
         android:gravity="center"
         android:padding="5dp">
 
+        <!--        <TextView-->
+<!--            android:id="@+id/changePicBtn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:text="Change Picture"-->
+<!--            android:textSize="20dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:backgroundTint="@color/aboveColor"-->
+<!--            android:background="@drawable/back"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:padding="5dp"/>-->
         <LinearLayout
             android:id="@+id/updateLayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="43dp"
             android:animateLayoutChanges="true"
             android:background="@drawable/back"
-            android:orientation="vertical">
+            android:backgroundTint="@color/aboveColor"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/updateProfileBtn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:padding="5dp"
                 android:text="Update Profile"
                 android:textSize="20dp" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="3dp"
-                android:layout_marginStart="3dp">
+                android:layout_marginEnd="3dp">
+
                 <EditText
                     android:id="@+id/fnameEditBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Fname"/>
+                    android:background="@drawable/textback"
+                    android:backgroundTint="#E3E3E3"
+                    android:hint="Fname" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="3dp"
-                android:layout_marginStart="3dp">
+                android:layout_marginEnd="3dp">
+
                 <EditText
                     android:id="@+id/lnameEditBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Lname"/>
+                    android:background="@drawable/textback"
+                    android:backgroundTint="#E3E3E3"
+                    android:hint="Lname" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="3dp"
-                android:layout_marginStart="3dp">
+                android:layout_marginEnd="3dp">
+
                 <EditText
                     android:id="@+id/phoneEditBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/textback"
+                    android:backgroundTint="#E3E3E3"
+                    android:digits="0123456789"
                     android:hint="Phone"
-                    android:inputType="phone"
-                    android:digits="0123456789"/>
+                    android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="3dp"
-                android:layout_marginStart="3dp">
+                android:layout_marginEnd="3dp">
+
                 <EditText
                     android:id="@+id/emailEditBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/textback"
+                    android:backgroundTint="#E3E3E3"
+                    android:enabled="false"
                     android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    android:enabled="false"/>
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/saveBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Save"
+                android:layout_gravity="end"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="3dp"
-                android:layout_gravity="end"
                 android:background="@drawable/button_shape"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:text="Save" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/changePicBtn"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Change Picture"
-            android:textSize="20dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/back"
-            android:gravity="center_vertical"
-            android:padding="5dp"/>
         <TextView
             android:id="@+id/resetPasswordBtn"
             android:layout_width="match_parent"
@@ -152,7 +188,8 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/back"
             android:gravity="center_vertical"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:backgroundTint="@color/aboveColor"/>
     </LinearLayout>
 
 

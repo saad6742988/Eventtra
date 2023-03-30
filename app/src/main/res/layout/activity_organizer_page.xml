@@ -21,7 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolbar"
             android:elevation="4dp"
-            android:background="@color/purple_500"
+            android:background="@color/DarkGreen"
             android:theme="@style/Theme.Eventtra.AppBarOverlay"
             android:popupTheme="@style/Theme.Eventtra.PopupOverlay"/>
 
@@ -36,12 +36,11 @@
         android:layout_height="match_parent"
         android:id="@+id/nav_view"
         android:layout_marginTop="10dp"
-
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/organizer_menu"
-        app:itemIconTint="@color/purple_200"
-        app:itemTextColor="@color/purple_700"
+        app:itemIconTint="@color/screens_background"
+        app:itemTextColor="@color/DarkGreen"
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>

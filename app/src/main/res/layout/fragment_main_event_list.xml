@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mainEventList"
-    android:background="@color/white">
+    android:background="@color/screens_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,6 +15,6 @@
             android:id="@+id/mainEventRecycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/main_event_card" />
+            tools:listitem="@layout/sub_event_card" />
     </ScrollView>
 </LinearLayout>
