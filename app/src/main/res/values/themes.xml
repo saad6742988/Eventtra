@@ -20,6 +20,12 @@
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">#004651</item>
     </style>
+    <style name="Theme.Eventtra.NoActionBar1">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/screens_background</item>
+        <item name="android:statusBarColor">@color/screens_background</item>
+    </style>
 
     <style name="Theme.Eventtra.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
         <item name="colorControlNormal">@color/white</item>
