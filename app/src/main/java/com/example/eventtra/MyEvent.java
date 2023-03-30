@@ -111,5 +111,31 @@ public class MyEvent {
                 "}\n";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        MyEvent myEvent = (MyEvent) o;
+
+        if (!eventId.equals(myEvent.eventId)) return false;
+        if (!eventName.equals(myEvent.eventName)) return false;
+        if (!eventDes.equals(myEvent.eventDes)) return false;
+        if (!startDate.equals(myEvent.startDate)) return false;
+        if (!endDate.equals(myEvent.endDate)) return false;
+        if (!subEvents.equals(myEvent.subEvents)) return false;
+        return eventPic.equals(myEvent.eventPic);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = eventId.hashCode();
+        result = 31 * result + eventName.hashCode();
+        result = 31 * result + eventDes.hashCode();
+        result = 31 * result + startDate.hashCode();
+        result = 31 * result + endDate.hashCode();
+        result = 31 * result + subEvents.hashCode();
+        result = 31 * result + eventPic.hashCode();
+        return result;
+    }
 }
