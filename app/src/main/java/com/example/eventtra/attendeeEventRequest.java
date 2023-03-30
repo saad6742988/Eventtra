@@ -189,7 +189,7 @@ public class attendeeEventRequest extends Fragment {
 
     void addRequest()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.CustomAlertDialog);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.attendee_event_request_dialog, null);
         builder.setView(view);
         final TextInputLayout requestNameLayout = view.findViewById(R.id.requestNameInputlayout);
