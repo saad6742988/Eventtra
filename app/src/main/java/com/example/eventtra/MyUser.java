@@ -46,6 +46,17 @@ public class MyUser {
         deviceToken = "";
     }
 
+    public MyUser(String fname, String lname, String email, String phone, String role, String userId, Uri profilePic, String deviceToken) {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+        this.userId = userId;
+        this.profilePic = profilePic;
+        this.deviceToken = deviceToken;
+    }
+
     public String getFname() {
         return fname;
     }
@@ -106,5 +117,35 @@ public class MyUser {
                 ", profilePic=" + profilePic +
                 ", deviceToken='" + deviceToken + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MyUser myUser = (MyUser) o;
+
+        if (!fname.equals(myUser.fname)) return false;
+        if (!lname.equals(myUser.lname)) return false;
+        if (!email.equals(myUser.email)) return false;
+        if (!phone.equals(myUser.phone)) return false;
+        if (!role.equals(myUser.role)) return false;
+        if (!userId.equals(myUser.userId)) return false;
+        if (!profilePic.equals(myUser.profilePic)) return false;
+        return deviceToken.equals(myUser.deviceToken);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = fname.hashCode();
+        result = 31 * result + lname.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + phone.hashCode();
+        result = 31 * result + role.hashCode();
+        result = 31 * result + userId.hashCode();
+        result = 31 * result + profilePic.hashCode();
+        result = 31 * result + deviceToken.hashCode();
+        return result;
     }
 }

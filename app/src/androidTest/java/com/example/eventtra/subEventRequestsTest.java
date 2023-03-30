@@ -10,7 +10,7 @@ import org.junit.Test;
 public class subEventRequestsTest {
 
     @Test
-    public void dataValid()
+    public void subEventRequestsValid()
     {
         String uritemp="https://www.example.com/path/to/resource?query=value";
         Uri uri2=Uri.parse(uritemp);
@@ -24,7 +24,7 @@ public class subEventRequestsTest {
 
     }
     @Test
-    public void dataNotValid()
+    public void subEventRequestsNotValid()
     {
 
         String uritemp="https://www.example.com/path/to/resource?query=value";
