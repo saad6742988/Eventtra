@@ -82,7 +82,7 @@ public class EventRequestAdapter extends RecyclerView.Adapter<EventRequestAdapte
     }
 
     private void showDetails(EventRequestModel request) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         View view = LayoutInflater.from(context).inflate(R.layout.event_request_detail_card, null);
         builder.setView(view);
         final TextView requestDetailName = view.findViewById(R.id.requestDetailName);

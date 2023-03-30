@@ -18,7 +18,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.eventtra.GlobalData;
 import com.example.eventtra.MyEvent;
 import com.example.eventtra.R;
@@ -47,9 +49,11 @@ public class chatScreen extends Fragment {
 
     RecyclerView messageRecycleView;
     EditText newMessageBox;
-    ImageButton messageSendBtn;
+    LottieAnimationView messageSendBtn;
     GlobalData globalData;
     ArrayList<MessageModel> messageList = new ArrayList<>();
+    String roomName;
+    Toolbar toolbar;
 
 
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
@@ -66,6 +70,7 @@ public class chatScreen extends Fragment {
 
         assert getArguments() != null;
         String id = getArguments().getString("id");
+        roomName = getArguments().getString("name");
         chatMessagesCollection = chatRoomsCollection.document(id).collection("messages");
 
         globalData = (GlobalData) getActivity().getApplicationContext();
@@ -205,7 +210,7 @@ public class chatScreen extends Fragment {
     }
     private void showLoading() {
         // adding ALERT Dialog builder object and passing activity as parameter
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.CustomAlertDialog);
 
         // layoutinflater object and use activity to get layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -220,5 +225,14 @@ public class chatScreen extends Fragment {
         loadingDialog.getWindow().setLayout(width,height);
         loadingDialog.setCancelable(false);
         loadingDialog.setCanceledOnTouchOutside(false);
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(roomName);
     }
 }

@@ -152,7 +152,7 @@ public class adminEventRequests extends Fragment {
 
     public void showLoading() {
         // adding ALERT Dialog builder object and passing activity as parameter
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.CustomAlertDialog);
 
         // layoutinflater object and use activity to get layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();

@@ -3,16 +3,9 @@ package com.example.eventtra;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.app.AlertDialog;
-import android.app.TimePickerDialog;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TimePicker;
 
-import java.util.Locale;
-
-public class event_time extends AppCompatActivity {
+public class temp_event_time extends AppCompatActivity {
 
     TimePicker timePicker;
 

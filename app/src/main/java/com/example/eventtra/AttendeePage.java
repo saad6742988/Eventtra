@@ -39,13 +39,14 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
     boolean doubleBackToExitPressedOnce = false;
     CircleImageView profile;
     GlobalData globalData;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendee_page);
 
         globalData = (GlobalData) getApplicationContext();
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         globalData.setRegistrationToken();
@@ -70,6 +71,7 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_main_event_list()).addToBackStack("attendeeMainEventList").commit();
+            toolbar.setTitle("Events");
             navigationView.setCheckedItem(R.id.nav_events);
         }
         if(!checkPermission()) {
@@ -117,18 +119,27 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
             case R.id.nav_events:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_main_event_list()).addToBackStack("attendeeMainEventList").commit();
+                toolbar.setTitle("Events");
                 break;
             case R.id.my_enrollments:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendee_my_enrollments()).addToBackStack("attendee_my_enrollments").commit();
+                toolbar.setTitle("My Enrollments");
                 break;
             case R.id.attendee_chat:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new chatRoomsList()).addToBackStack("chatRoomsList").commit();
+                toolbar.setTitle("Discussions");
                 break;
             case R.id.attendee_event_requests:
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendeeEventRequest()).addToBackStack("attendeeEventRequest").commit();
+                toolbar.setTitle("Event Requests");
+                break;
+            case R.id.nav_settings:
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new settings()).commit();
+                toolbar.setTitle("Settings");
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();

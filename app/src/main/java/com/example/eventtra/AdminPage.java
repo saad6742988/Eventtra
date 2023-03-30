@@ -72,6 +72,7 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new addEventdetails()).addToBackStack("addEventDetails").commit();
+            toolbar.setTitle("Add Event");
             navigationView.setCheckedItem(R.id.nav_create_event);
         }
         if(!checkPermission()) {

@@ -158,7 +158,7 @@ public class attendee_event_enrollment extends Fragment {
     }
     private void showLoading() {
         // adding ALERT Dialog builder object and passing activity as parameter
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.CustomAlertDialog);
 
         // layoutinflater object and use activity to get layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -334,7 +334,7 @@ public class attendee_event_enrollment extends Fragment {
     }
     private void showReceipt()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.CustomAlertDialog);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.overall_enrollment_receipt, null);
         builder.setView(view);
         final TextView subeventNametv = view.findViewById(R.id.subeventNametv);

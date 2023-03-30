@@ -44,7 +44,7 @@
             </intent-filter>
         </service>
         <activity
-            android:name=".event_time"
+            android:name=".temp_event_time"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -66,7 +66,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".event_price"
+            android:name=".temp_event_price"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

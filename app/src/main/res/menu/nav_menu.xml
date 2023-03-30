@@ -18,13 +18,14 @@
             android:icon="@drawable/edit_event_icon"
             android:title="Edit Event"/>
         <item
+            android:id="@+id/admin_Chat"
+            android:icon="@drawable/ic_baseline_chat_24"
+            android:title="Discussions"/>
+        <item
             android:id="@+id/admin_event_requests"
             android:icon="@drawable/event_request_icon"
             android:title="Event Requests"/>
-        <item
-            android:id="@+id/admin_Chat"
-            android:icon="@drawable/ic_baseline_chat_24"
-            android:title="Chat"/>
+
 
         <item
             android:id="@+id/nav_settings"

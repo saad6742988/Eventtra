@@ -75,7 +75,7 @@ public class organizerEnrollmentAdapter extends RecyclerView.Adapter<organizerEn
     }
     private void showReceipt(PaymentInfo paymentInfo)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         View view = LayoutInflater.from(context).inflate(R.layout.participant_enrollment_receipt, null);
         builder.setView(view);
         final TextView subeventNametv = view.findViewById(R.id.subeventNametv);

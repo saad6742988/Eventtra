@@ -102,7 +102,7 @@ public class Login extends AppCompatActivity {
     }
     private void showLoading() {
         // adding ALERT Dialog builder object and passing activity as parameter
-        AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Login.this,R.style.CustomAlertDialog);
 
         // layoutinflater object and use activity to get layout inflater
         LayoutInflater inflater = Login.this.getLayoutInflater();

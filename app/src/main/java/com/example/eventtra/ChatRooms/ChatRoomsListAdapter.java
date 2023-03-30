@@ -59,6 +59,7 @@ public class ChatRoomsListAdapter extends RecyclerView.Adapter<ChatRoomsListAdap
                 chatScreen fragment = new chatScreen();
                 Bundle args = new Bundle();
                 args.putString("id", room.getRoomId());
+                args.putString("name", room.getRoomName());
                 fragment.setArguments(args);
                 AppCompatActivity act = (AppCompatActivity)view.getContext();
                 if(globalData.globalUser.getRole().equals(context.getString(R.string.ADMIN)))

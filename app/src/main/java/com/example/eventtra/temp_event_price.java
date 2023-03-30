@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class event_price extends AppCompatActivity {
+public class temp_event_price extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
