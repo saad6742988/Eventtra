@@ -8,13 +8,15 @@ public class MessageModel {
     private String messageId;
     private String message;
     private String email;
+    private int priority;
     private Timestamp timeStamp;
     public MessageModel() {
     }
 
-    public MessageModel( String message, String email) {
+    public MessageModel(String message, String email, int priority) {
         this.message = message;
         this.email = email;
+        this.priority = priority;
     }
 
     @Exclude
@@ -48,6 +50,14 @@ public class MessageModel {
 
     public void setTimeStamp(Timestamp timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     @Override

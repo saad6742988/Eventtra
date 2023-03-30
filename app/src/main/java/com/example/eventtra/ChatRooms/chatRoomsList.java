@@ -85,7 +85,7 @@ public class chatRoomsList extends Fragment {
     }
 
     private void setManagementListener() {
-        ChatRoomModel room = new ChatRoomModel(getString(R.string.ManagementRoomId),"Management Room");
+        ChatRoomModel room = new ChatRoomModel(getString(R.string.ManagementRoomId),"Management Discussion");
         chatRoomsCollection.document(getString(R.string.ManagementRoomId)).collection("messages").
                 orderBy("timeStamp", Query.Direction.DESCENDING).limit(1).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -102,6 +102,24 @@ public class chatRoomsList extends Fragment {
                     }
                 });
         chatRoomsList.add(room);
+        adapter.notifyItemInserted(chatRoomsList.size()-1);
+        ChatRoomModel GeneralRoom = new ChatRoomModel(getString(R.string.GeneralRoomId),"General Discussion");
+        chatRoomsCollection.document(getString(R.string.GeneralRoomId)).collection("messages").
+                orderBy("timeStamp", Query.Direction.DESCENDING).limit(1).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.size()>0)
+                        {
+                            for (QueryDocumentSnapshot document: queryDocumentSnapshots) {
+                                MessageModel message = document.toObject(MessageModel.class);
+                                GeneralRoom.setMessage(message.getMessage());
+                                GeneralRoom.setTimeStamp(message.getTimeStamp());
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
+        chatRoomsList.add(GeneralRoom);
         adapter.notifyItemInserted(chatRoomsList.size()-1);
         subEventCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -158,43 +176,61 @@ public class chatRoomsList extends Fragment {
         });
     }
 
-    private void getOrganizerRooms() {
-        Toast.makeText(getContext(), "Organizers Room", Toast.LENGTH_SHORT).show();
-        ChatRoomModel room = new ChatRoomModel(getString(R.string.ManagementRoomId),"Management Room");
-        chatRoomsList.add(room);
-        adapter.notifyItemInserted(chatRoomsList.size()-1);
-
-        subEventCollection.whereEqualTo("head",globalData.globalUser.getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.size()>0)
-                {
-                    for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots)
-                    {
-                        subEventsModel subEventsModel = documentSnapshot.toObject(subEventsModel.class);
-                        subEventsModel.setSubEventId(documentSnapshot.getId());
-                        ChatRoomModel room = new ChatRoomModel(documentSnapshot.getId(),subEventsModel.getName());
-                        Log.d("check rooms", "onSuccess: "+room);
-                        chatRoomsList.add(room);
-                        adapter.notifyItemInserted(chatRoomsList.size()-1);
-//                        counter++;
-                    }
-                }
-                else
-                {
-                    loadingDialog.dismiss();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
-    }
+//    private void getOrganizerRooms() {
+//        Toast.makeText(getContext(), "Organizers Room", Toast.LENGTH_SHORT).show();
+//        ChatRoomModel room = new ChatRoomModel(getString(R.string.ManagementRoomId),"Management Room");
+//        chatRoomsList.add(room);
+//        adapter.notifyItemInserted(chatRoomsList.size()-1);
+//
+//        subEventCollection.whereEqualTo("head",globalData.globalUser.getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                if(queryDocumentSnapshots.size()>0)
+//                {
+//                    for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots)
+//                    {
+//                        subEventsModel subEventsModel = documentSnapshot.toObject(subEventsModel.class);
+//                        subEventsModel.setSubEventId(documentSnapshot.getId());
+//                        ChatRoomModel room = new ChatRoomModel(documentSnapshot.getId(),subEventsModel.getName());
+//                        Log.d("check rooms", "onSuccess: "+room);
+//                        chatRoomsList.add(room);
+//                        adapter.notifyItemInserted(chatRoomsList.size()-1);
+////                        counter++;
+//                    }
+//                }
+//                else
+//                {
+//                    loadingDialog.dismiss();
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//
+//            }
+//        });
+//    }
 
     private void setAttendeeListener() {
         Toast.makeText(getContext(), "attendee Room", Toast.LENGTH_SHORT).show();
+        ChatRoomModel GeneralRoom = new ChatRoomModel(getString(R.string.GeneralRoomId),"General Discussion");
+        chatRoomsCollection.document(getString(R.string.GeneralRoomId)).collection("messages").
+                orderBy("timeStamp", Query.Direction.DESCENDING).limit(1).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.size()>0)
+                        {
+                            for (QueryDocumentSnapshot document: queryDocumentSnapshots) {
+                                MessageModel message = document.toObject(MessageModel.class);
+                                GeneralRoom.setMessage(message.getMessage());
+                                GeneralRoom.setTimeStamp(message.getTimeStamp());
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
+        chatRoomsList.add(GeneralRoom);
+        adapter.notifyItemInserted(chatRoomsList.size()-1);
         paymentsCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException error) {

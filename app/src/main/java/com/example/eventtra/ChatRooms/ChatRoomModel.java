@@ -48,6 +48,7 @@ public class ChatRoomModel implements Comparable<ChatRoomModel> {
         this.timeStamp = timeStamp;
     }
 
+
     @Override
     public int compareTo(ChatRoomModel o) {
         Log.d("timeStamp chaeck", timeStamp+" : "+timeStamp);

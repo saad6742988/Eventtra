@@ -140,10 +140,20 @@ public class chatScreen extends Fragment {
     private void postMessage() {
         if(!newMessageBox.getText().toString().equals("")){
 
+            int priority = 0;
             HashMap<String,Object> addMessage = new HashMap<>();
             addMessage.put("message", newMessageBox.getText().toString());
             addMessage.put("email", globalData.globalUser.getEmail());
+            addMessage.put("userID", globalData.globalUser.getUserId());
             addMessage.put("timeStamp", FieldValue.serverTimestamp());
+            if(globalData.globalUser.getRole().equals(getString(R.string.ADMIN)))
+            {
+                priority=2;
+            }
+            else if(globalData.globalUser.getRole().equals(getString(R.string.ORGANIZER))){
+                priority=1;
+            }
+            addMessage.put("priority", priority);
 //            MessageModel message = new MessageModel(newMessageBox.getText().toString(),globalData.globalUser.getEmail());
             chatMessagesCollection.add(addMessage).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override

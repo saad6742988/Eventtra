@@ -14,4 +14,5 @@
     <string name="ORGANIZER">organizer</string>
     <string name="ATTENDEE">attendee</string>
     <string name="ManagementRoomId">PrivateRoom</string>
+    <string name="GeneralRoomId">GeneralRoom</string>
 </resources>

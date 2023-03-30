@@ -53,6 +53,11 @@ public class ChatRoomsListAdapter extends RecyclerView.Adapter<ChatRoomsListAdap
             String time = format.format(date);
             holder.chatRoomTime.setText(time);
         }
+        else
+        {
+            holder.chatRoomMessage.setText("No Messages Yet!");
+            holder.chatRoomTime.setText("");
+        }
         holder.chatRoomCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

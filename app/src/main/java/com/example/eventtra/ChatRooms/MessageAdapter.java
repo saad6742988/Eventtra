@@ -1,6 +1,7 @@
 package com.example.eventtra.ChatRooms;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +43,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MessageModel message = messages.get(position);
+
         holder.messageText.setText(message.getMessage());
-        holder.emailText.setText(message.getEmail());
+        if(message.getPriority()==2)
+        {
+            holder.emailText.setText("Admin("+message.getEmail()+")");
+        }
+        else if(message.getPriority()==1){
+            holder.emailText.setText("Organizer("+message.getEmail()+")");
+        }
+        else
+        {
+            holder.emailText.setText(message.getEmail());
+        }
+
 
         Date date=message.getTimeStamp().toDate();
         SimpleDateFormat format = new SimpleDateFormat("hh:mm a", Locale.US);
