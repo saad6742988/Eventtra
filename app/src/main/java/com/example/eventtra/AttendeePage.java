@@ -138,7 +138,7 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_settings:
                 getSupportFragmentManager().popBackStack();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new settings()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new settings()).commit();
                 toolbar.setTitle("Settings");
                 break;
             case R.id.nav_logout:

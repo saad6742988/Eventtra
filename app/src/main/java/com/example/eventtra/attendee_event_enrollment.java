@@ -375,7 +375,7 @@ public class attendee_event_enrollment extends Fragment {
     }
 
     private void addOtherParticipant() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.CustomAlertDialog);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.attendee_add_other_dialog, null);
         builder.setView(view);
         final TextInputLayout editNameLayout = view.findViewById(R.id.otherParNameInputlayout);
