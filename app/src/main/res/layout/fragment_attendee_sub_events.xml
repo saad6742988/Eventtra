@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".attendee_sub_events"
     android:orientation="vertical"
-    android:background="#f2d4d5">
+    android:background="@color/screens_background">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -20,19 +21,37 @@
             android:text="name"
             android:textStyle="bold"
             android:textSize="30dp"
-            android:textColor="@color/purple_500"/>
+            android:textColor="@color/aboveColor"/>
         <TextView
             android:id="@+id/mainEventDes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="des"
             android:textColor="@color/black"
-            android:textSize="15dp"/>
-        <TextView
-            android:id="@+id/mainEventDate"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date" />
+            android:layout_marginTop="5dp">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:lottie_rawRes="@raw/clock"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+            <TextView
+                android:id="@+id/mainEventDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:layout_gravity="center_vertical"
+                android:textSize="15dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/aboveColor"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <TableRow
             android:id="@+id/dr"

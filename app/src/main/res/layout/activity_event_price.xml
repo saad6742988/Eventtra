@@ -8,7 +8,8 @@
     app:cardCornerRadius="15dp"
     app:cardElevation="10dp"
     app:cardUseCompatPadding="true"
-    card_view:cardCornerRAdius="5dp">
+    card_view:cardCornerRAdius="5dp"
+    android:backgroundTint="@color/aboveColor">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -18,19 +19,20 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-                android:padding="2dp"
-                android:src="@drawable/ic_baseline_attach_money_24"
-                android:layout_marginStart="5dp"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                app:lottie_rawRes="@raw/priceanimation"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
             <TextView
                 android:text="Event Price"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textColor="#605E5E"
+                android:textColor="@color/DarkGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -51,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:digits="0123456789"
-                android:background="@drawable/textback"/>
+                android:background="@drawable/textback"
+                android:backgroundTint="@color/aboveColor"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 

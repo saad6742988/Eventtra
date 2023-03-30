@@ -7,14 +7,16 @@
     tools:context=".attendeeSubEventDetails"
     android:padding="10dp"
     android:orientation="vertical"
-    android:background="#f2d4d5">
+    android:background="@color/screens_background">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="20dp"
+        android:backgroundTint="@color/aboveColor"
+        android:layout_marginBottom="5dp">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="650dp">
@@ -22,14 +24,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:elevation="10dp">
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/subDetailImg"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/eventtemp2"></ImageView>
+            android:src="@drawable/eventtemp2" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,16 +41,16 @@
             android:orientation="vertical"
             android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/subDetailName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="Name"
-            android:textColor="@android:color/black"
-            android:textSize="40dp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/subDetailName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Name"
+                android:textColor="@color/DarkGreen"
+                android:textSize="40dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -59,32 +62,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Date"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"></TextView>
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:gravity="center"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_calendar_24"></ImageView>
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            app:lottie_rawRes="@raw/calender" />
 
                         <TextView
                             android:id="@+id/subDetailDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="5dp"
                             android:text="15.06.2020"
-                            android:textColor="@android:color/darker_gray"></TextView>
+                            android:textColor="@color/DarkGreen"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -100,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:text="Time"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"></TextView>
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -112,20 +119,25 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:background="@color/white">
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_time_24"></ImageView>
+                            android:orientation="horizontal">
+
+                            <com.airbnb.lottie.LottieAnimationView
+                                android:id="@+id/animationView"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true"
+                                app:lottie_rawRes="@raw/clockgreen" />
 
                             <TextView
                                 android:id="@+id/subDetailTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="6dp"
                                 android:text="12:00 AM"
-                                android:textColor="@android:color/holo_green_dark"></TextView>
+                                android:textColor="@color/DarkGreen"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -136,39 +148,40 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Description"
                 android:textColor="@android:color/black"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"></TextView>
+                android:textSize="15sp" />
+
             <TextView
                 android:id="@+id/subDetailDes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description Hello, this is start of description "
-                android:textColor="@android:color/darker_gray"
-                android:textSize="15sp"
-                android:layout_marginTop="5dp"></TextView>
+                android:textColor="#8C8C8C"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Ticket Price"
                 android:textColor="@android:color/black"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"></TextView>
+                android:textSize="15sp" />
+
             <TextView
                 android:id="@+id/subDetailPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Rs 100 Per Participant"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="15sp"
-                android:layout_marginTop="5dp"></TextView>
+                android:textColor="#8C8C8C"
+                android:textSize="15sp" />
 
 
-
-                    </LinearLayout>
-             </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
         </ScrollView>
     </androidx.cardview.widget.CardView>
 
@@ -186,10 +199,11 @@
                     android:padding="10dp"
                     android:text="Join Chat"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/aboveColor"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/button_shape"/>
                 <Button
                     android:id="@+id/EnrollBtn"
                     android:layout_width="wrap_content"
@@ -197,11 +211,11 @@
                     android:padding="10dp"
                     android:text="Enroll"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/aboveColor"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:layout_alignParentRight="true"
-                    />
+                    android:background="@drawable/button_shape"/>
 
 </RelativeLayout>
 

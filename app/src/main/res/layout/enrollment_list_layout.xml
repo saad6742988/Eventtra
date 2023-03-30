@@ -13,7 +13,8 @@
         android:layout_margin="20dp"
         android:elevation="10dp"
         app:cardCornerRadius="6dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:backgroundTint="@color/aboveColor">
 
 
 
@@ -33,7 +34,7 @@
                 android:layout_marginEnd="167dp"
                 android:padding="5dp"
                 android:text="TextView"
-                android:textColor="@color/design_default_color_primary_dark"
+                android:textColor="@color/DarkGreen"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -61,19 +62,30 @@
                 android:padding="5dp"
                 android:text="Cnic"
                 android:textSize="15dp" />
-            <TextView
-                android:id="@+id/enrollmentStatus"
-                android:layout_width="201dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/enrollmentCnic"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="188dp"
-                android:padding="5dp"
-                android:text="Paid"
-                android:textSize="15dp"
-                android:textColor="@android:color/holo_green_dark"/>
+                android:layout_marginTop="0dp">
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animationView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:lottie_rawRes="@raw/paidanimation"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"/>
+                <TextView
+                    android:id="@+id/enrollmentStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Paid"
+                    android:textSize="15dp"
+                    android:textColor="@color/DarkGreen"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

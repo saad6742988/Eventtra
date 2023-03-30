@@ -46,7 +46,13 @@
 
 
         </LinearLayout>
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
         <include
             android:layout_gravity="center"
             layout="@layout/activity_event_img"
@@ -56,13 +62,8 @@
             android:layout_width="match_parent" />
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+
+
                 <include layout="@layout/activity_event_name"/>
                 <include layout="@layout/activity_event_desc"/>
                 <include layout="@layout/activity_event_price"/>

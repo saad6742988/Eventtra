@@ -8,7 +8,8 @@
     app:cardCornerRadius="15dp"
     app:cardElevation="10dp"
     app:cardUseCompatPadding="true"
-    card_view:cardCornerRAdius="5dp">
+    card_view:cardCornerRAdius="5dp"
+    android:backgroundTint="@color/aboveColor">
     <LinearLayout
         android:id="@+id/layoutDateBox"
         android:orientation="vertical"
@@ -20,19 +21,20 @@
             android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-                android:padding="2dp"
-                android:src="@drawable/date_icon"
-                android:layout_marginStart="5dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:lottie_rawRes="@raw/calender"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
             <TextView
-                android:text="Start and End Date"
+                android:text="Date"
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textColor="#605E5E"
+                android:textColor="@color/DarkGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

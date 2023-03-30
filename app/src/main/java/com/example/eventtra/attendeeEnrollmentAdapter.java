@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,10 +53,12 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
         holder.enrollmentCnic.setText(paymentInfo.getParticipantCnic());
         if(paymentInfo.getStatus()) {
             holder.enrollmentStatus.setText("Paid");
-            holder.enrollmentStatus.setTextColor(Color.GREEN);
+            holder.animationView.setAnimation(R.raw.paidanimation);
+            holder.enrollmentStatus.setTextColor(context.getColor(R.color.DarkGreen));
         }
         else {
             holder.enrollmentStatus.setText("Pending");
+            holder.animationView.setAnimation(R.raw.pendinganimation);
             holder.enrollmentStatus.setTextColor(Color.RED);
         }
 
@@ -84,14 +87,18 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
         parCnictv.setText(paymentInfo.getParticipantCnic());
         final TextView madeBytv = view.findViewById(R.id.madeBytv);
         madeBytv.setText(globalData.globalUser.getFname()+" "+globalData.globalUser.getLname());
+        final LottieAnimationView lottieAnimationView = view.findViewById(R.id.animationView);
+
         final TextView statustv = view.findViewById(R.id.statustv);
         if(paymentInfo.getStatus()) {
             statustv.setText("Paid");
-            statustv.setTextColor(Color.GREEN);
+            lottieAnimationView.setAnimation(R.raw.paidanimation);
+            statustv.setTextColor(context.getColor(R.color.DarkGreen));
         }
         else
         {
             statustv.setText("Pending");
+            lottieAnimationView.setAnimation(R.raw.pendinganimation);
             statustv.setTextColor(Color.RED);
         }
 
@@ -123,6 +130,7 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
         TextView enrollmentCnic;
         TextView enrollmentStatus;
         CardView mainCardView;
+        LottieAnimationView animationView;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             enrollmentSubName= itemView.findViewById(R.id.enrollmentSubName);
@@ -130,6 +138,7 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
             enrollmentCnic= itemView.findViewById(R.id.enrollmentCnic);
             enrollmentStatus= itemView.findViewById(R.id.enrollmentStatus);
             mainCardView=itemView.findViewById(R.id.enrollmentCard);
+            animationView=itemView.findViewById(R.id.animationView);
 
 
         }

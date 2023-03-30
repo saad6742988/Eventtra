@@ -6,7 +6,7 @@
     android:layout_height="176dp"
     android:padding="16dp"
     android:gravity="bottom"
-    android:background="#ADD8E6">
+    android:background="@color/screens_background">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileContainer"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username"
-        android:textColor="@color/white"
+        android:textColor="@color/aboveColor"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
         />
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="cybercat@gmail.com"
-        android:textColor="@color/white"
+        android:textColor="@color/aboveColor"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="5dp"
         />

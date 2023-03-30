@@ -38,9 +38,10 @@
     android:layout_gravity="start"
     app:headerLayout="@layout/nav_header"
     app:menu="@menu/nav_menu"
-    app:itemIconTint="@color/purple_200"
-    app:itemTextColor="@color/purple_700"
+    app:itemIconTint="@color/screens_background"
+    app:itemTextColor="@color/DarkGreen"
     android:layout_marginTop="10dp"
+    android:backgroundTint="@color/aboveColor"
 />
 
 </androidx.drawerlayout.widget.DrawerLayout>

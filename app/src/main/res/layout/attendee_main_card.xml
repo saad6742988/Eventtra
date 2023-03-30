@@ -19,26 +19,34 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F4F4F4">
-
-            <ImageView
-                android:id="@+id/attendeeMainImg"
-                android:layout_width="300dp"
-                android:layout_height="150dp"
+            android:background="@color/aboveColor">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/imgcard"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:cardCornerRadius="8dp"
+                android:elevation="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="30dp"
-                tools:srcCompat="@tools:sample/avatars"
-                android:background="@android:color/transparent"/>
+                android:layout_alignParentEnd="true">
+                <ImageView
+                    android:id="@+id/attendeeMainImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:srcCompat="@drawable/logo1"
+                    android:scaleType="centerCrop"
+                    android:background="@android:color/transparent"/>
+            </androidx.cardview.widget.CardView>
+
 
             <TextView
                 android:id="@+id/attendeeMainName"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/attendeeMainImg"
+                android:layout_below="@+id/imgcard"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="30dp"
@@ -59,6 +67,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
+                android:textColor="#8C8C8C"
                 android:textSize="17dp"
                 android:padding="5dp"
                 android:text="TextViewbfgbfgnfgngfnfgnfgnffgnffgnnfnfnfnfnf"
@@ -75,6 +84,7 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="8dp"
                 android:textSize="15dp"
+                android:textColor="#8C8C8C"
                 android:padding="5dp"
                 android:text="Date"/>
 <!--            <androidx.appcompat.widget.LinearLayoutCompat-->

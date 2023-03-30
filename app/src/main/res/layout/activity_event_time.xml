@@ -10,24 +10,27 @@
     app:cardUseCompatPadding="true"
 
     tools:context=".event_time"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:backgroundTint="@color/aboveColor">
     <LinearLayout
         android:id="@+id/layoutDateBox"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true">
+        android:clickable="true"
+        android:padding="5dp">
         <LinearLayout
             android:orientation="horizontal"
-            android:padding="3dp"
+            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-                android:padding="2dp"
-                android:src="@drawable/ic_baseline_access_time_24"
-                android:layout_marginStart="5dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:lottie_rawRes="@raw/clockgreen"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
             <TextView
                 android:text="Event TIme"
                 android:layout_marginStart="10dp"
