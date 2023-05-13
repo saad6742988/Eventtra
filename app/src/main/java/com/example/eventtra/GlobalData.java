@@ -22,6 +22,7 @@ public class GlobalData extends Application {
      public MyUser globalUser;
      MyEvent globalEvent;
      subEventsModel globalSubEvent;
+    String[] eventCategories = {"Art", "E-Gaming", "Education", "Fashion", "Food & Drink", "Health & Wellness", "Music", "Socials", "Sports", "Technical"};
 
     public GlobalData() {
         this.globalUser = new MyUser();

@@ -66,6 +66,7 @@
 
                 <include layout="@layout/activity_event_name"/>
                 <include layout="@layout/activity_event_desc"/>
+                <include layout="@layout/subevent_category_input"/>
                 <include layout="@layout/activity_event_price"/>
                 <include layout="@layout/event_no_of_participants"/>
                 <include layout="@layout/activity_subevent_date"/>

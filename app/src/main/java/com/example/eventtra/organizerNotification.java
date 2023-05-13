@@ -33,10 +33,10 @@ import java.util.ArrayList;
 public class organizerNotification extends Fragment {
 
 
-    Spinner eventsDropDown;
     TextInputLayout notificationTitleLayout,notificationDesLayout;
     EditText notificationTitle,notificationDes;
     Button sendNotificationBtn;
+    Spinner eventsDropDown;
     private String spinnerSelectedTopic="All";
 
 

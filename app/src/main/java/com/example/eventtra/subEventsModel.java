@@ -18,6 +18,7 @@ public class subEventsModel {
     private boolean openRegistration;
     private boolean streamStatus;
     private String streamLink;
+    private String category;
 
     //constructor
 
@@ -53,6 +54,7 @@ public class subEventsModel {
         this.openRegistration = false;
         this.streamStatus = false;
         this.streamLink = "";
+        this.category = "";
     }
 
     @Exclude
@@ -162,6 +164,14 @@ public class subEventsModel {
         this.streamLink = streamLink;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "subEventsModel{" +
@@ -178,6 +188,7 @@ public class subEventsModel {
                 ", openRegistration=" + openRegistration +
                 ", streamStatus=" + streamStatus +
                 ", streamLink='" + streamLink + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 

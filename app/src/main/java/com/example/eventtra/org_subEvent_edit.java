@@ -19,17 +19,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.primitives.Ints;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -38,6 +44,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,10 +63,15 @@ public class org_subEvent_edit extends Fragment {
     private TextView header;
     TimePicker subEventTime;
 
+    Spinner categoryDropDown;
+    private String spinnerSelectedCategory;
+
 
     private DatePicker subDatePick;
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
     final private CollectionReference subEventCollection = database.collection("SubEvent");
+
+
 
     final private StorageReference storageReference= FirebaseStorage.getInstance().getReference();
 
@@ -93,6 +105,10 @@ public class org_subEvent_edit extends Fragment {
 
         openEnrollmentSwitch=view.findViewById(R.id.openEnrollmentSwitch);
         liveStreamSwitch=view.findViewById(R.id.liveStreamSwitch);
+
+        categoryDropDown=view.findViewById(R.id.categoryDropDown);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,globalData.eventCategories);
+        categoryDropDown.setAdapter(adapter);
 
         subDatePick=view.findViewById(R.id.subEventDatePick);
         subDatePickLayout=view.findViewById(R.id.subEventDatePickLayout);
@@ -146,6 +162,19 @@ public class org_subEvent_edit extends Fragment {
                 saveSubEvent();
             }
         });
+
+        categoryDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerSelectedCategory = globalData.eventCategories[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                categoryDropDown.setSelection(0);
+                spinnerSelectedCategory = globalData.eventCategories[0];
+            }
+        });
         return view;
     }
 
@@ -191,6 +220,7 @@ public class org_subEvent_edit extends Fragment {
             globalData.globalSubEvent.setSubEventTime(subEventTime.getHour()+":"+subEventTime.getMinute());
             globalData.globalSubEvent.setMinParticipants(Integer.parseInt(noOfPar));
             globalData.globalSubEvent.setStreamLink(streamLink);
+            globalData.globalSubEvent.setCategory(spinnerSelectedCategory);
             String registrationStatus="Registrations are closed Now!";
             if(openEnrollmentSwitch.isChecked()) {
                 globalData.globalSubEvent.setOpenRegistration(true);
@@ -213,6 +243,7 @@ public class org_subEvent_edit extends Fragment {
             updateSubEvent.put("openRegistration",globalData.globalSubEvent.isOpenRegistration());
             updateSubEvent.put("streamStatus",globalData.globalSubEvent.isStreamStatus());
             updateSubEvent.put("streamLink",globalData.globalSubEvent.getStreamLink());
+            updateSubEvent.put("category",globalData.globalSubEvent.getCategory());
             subEventCollection.document(globalData.globalSubEvent.getSubEventId()).update(updateSubEvent);
 
             //send registration open/close notification
@@ -318,6 +349,9 @@ public class org_subEvent_edit extends Fragment {
             liveStreamSwitch.setChecked(true);
         else
             liveStreamSwitch.setChecked(false);
+
+
+        categoryDropDown.setSelection(Arrays.asList(globalData.eventCategories).indexOf(globalData.globalSubEvent.getCategory()));
 
 
 

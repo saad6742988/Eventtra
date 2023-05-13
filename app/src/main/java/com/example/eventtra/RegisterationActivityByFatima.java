@@ -9,6 +9,6 @@ public class RegisterationActivityByFatima extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registeration_by_fatima);
+        setContentView(R.layout.temp_activity_registeration_by_fatima);
     }
 }
