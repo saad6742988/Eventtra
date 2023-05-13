@@ -19,8 +19,8 @@ public class subEventsStub {
         Uri uri2=Uri.parse(uritemp);
         table=new Hashtable<Integer, subEventsModel>();
 
-        table.put(1, new subEventsModel("1","Dota 2","This is Esports","100","Awais", uri2,"1","2/3/2023","16:16:16",5,false));
-        table.put(2, new subEventsModel("2","Cricket","This is Cricket","100","Awais", uri2,"1","2/3/2023","16:16:16",5,true));
+        table.put(1, new subEventsModel("1","Dota 2","This is Esports","100","Awais", uri2,"1","2/3/2023","16:16:16",5,false,false,""));
+        table.put(2, new subEventsModel("2","Cricket","This is Cricket","100","Awais", uri2,"1","2/3/2023","16:16:16",5,true,false,""));
 
 
     }

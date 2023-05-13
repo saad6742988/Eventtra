@@ -19,10 +19,11 @@ public class LiveStreamView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_stream_view);
         streamUrl = getIntent().getStringExtra("streamLink");
+//        streamUrl = "https://www.youtube.com/embed/t-FKyPMFdsU";
         webView = (WebView) findViewById(R.id.webView);
         String frameVideo = "<html><body>" +
                 "<iframe width=\"840\" height=\"350\" " +
-                "src='" + streamUrl + "' frameborder=\"5\" allowfullscreen>" +
+                "src='" + streamUrl + "' frameborder=\"5\" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen>" +
                 "</iframe></body></html>";
 
 

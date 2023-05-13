@@ -16,13 +16,15 @@ public class subEventsModel {
     private String subEventTime;
     private int minParticipants;
     private boolean openRegistration;
+    private boolean streamStatus;
+    private String streamLink;
 
     //constructor
 
     public subEventsModel() {
     }
 
-    public subEventsModel(String subEventId, String name, String desc, String price, String head, Uri pic, String mainEventId, String subEventDate, String subEventTime, int minParticipants, boolean openRegistration) {
+    public subEventsModel(String subEventId, String name, String desc, String price, String head, Uri pic, String mainEventId, String subEventDate, String subEventTime, int minParticipants, boolean openRegistration, boolean streamStatus, String streamLink) {
         this.subEventId = subEventId;
         this.name = name;
         this.desc = desc;
@@ -34,6 +36,8 @@ public class subEventsModel {
         this.subEventTime = subEventTime;
         this.minParticipants = minParticipants;
         this.openRegistration = openRegistration;
+        this.streamStatus = streamStatus;
+        this.streamLink = streamLink;
     }
 
     public subEventsModel(String name, String head, String mainEventId) {
@@ -47,6 +51,8 @@ public class subEventsModel {
         this.subEventTime="";
         this.minParticipants=0;
         this.openRegistration = false;
+        this.streamStatus = false;
+        this.streamLink = "";
     }
 
     @Exclude
@@ -140,6 +146,22 @@ public class subEventsModel {
         this.openRegistration = openRegistration;
     }
 
+    public boolean isStreamStatus() {
+        return streamStatus;
+    }
+
+    public void setStreamStatus(boolean streamStatus) {
+        this.streamStatus = streamStatus;
+    }
+
+    public String getStreamLink() {
+        return streamLink;
+    }
+
+    public void setStreamLink(String streamLink) {
+        this.streamLink = streamLink;
+    }
+
     @Override
     public String toString() {
         return "subEventsModel{" +
@@ -154,6 +176,8 @@ public class subEventsModel {
                 ", subEventTime='" + subEventTime + '\'' +
                 ", minParticipants=" + minParticipants +
                 ", openRegistration=" + openRegistration +
+                ", streamStatus=" + streamStatus +
+                ", streamLink='" + streamLink + '\'' +
                 '}';
     }
 

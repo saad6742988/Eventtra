@@ -46,9 +46,10 @@ public class org_subEvent_edit extends Fragment {
 
 
     private Button saveBtn;
-    private EditText eventName,eventDes,eventPrice,eventNoOfPar;
-    private TextInputLayout eventNameLayout,eventDesLayout,subDatePickLayout,eventPicLayout,eventPriceLayout,eventNoOfParlayout;
-    Switch openEnrollmentSwitch;
+    private EditText eventName,eventDes,eventPrice,eventNoOfPar,streamLinkBox;
+    private TextInputLayout eventNameLayout,eventDesLayout,
+            subDatePickLayout,eventPicLayout,eventPriceLayout,eventNoOfParlayout,streamLinkBoxLayout;
+    Switch openEnrollmentSwitch,liveStreamSwitch;
     private TextView addEventPic;
     private ImageView eventPic;
     private Uri pictureUri;
@@ -82,11 +83,16 @@ public class org_subEvent_edit extends Fragment {
         eventDes=view.findViewById(R.id.eventDesBox);
         eventPrice=view.findViewById(R.id.eventPriceBox);
         eventNoOfPar = view.findViewById(R.id.eventNoParticipantsBox);
+        streamLinkBox=view.findViewById(R.id.streamLinkBox);
+
         eventNoOfParlayout=view.findViewById(R.id.eventNoParticipantsBoxLayout);
         eventNameLayout=view.findViewById(R.id.eventNameBoxLayout);
         eventDesLayout=view.findViewById(R.id.eventDesBoxLayout);
         eventPriceLayout=view.findViewById(R.id.eventPriceBoxLayout);
+        streamLinkBoxLayout=view.findViewById(R.id.streamLinkBoxLayout);
+
         openEnrollmentSwitch=view.findViewById(R.id.openEnrollmentSwitch);
+        liveStreamSwitch=view.findViewById(R.id.liveStreamSwitch);
 
         subDatePick=view.findViewById(R.id.subEventDatePick);
         subDatePickLayout=view.findViewById(R.id.subEventDatePickLayout);
@@ -148,6 +154,8 @@ public class org_subEvent_edit extends Fragment {
         String subDes = eventDes.getText().toString();
         String subPrice = eventPrice.getText().toString();
         String noOfPar=eventNoOfPar.getText().toString();
+        String streamLink=streamLinkBox.getText().toString();
+        Log.d("check stream link", streamLink);
 
 
         if(subName.isEmpty())
@@ -169,6 +177,11 @@ public class org_subEvent_edit extends Fragment {
             eventNoOfParlayout.setError("Minimum No. of Participants Must be Greater than 1");
             eventNoOfParlayout.requestFocus();
         }
+        else if (liveStreamSwitch.isChecked() && streamLink.isEmpty())
+        {
+            streamLinkBoxLayout.setError("Stream Link Required");
+            streamLinkBoxLayout.requestFocus();
+        }
         else{
             showLoading();
             globalData.globalSubEvent.setName(subName);
@@ -177,6 +190,7 @@ public class org_subEvent_edit extends Fragment {
             globalData.globalSubEvent.setSubEventDate(getDateString(subDatePick));
             globalData.globalSubEvent.setSubEventTime(subEventTime.getHour()+":"+subEventTime.getMinute());
             globalData.globalSubEvent.setMinParticipants(Integer.parseInt(noOfPar));
+            globalData.globalSubEvent.setStreamLink(streamLink);
             String registrationStatus="Registrations are closed Now!";
             if(openEnrollmentSwitch.isChecked()) {
                 globalData.globalSubEvent.setOpenRegistration(true);
@@ -184,6 +198,11 @@ public class org_subEvent_edit extends Fragment {
             }
             else
                 globalData.globalSubEvent.setOpenRegistration(false);
+            if(liveStreamSwitch.isChecked()) {
+                globalData.globalSubEvent.setStreamStatus(true);
+            }
+            else
+                globalData.globalSubEvent.setStreamStatus(false);
             Map<String,Object> updateSubEvent = new HashMap<>();
             updateSubEvent.put("name",globalData.globalSubEvent.getName());
             updateSubEvent.put("desc",globalData.globalSubEvent.getDesc());
@@ -192,6 +211,8 @@ public class org_subEvent_edit extends Fragment {
             updateSubEvent.put("subEventTime",globalData.globalSubEvent.getSubEventTime());
             updateSubEvent.put("minParticipants",globalData.globalSubEvent.getMinParticipants());
             updateSubEvent.put("openRegistration",globalData.globalSubEvent.isOpenRegistration());
+            updateSubEvent.put("streamStatus",globalData.globalSubEvent.isStreamStatus());
+            updateSubEvent.put("streamLink",globalData.globalSubEvent.getStreamLink());
             subEventCollection.document(globalData.globalSubEvent.getSubEventId()).update(updateSubEvent);
 
             //send registration open/close notification
@@ -276,6 +297,8 @@ public class org_subEvent_edit extends Fragment {
             eventDes.setText(globalData.globalSubEvent.getDesc());
         if(!globalData.globalSubEvent.getPrice().equals(""))
             eventPrice.setText(globalData.globalSubEvent.getPrice());
+        if(!globalData.globalSubEvent.getStreamLink().equals(""))
+            streamLinkBox.setText(globalData.globalSubEvent.getStreamLink());
         if(!globalData.globalSubEvent.getSubEventDate().equals(""))
         {
             int[] temp = getDateInt(globalData.globalSubEvent.getSubEventDate());
@@ -291,6 +314,10 @@ public class org_subEvent_edit extends Fragment {
             openEnrollmentSwitch.setChecked(true);
         else
             openEnrollmentSwitch.setChecked(false);
+        if(globalData.globalSubEvent.isStreamStatus())
+            liveStreamSwitch.setChecked(true);
+        else
+            liveStreamSwitch.setChecked(false);
 
 
 

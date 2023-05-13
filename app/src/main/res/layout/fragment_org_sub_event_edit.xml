@@ -70,6 +70,28 @@
                 <include layout="@layout/event_no_of_participants"/>
                 <include layout="@layout/activity_subevent_date"/>
                 <include layout="@layout/activity_event_time"/>
+                <include layout="@layout/subevent_stream_link_input"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Live Stream"
+                    android:textColor="@color/aboveColor"
+                    android:textStyle="bold"/>
+                <Switch
+                    android:id="@+id/liveStreamSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:trackTint="@color/white"
+                    android:thumbTint="@color/white"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Open For Enrollment"
-                        android:textColor="@color/black"
+                        android:textColor="@color/aboveColor"
                         android:textStyle="bold"/>
                     <Switch
                         android:id="@+id/openEnrollmentSwitch"
@@ -89,7 +111,7 @@
                         android:checked="true"
                         android:trackTint="@color/white"
                         android:thumbTint="@color/white"
-                        />
+                        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 </LinearLayout>
 

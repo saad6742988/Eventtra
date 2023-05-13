@@ -1,6 +1,8 @@
 package com.example.eventtra.Attendee;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,11 +63,27 @@ public class LiveStreamListAdapter extends RecyclerView.Adapter<LiveStreamListAd
             @Override
             public void onClick(View v) {
                 //open live stream screen
-                Intent intent = new Intent(v.getContext(),LiveStreamView.class);
-                intent.putExtra("streamLink", "https://www.youtube.com/embed/ahCq355hpaY");
-                AppCompatActivity act = (AppCompatActivity)v.getContext();
-                act.startActivity(intent);
-//                act.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, fragment).addToBackStack("attendeeSubEventDetails").commit();
+                if(subEvent.isStreamStatus())
+                {
+                    Intent intent = new Intent(v.getContext(),LiveStreamView.class);
+                    intent.putExtra("streamLink", subEvent.getStreamLink());
+                    AppCompatActivity act = (AppCompatActivity)v.getContext();
+                    act.startActivity(intent);
+                }
+              else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("No Stream Available for this Event Right Now!");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
     }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="10dp"
+    app:cardUseCompatPadding="true"
+    card_view:cardCornerRAdius="5dp"
+    android:backgroundTint="#F4F4F4">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:lottie_rawRes="@raw/livestream"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+            <TextView
+                android:text="Stream Link"
+                android:layout_marginStart="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/DarkGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/streamLinkBoxLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeWidthFocused="0dp">
+            <EditText
+                android:id="@+id/streamLinkBox"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:background="@drawable/textback"
+                android:backgroundTint="#F4F4F4"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
