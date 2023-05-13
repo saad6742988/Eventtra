@@ -30,7 +30,6 @@
                         android:layout_width="300dp"
                         android:layout_height="50dp"
                         android:background="@drawable/textback"
-                        android:backgroundTint="@color/aboveColor"
                         android:gravity="bottom"
                         android:padding="5dp"
                         android:maxLines="1"/>

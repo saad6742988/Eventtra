@@ -109,7 +109,7 @@ public class organizerNotification extends Fragment {
         }
         else if(des.equals(""))
         {
-            notificationDesLayout.setError("Title Required");
+            notificationDesLayout.setError("Message Required");
             notificationDesLayout.requestFocus();
 
         }
@@ -118,6 +118,8 @@ public class organizerNotification extends Fragment {
             FCMSend.pushNotification(context,
                     "/topics/"+spinnerSelectedTopic,
                     title,des,"MainActivity","Custom notification");
+            notificationTitle.setText("");
+            notificationDes.setText("");
         }
     }
 
