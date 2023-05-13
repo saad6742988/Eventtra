@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
 
     <application
         android:name=".GlobalData"
@@ -16,7 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Eventtra"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name=".Attendee.LiveStreamView"
+            android:exported="false"
+            android:label="@string/title_activity_live_stream_view"
+            android:theme="@style/Theme.Eventtra.NoActionBar"
+            android:screenOrientation="landscape">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/logo" />
@@ -26,7 +36,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_importance"
             android:value="high" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="hello1" />
@@ -36,23 +45,25 @@
         <meta-data
             android:name="firebase_analytics_collection_enabled"
             android:value="false" />
+
         <service
             android:name=".FirebaseNotificationMessaging"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".temp_event_time"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".RegisterationActivityByFatima"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -60,56 +71,56 @@
         <activity
             android:name=".OrganizerPage"
             android:exported="false"
-            android:theme="@style/Theme.Eventtra.NoActionBar">
+            android:theme="@style/Theme.Eventtra.NoActionBar" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".temp_event_price"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".subEvent_list"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".temp_event_date"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".temp_event_img"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".temp_event_name"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".temp_event_desc"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".temp_loginxml"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -117,14 +128,14 @@
         <activity
             android:name=".AttendeePage"
             android:exported="false"
-            android:theme="@style/Theme.Eventtra.NoActionBar">
+            android:theme="@style/Theme.Eventtra.NoActionBar" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".temp_OtpVerification1"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -132,7 +143,7 @@
         <activity
             android:name=".AdminPage"
             android:exported="false"
-            android:theme="@style/Theme.Eventtra.NoActionBar">
+            android:theme="@style/Theme.Eventtra.NoActionBar" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -140,7 +151,7 @@
         <activity
             android:name=".Login"
             android:exported="false"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -148,7 +159,7 @@
         <activity
             android:name=".Registration"
             android:exported="false"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -156,7 +167,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Eventtra.NoActionBar1">
+            android:theme="@style/Theme.Eventtra.NoActionBar1" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

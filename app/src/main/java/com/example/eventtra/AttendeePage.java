@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.eventtra.Attendee.liveStreamList;
 import com.example.eventtra.ChatRooms.chatRoomsList;
 import com.example.eventtra.ChatRooms.chatScreen;
 import com.google.android.material.navigation.NavigationView;
@@ -136,9 +137,14 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new attendeeEventRequest()).addToBackStack("attendeeEventRequest").commit();
                 toolbar.setTitle("Event Requests");
                 break;
+            case R.id.live_stream:
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new liveStreamList()).addToBackStack("liveStreamList").commit();
+                toolbar.setTitle("Live Streams");
+                break;
             case R.id.nav_settings:
                 getSupportFragmentManager().popBackStack();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new settings()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_attendee, new settings()).commit();
                 toolbar.setTitle("Settings");
                 break;
             case R.id.nav_logout:
