@@ -23,13 +23,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class editEventDetails extends Fragment {
@@ -93,11 +98,14 @@ public class editEventDetails extends Fragment {
         }
 
 
-        int[] startDate = getDateInt(globalData.globalEvent.getStartDate());
-        Log.d("array int", "getDateInt: "+startDate[0]);
-        int[] endDate = getDateInt(globalData.globalEvent.getEndDate());
-        startDatePick.updateDate(startDate[2],startDate[1],startDate[0]);
-        endDatePick.updateDate(endDate[2],endDate[1],endDate[0]);
+        Calendar calendar = Calendar.getInstance();
+        Date startDate = globalData.globalEvent.getStartDate().toDate();
+        calendar.setTime(startDate);
+        startDatePick.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE));
+
+        Date endDate = globalData.globalEvent.getEndDate().toDate();
+        calendar.setTime(endDate);
+        endDatePick.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE));
 
 
         header=view.findViewById(R.id.mainEventHeader);
@@ -179,14 +187,15 @@ public class editEventDetails extends Fragment {
         {
             if(!globalData.globalEvent.getEventName().equals(name) ||
                     !globalData.globalEvent.getEventDes().equals(des)||
-                    !globalData.globalEvent.getStartDate().equals(getDateString(startDatePick))||
-                    !globalData.globalEvent.getEndDate().equals(getDateString(endDatePick)))
+                    !globalData.globalEvent.getStartDate().equals(convertToTimeStamp(startDatePick))||
+                    !globalData.globalEvent.getEndDate().equals(convertToTimeStamp(endDatePick)))
             {
+                Toast.makeText(getActivity(), "changed", Toast.LENGTH_SHORT).show();
                 changeCheck=true;
                 globalData.globalEvent.setEventName(name);
                 globalData.globalEvent.setEventDes(des);
-                globalData.globalEvent.setStartDate(getDateString(startDatePick));
-                globalData.globalEvent.setEndDate(getDateString(endDatePick));
+                globalData.globalEvent.setStartDate(convertToTimeStamp(startDatePick));
+                globalData.globalEvent.setEndDate(convertToTimeStamp(endDatePick));
             }
 
 
@@ -285,5 +294,40 @@ public class editEventDetails extends Fragment {
             }
         }
         return true;
+    }
+
+    public Timestamp convertToTimeStamp(DatePicker datePicker)
+    {
+
+        //need changes
+        int date = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year = datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month,date,0,0,0);
+        Log.d("Calender", calendar.getTime().toString());
+
+        Date dateObj = calendar.getTime();
+        Log.d("Date", ""+dateObj.toString());
+        Timestamp timestamp = new Timestamp(dateObj);
+        Log.d("Timestamp", ""+timestamp.toString());
+
+
+
+        return timestamp;
+
+    }
+    public boolean validDateTimeStamp(Timestamp startDate,Timestamp endDate)
+    {
+        int result = startDate.compareTo(endDate);
+
+        if (result < 0) {
+            return true;
+        } else if (result > 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

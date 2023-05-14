@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class mainEventAdapter extends RecyclerView.Adapter<mainEventAdapter.viewHolder> {
@@ -66,7 +67,14 @@ public class mainEventAdapter extends RecyclerView.Adapter<mainEventAdapter.view
         }
         holder.mainEventNameView.setText(mainEvent.getEventName());
         holder.mainEventDescView.setText(mainEvent.getEventDes());
-        holder.mainEventdateView.setText(mainEvent.getStartDate()+" to "+mainEvent.getEndDate());
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(mainEvent.getStartDate().toDate());
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(mainEvent.getEndDate().toDate());
+        holder.mainEventdateView.setText(startDate.get(Calendar.DATE)+"-"+startDate.get(Calendar.MONTH)+"-"+startDate.get(Calendar.YEAR)+
+                " to "
+                +endDate.get(Calendar.DATE)+"-"+endDate.get(Calendar.MONTH)+"-"+endDate.get(Calendar.YEAR));
 
         holder.mainCardView.setOnClickListener(new View.OnClickListener() {
             @Override

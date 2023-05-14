@@ -2,6 +2,7 @@ package com.example.eventtra;
 
 import android.net.Uri;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.Exclude;
 
 import java.util.Arrays;
@@ -12,15 +13,15 @@ public class MyEvent {
     private String eventId;
     private String eventName;
     private String eventDes;
-    private String startDate;
-    private String endDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
     private Map<String,String> subEvents;
     private Uri eventPic;
 
     public MyEvent() {
     }
 
-    public MyEvent(String eventId, String eventName, String eventDes, String startDate, String endDate, Map<String, String> subEvents, Uri eventPic) {
+    public MyEvent(String eventId, String eventName, String eventDes, Timestamp startDate, Timestamp endDate, Map<String, String> subEvents, Uri eventPic) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventDes = eventDes;
@@ -30,7 +31,7 @@ public class MyEvent {
         this.eventPic = eventPic;
     }
 
-    public MyEvent(String eventName, String eventDes, String startDate, String endDate,Uri pic) {
+    public MyEvent(String eventName, String eventDes, Timestamp startDate, Timestamp endDate,Uri pic) {
         this.eventName = eventName;
         this.eventDes = eventDes;
         this.startDate = startDate;
@@ -72,20 +73,20 @@ public class MyEvent {
         this.subEvents = subEvents;
     }
 
-    public String getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -197,8 +199,10 @@ public class addSubeventsAndHeads extends Fragment {
         showLoading();
         String name=eventData.getString("name");
         String des=eventData.getString("des");
-        String startDate=eventData.getString("startDate");
-        String endDate=eventData.getString("endDate");
+
+        Timestamp startDate=new Timestamp((Date) eventData.getSerializable("startDate"));
+        Timestamp endDate=new Timestamp((Date) eventData.getSerializable("endDate"));
+
         Uri pictureUri = Uri.parse(eventData.getString("pictureUri"));
 
 

@@ -1,13 +1,17 @@
 package com.example.eventtra;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.example.eventtra.stub.MyEventStub;
 import com.example.eventtra.stub.subEventsStub;
+import com.google.firebase.Timestamp;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -20,12 +24,19 @@ public class MyEventTest {
         String uritemp="https://www.example.com/path/to/resource?query=value";
         Uri uri2=Uri.parse(uritemp);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2023,3,3,0,0,0);
+        Date dateObj = calendar.getTime();
+        Timestamp startDate = new Timestamp(dateObj);
+        Timestamp endDate = new Timestamp(dateObj);
+
+
         Map<String, String> myMap = new HashMap<>();
 
         myMap.put("1", "Event 1");
         myMap.put("2", "Event 2");
 
-        MyEvent test=new MyEvent("1","Event 1","This is Event 1","2-3-2023","2-3-2023",myMap,uri2);
+        MyEvent test=new MyEvent("1","Event 1","This is Event 1",startDate,endDate,myMap,uri2);
         MyEventStub testGetter= new MyEventStub();
 
         MyEvent test2= testGetter.getList(1);
@@ -40,12 +51,20 @@ public class MyEventTest {
         String uritemp="https://www.example.com/path/to/resource?query=value";
         Uri uri2=Uri.parse(uritemp);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2023,3,3,0,0,0);
+        Date dateObj = calendar.getTime();
+        Timestamp startDate = new Timestamp(dateObj);
+        calendar.set(2023,3,4,0,0,0);
+        dateObj = calendar.getTime();
+        Timestamp endDate = new Timestamp(dateObj);
+
         Map<String, String> myMap = new HashMap<>();
 
         myMap.put("1", "Event 1");
         myMap.put("2", "Event 2");
 
-        MyEvent test=new MyEvent("2","Event 2","This is Event 2","3-3-2023","4-3-2023",myMap,uri2);
+        MyEvent test=new MyEvent("2","Event 2","This is Event 2",startDate,endDate,myMap,uri2);
         MyEventStub testGetter= new MyEventStub();
 
         MyEvent test2= testGetter.getList(1);
@@ -61,11 +80,17 @@ public class MyEventTest {
         String uritemp="https://www.example.com/path/to/resource?query=value";
         Uri uri2=Uri.parse(uritemp);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2023,3,3,0,0,0);
+        Date dateObj = calendar.getTime();
+        Timestamp startDate = new Timestamp(dateObj);
+        Timestamp endDate = new Timestamp(dateObj);
+
         Map<String, String> myMap = new HashMap<>();
         myMap.put("1", "Event 1");
         myMap.put("2", "Event 2");
 
-        MyEvent test=new MyEvent("2","Event 3","This is Event 3","2-3-2023","2-3-2023",myMap,uri2);
+        MyEvent test=new MyEvent("2","Event 3","This is Event 3",startDate,endDate,myMap,uri2);
         MyEventStub testGetter= new MyEventStub();
 
         MyEvent test2= testGetter.getList(1);
@@ -80,11 +105,17 @@ public class MyEventTest {
         String uritemp="https://www.example.com/path/to/resource?query=value";
         Uri uri2=Uri.parse(uritemp);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2023,3,3,0,0,0);
+        Date dateObj = calendar.getTime();
+        Timestamp startDate = new Timestamp(dateObj);
+        Timestamp endDate = new Timestamp(dateObj);
+
         Map<String, String> myMap = new HashMap<>();
         myMap.put("1", "Event 1");
         myMap.put("2", "Event 2");
 
-        MyEvent test=new MyEvent("2","Event 4","This is Event 4","2-3-2023","2-3-2023",myMap,uri2);
+        MyEvent test=new MyEvent("2","Event 4","This is Event 4",startDate,endDate,myMap,uri2);
         MyEventStub testGetter= new MyEventStub();
 
         MyEvent test2= testGetter.getList(1);

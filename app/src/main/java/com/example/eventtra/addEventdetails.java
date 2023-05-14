@@ -3,14 +3,11 @@ package com.example.eventtra;
 
 
 import android.app.Activity;
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -27,23 +24,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.sql.Time;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 
 public class addEventdetails extends Fragment {
@@ -122,6 +114,9 @@ public class addEventdetails extends Fragment {
             @Override
             public void onClick(View v) {
                 validateAndPostData();
+
+                // to be removed
+//                convertToTimeStamp(startDatePick);
             }
         });
         return view;
@@ -151,7 +146,8 @@ public class addEventdetails extends Fragment {
             eventDesLayout.setError("Event Name Can't Be Empty");
             eventDesLayout.requestFocus();
         }
-        else if(!validDate(startDatePick.getYear(),startDatePick.getMonth(),startDatePick.getDayOfMonth(),endDatePick.getYear(),endDatePick.getMonth(),endDatePick.getDayOfMonth()))
+//        else if(!validDate(startDatePick.getYear(),startDatePick.getMonth(),startDatePick.getDayOfMonth(),endDatePick.getYear(),endDatePick.getMonth(),endDatePick.getDayOfMonth()))
+        else if(!validDateTimeStamp(convertToTimeStamp(startDatePick),convertToTimeStamp(endDatePick)))
         {
             endDatePickLayout.setError("End Date can't Be Before Start Date");
         }
@@ -168,8 +164,8 @@ public class addEventdetails extends Fragment {
             Bundle eventData=new Bundle();
             eventData.putString("name",name);
             eventData.putString("des",des);
-            eventData.putString("startDate",getDateString(startDatePick));
-            eventData.putString("endDate",getDateString(endDatePick));
+            eventData.putSerializable("startDate",convertToTimeStamp(startDatePick).toDate());
+            eventData.putSerializable("endDate",convertToTimeStamp(endDatePick).toDate());
             eventData.putString("pictureUri",pictureUri.toString());
 //
             addSubeventsAndHeads newfrag = new addSubeventsAndHeads();
@@ -182,6 +178,7 @@ public class addEventdetails extends Fragment {
 
     public boolean validDate(int startYear, int startMonth,int startDay,int endYear, int endMonth, int endDay)
     {
+
 
         if(startYear>endYear)
             return false;
@@ -196,6 +193,18 @@ public class addEventdetails extends Fragment {
             }
         }
         return true;
+    }
+    public boolean validDateTimeStamp(Timestamp startDate,Timestamp endDate)
+    {
+        int result = startDate.compareTo(endDate);
+
+        if (result < 0) {
+            return true;
+        } else if (result > 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private int[] getDateInt(String startDate) {
@@ -252,6 +261,28 @@ public class addEventdetails extends Fragment {
     }
 
 
+    public Timestamp convertToTimeStamp(DatePicker datePicker)
+    {
+
+        //need changes
+        int date = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year = datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month,date,0,0,0);
+        Log.d("Calender", calendar.getTime().toString());
+
+        Date dateObj = calendar.getTime();
+        Log.d("Date", ""+dateObj.toString());
+        Timestamp timestamp = new Timestamp(dateObj);
+        Log.d("Timestamp", ""+timestamp.toString());
+
+
+
+        return timestamp;
+
+    }
 
 
     private void showLoading() {
