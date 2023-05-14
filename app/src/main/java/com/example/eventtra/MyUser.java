@@ -4,6 +4,8 @@ import android.net.Uri;
 
 import com.google.firebase.firestore.Exclude;
 
+import java.util.HashMap;
+
 public class MyUser {
     private String fname;
     private String lname;
@@ -13,6 +15,7 @@ public class MyUser {
     private String userId;
     private Uri profilePic;
     private String deviceToken;
+    private HashMap<String,Integer> categoryHistory;
 
 
     public MyUser() {
@@ -44,6 +47,7 @@ public class MyUser {
         this.phone = phone;
         this.role = "attendee";
         deviceToken = "";
+        categoryHistory = new HashMap<>();
     }
 
     public MyUser(String fname, String lname, String email, String phone, String role, String userId, Uri profilePic, String deviceToken) {
@@ -55,6 +59,18 @@ public class MyUser {
         this.userId = userId;
         this.profilePic = profilePic;
         this.deviceToken = deviceToken;
+    }
+
+    public MyUser(String fname, String lname, String email, String phone, String role, String userId, Uri profilePic, String deviceToken, HashMap<String, Integer> categoryHistory) {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+        this.userId = userId;
+        this.profilePic = profilePic;
+        this.deviceToken = deviceToken;
+        this.categoryHistory = categoryHistory;
     }
 
     public String getFname() {
@@ -103,6 +119,14 @@ public class MyUser {
 
     public void setDeviceToken(String deviceToken) {
         this.deviceToken = deviceToken;
+    }
+
+    public HashMap<String, Integer> getCategoryHistory() {
+        return categoryHistory;
+    }
+
+    public void setCategoryHistory(HashMap<String, Integer> categoryHistory) {
+        this.categoryHistory = categoryHistory;
     }
 
     @Override

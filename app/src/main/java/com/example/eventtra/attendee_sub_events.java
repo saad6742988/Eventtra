@@ -1,6 +1,7 @@
 package com.example.eventtra;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 
 public class attendee_sub_events extends Fragment {
@@ -143,13 +146,33 @@ public class attendee_sub_events extends Fragment {
     }
 
     private void populateList() {
+        ArrayList <subEventsModel> subEventListSorted = new ArrayList<>();
+        subEventListSorted = getSortedList();
 
         Log.d("all Events", "populateList: "+subEventList);
-        attendeeSubEventAdapter adapter= new attendeeSubEventAdapter(subEventList,getContext() );
+        attendeeSubEventAdapter adapter= new attendeeSubEventAdapter(subEventListSorted,getContext() );
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         loadingDialog.dismiss();
+    }
+
+    private ArrayList<subEventsModel> getSortedList() {
+        ArrayList <subEventsModel> temp = new ArrayList<>();
+        String[] sortedCategories=globalData.eventCategories;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Arrays.sort(sortedCategories, Comparator.comparing(globalData.globalUser.getCategoryHistory()::get, Comparator.nullsLast(Comparator.reverseOrder())));
+        }
+        for (int i = 0; i < sortedCategories.length; i++) {
+            for (int j = 0; j < subEventList.size(); j++) {
+                if(subEventList.get(j).getCategory().equals(sortedCategories[i]))
+                {
+                    temp.add(subEventList.get(j));
+                }
+            }
+        }
+
+        return temp;
     }
 
     private void showLoading() {

@@ -2,6 +2,7 @@ package com.example.eventtra;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class attendee_event_enrollment extends Fragment {
@@ -60,6 +62,7 @@ public class attendee_event_enrollment extends Fragment {
 
     final private FirebaseFirestore database =FirebaseFirestore.getInstance();
     final private CollectionReference paymentsCollection = database.collection("Payments");
+    final private CollectionReference userCollection = database.collection("User");
     private AlertDialog loadingDialog;
 
     @Override
@@ -189,6 +192,10 @@ public class attendee_event_enrollment extends Fragment {
         FirebaseMessaging.getInstance().subscribeToTopic(globalData.globalSubEvent.getName()+"_"+
                 globalData.globalSubEvent.getSubEventId());
 
+        //setting category history of user
+        updateUserHistory();
+
+
         paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -198,12 +205,18 @@ public class attendee_event_enrollment extends Fragment {
                         paymentInfo.setParticipantName(otherParticipantsList.get(i).getName());
                         paymentInfo.setParticipantCnic(otherParticipantsList.get(i).getCnic());
                         Log.d("Registration status", "Registered Successfully, Payment Pending");
+                        int finalI = i;
                         paymentsCollection.add(paymentInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Toast.makeText(getContext(), "Registered Successfully, Payment Pending", Toast.LENGTH_SHORT).show();
-                                loadingDialog.dismiss();
-                                gotoStartPage();
+
+                                if(finalI ==otherParticipantsList.size()-1)
+                                {
+                                    loadingDialog.dismiss();
+                                    gotoStartPage();
+                                }
+
                             }
                         });
                     }
@@ -216,6 +229,17 @@ public class attendee_event_enrollment extends Fragment {
                 }
             }
         });
+    }
+
+    private void updateUserHistory() {
+        HashMap<String,Integer> categoryHistory=globalData.globalUser.getCategoryHistory();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            categoryHistory.put(globalData.globalSubEvent.getCategory(),categoryHistory.getOrDefault(globalData.globalSubEvent.getCategory(),0)+1);
+        }
+        globalData.globalUser.setCategoryHistory(categoryHistory);
+        HashMap<String,Object> userupdate = new HashMap<>();
+        userupdate.put("categoryHistory",globalData.globalUser.getCategoryHistory());
+        userCollection.document(globalData.globalUser.getUserId()).update(userupdate);
     }
 
     private void makePayment() {
@@ -287,6 +311,7 @@ public class attendee_event_enrollment extends Fragment {
                     globalData.globalSubEvent.getSubEventId());
 
 
+            updateUserHistory();
 
             // Display for example, an order confirmation screen
             paymentInfo.setAmount(Integer.parseInt(globalData.globalSubEvent.getPrice()));
