@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,13 +28,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.common.primitives.Ints;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -43,8 +40,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -121,6 +119,7 @@ public class org_subEvent_edit extends Fragment {
         subEventTime.setIs24HourView(true);
         subEventTime.setHour(subEventTime.getHour()+1);
 
+
         setData();
 
         eventName.addTextChangedListener(new TextWatcher() {
@@ -160,6 +159,7 @@ public class org_subEvent_edit extends Fragment {
             public void onClick(View v) {
 
                 saveSubEvent();
+//                convertToTimeStamp(subDatePick,subEventTime);
             }
         });
 
@@ -221,6 +221,7 @@ public class org_subEvent_edit extends Fragment {
             globalData.globalSubEvent.setMinParticipants(Integer.parseInt(noOfPar));
             globalData.globalSubEvent.setStreamLink(streamLink);
             globalData.globalSubEvent.setCategory(spinnerSelectedCategory);
+            globalData.globalSubEvent.setEventTime(convertToTimeStamp(subDatePick,subEventTime));
             String registrationStatus="Registrations are closed Now!";
             if(openEnrollmentSwitch.isChecked()) {
                 globalData.globalSubEvent.setOpenRegistration(true);
@@ -244,6 +245,7 @@ public class org_subEvent_edit extends Fragment {
             updateSubEvent.put("streamStatus",globalData.globalSubEvent.isStreamStatus());
             updateSubEvent.put("streamLink",globalData.globalSubEvent.getStreamLink());
             updateSubEvent.put("category",globalData.globalSubEvent.getCategory());
+            updateSubEvent.put("eventTime",globalData.globalSubEvent.getEventTime());
             subEventCollection.document(globalData.globalSubEvent.getSubEventId()).update(updateSubEvent);
 
             //send registration open/close notification
@@ -341,6 +343,16 @@ public class org_subEvent_edit extends Fragment {
             subEventTime.setHour(Integer.parseInt(temp[0]));
             subEventTime.setMinute(Integer.parseInt(temp[1]));
         }
+
+        Calendar calendar = Calendar.getInstance();
+        Date subEventDateTime = globalData.globalSubEvent.getEventTime().toDate();
+        calendar.setTime(subEventDateTime);
+        Log.d("subEventDateTime", "setData: "+calendar.getTime());
+        subDatePick.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE));
+        subEventTime.setHour(calendar.get(Calendar.HOUR_OF_DAY));
+        subEventTime.setMinute(calendar.get(Calendar.MINUTE));
+
+
         if(globalData.globalSubEvent.isOpenRegistration())
             openEnrollmentSwitch.setChecked(true);
         else
@@ -420,6 +432,28 @@ public class org_subEvent_edit extends Fragment {
         loadingDialog.getWindow().setLayout(width,height);
         loadingDialog.setCancelable(false);
         loadingDialog.setCanceledOnTouchOutside(false);
+    }
+    public Timestamp convertToTimeStamp(DatePicker datePicker, TimePicker subEventTime)
+    {
+
+        //need changes
+        int date = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year = datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month,date,subEventTime.getHour(),subEventTime.getMinute(),0);
+        Log.d("Calender", calendar.getTime().toString());
+
+        Date dateObj = calendar.getTime();
+        Log.d("Date", ""+dateObj.toString());
+        Timestamp timestamp = new Timestamp(dateObj);
+        Log.d("Timestamp", ""+timestamp.toString());
+
+
+
+        return timestamp;
+
     }
 
 }

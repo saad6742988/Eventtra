@@ -2,7 +2,9 @@ package com.example.eventtra;
 
 import android.net.Uri;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.FieldValue;
 
 public class subEventsModel {
     private String subEventId;
@@ -19,6 +21,7 @@ public class subEventsModel {
     private boolean streamStatus;
     private String streamLink;
     private String category;
+    private Timestamp eventTime;
 
     //constructor
 
@@ -55,6 +58,7 @@ public class subEventsModel {
         this.streamStatus = false;
         this.streamLink = "";
         this.category = "";
+        this.eventTime = Timestamp.now();
     }
 
     @Exclude
@@ -170,6 +174,14 @@ public class subEventsModel {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public Timestamp getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(Timestamp eventTime) {
+        this.eventTime = eventTime;
     }
 
     @Override
