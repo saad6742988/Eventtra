@@ -21,10 +21,16 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.eventtra.ChatRooms.ChatRoomModel;
+import com.example.eventtra.ChatRooms.MessageModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class attendee_main_event_list extends Fragment {
@@ -57,6 +65,7 @@ public class attendee_main_event_list extends Fragment {
         View view=inflater.inflate(R.layout.fragment_attendee_main_event_list, container, false);
         recyclerView = view.findViewById(R.id.attendeeMainRecyclerView);
         globalData = (GlobalData) getActivity().getApplicationContext();
+
         mainEventLists.clear();
         getEventsData();
 
@@ -67,7 +76,8 @@ public class attendee_main_event_list extends Fragment {
     private void getEventsData() {
         showLoading();
 
-        eventCollection.orderBy("eventName", Query.Direction.ASCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        eventCollection.whereGreaterThanOrEqualTo("endDate",Timestamp.now())
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
@@ -78,7 +88,6 @@ public class attendee_main_event_list extends Fragment {
                     for (QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots) {
                         MyEvent event = documentSnapshot.toObject(MyEvent.class);
                         event.setEventId(documentSnapshot.getId());
-
 
                         //get event Picture
                         StorageReference file = storageReference.child("Event/"+documentSnapshot.getId()+"/event.jpg");
@@ -131,15 +140,38 @@ public class attendee_main_event_list extends Fragment {
             }
         });
     }
+
+
     private void populateList() {
 
+        ArrayList<MyEvent> mainEventListsSorted = new ArrayList<>();
+        mainEventListsSorted = sortEvents();
+
         Log.d("all Events", "populateList: "+mainEventLists);
-        attendeeMainAdapter adapter= new attendeeMainAdapter(mainEventLists, getContext());
+        attendeeMainAdapter adapter= new attendeeMainAdapter(mainEventListsSorted, getContext());
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         loadingDialog.dismiss();
     }
+
+    private ArrayList<MyEvent> sortEvents() {
+        ArrayList<MyEvent> temp = mainEventLists;
+//        temp = mainEventLists;
+        // define a custom Comparator object
+        Comparator<MyEvent> timestampComparator = new Comparator<MyEvent>() {
+            @Override
+            public int compare(MyEvent o1, MyEvent o2) {
+                return o1.getStartDate().compareTo(o2.getStartDate());
+            }
+        };
+
+// sort the list using the custom Comparator
+        Collections.sort(temp, timestampComparator);
+
+        return temp;
+    }
+
     private void showLoading() {
         // adding ALERT Dialog builder object and passing activity as parameter
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.CustomAlertDialog);

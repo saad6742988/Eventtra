@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -34,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Comparator;
 
 
@@ -63,7 +65,15 @@ public class attendee_sub_events extends Fragment {
         globalData = (GlobalData) getContext().getApplicationContext();
         mainName.setText(globalData.globalEvent.getEventName());
         mainDes.setText(globalData.globalEvent.getEventDes());
-        mainDate.setText(globalData.globalEvent.getStartDate()+" to "+globalData.globalEvent.getEndDate());
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(globalData.globalEvent.getStartDate().toDate());
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(globalData.globalEvent.getEndDate().toDate());
+        mainDate.setText(startDate.get(Calendar.DATE)+"-"+startDate.get(Calendar.MONTH)+"-"+startDate.get(Calendar.YEAR)+
+                " to "
+                +endDate.get(Calendar.DATE)+"-"+endDate.get(Calendar.MONTH)+"-"+endDate.get(Calendar.YEAR));
+
         recyclerView=view.findViewById(R.id.attendeeSubRecyclerView);
         subEventList.clear();
         getEventsData();
@@ -87,7 +97,7 @@ public class attendee_sub_events extends Fragment {
                         event.setSubEventId(documentSnapshot.getId());
 
 
-                        if(!event.getDesc().equals("")) {
+                        if(!event.getDesc().equals("")&&!eventPassed(event.getEventTime())) {
                             //get event Picture
                             StorageReference file = storageReference.child("SubEvent/" + documentSnapshot.getId() + "/subevent.jpg");
                             file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -143,6 +153,16 @@ public class attendee_sub_events extends Fragment {
                 Log.d("TAG", "onFailure: ");
             }
         });
+    }
+
+    private boolean eventPassed(Timestamp eventTime) {
+        if (eventTime.compareTo(Timestamp.now()) < 0) {
+            return true;
+        } else if (eventTime.compareTo(Timestamp.now()) > 0) {
+            return false;
+        } else {
+            return false;
+        }
     }
 
     private void populateList() {

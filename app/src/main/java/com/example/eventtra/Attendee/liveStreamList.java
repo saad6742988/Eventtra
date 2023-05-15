@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.eventtra.ChatRooms.MessageModel;
 import com.example.eventtra.GlobalData;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -57,6 +59,7 @@ public class liveStreamList extends Fragment {
     AlertDialog.Builder builder;
     private AlertDialog loadingDialog;
     Context context;
+    LiveStreamListAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,6 +73,12 @@ public class liveStreamList extends Fragment {
 
         // adding ALERT Dialog builder object and passing activity as parameter
          builder = new AlertDialog.Builder(getActivity(),R.style.CustomAlertDialog);
+
+
+        adapter= new LiveStreamListAdapter(subEventsModelArrayList, getContext());
+        attendeeLiveStreamRecyclerView.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        attendeeLiveStreamRecyclerView.setLayoutManager(layoutManager);
 
         // layoutinflater object and use activity to get layout inflater
         LayoutInflater loadingInflater = getActivity().getLayoutInflater();
@@ -93,7 +102,7 @@ public class liveStreamList extends Fragment {
         loadingDialog.setCanceledOnTouchOutside(false);
     }
     private void getUserRegisteredEvents() {
-        showLoading();
+//        showLoading();
         subEventsModelArrayList.clear();
         userRegisteredEvents.clear();
         paymentCollection.whereEqualTo("madeBy",globalData.globalUser.getUserId()).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -133,29 +142,35 @@ public class liveStreamList extends Fragment {
                             {
                                 subEventsModel subEvent = task.getResult().toObject(subEventsModel.class);
                                 subEvent.setSubEventId(task.getResult().getId());
-                                StorageReference file = storageReference.child("SubEvent/" + subEvent.getSubEventId() + "/subevent.jpg");
-                                file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        if (uri != null) {
-                                            subEvent.setPic(uri);
-                                            subEventsModelArrayList.add(subEvent);
-                                            if (finalEventCounter == size) {
-                                                populateList();
+                                if(!eventPassed(subEvent.getEventTime())) {
+                                    Log.d("testevent", "onComplete: "+subEvent.getName());
+                                    StorageReference file = storageReference.child("SubEvent/" + subEvent.getSubEventId() + "/subevent.jpg");
+                                    file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            if (uri != null) {
+                                                subEvent.setPic(uri);
+                                                subEventsModelArrayList.add(subEvent);
+//                                            if (finalEventCounter == size) {
+//                                                populateList();
+//                                            }
+                                                adapter.notifyItemInserted(subEventsModelArrayList.size() - 1);
+
                                             }
                                         }
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
 
-                                        subEvent.setPic(null);
-                                        subEventsModelArrayList.add(subEvent);
-                                        if (finalEventCounter == size) {
-                                            populateList();
+                                            subEvent.setPic(null);
+                                            subEventsModelArrayList.add(subEvent);
+//                                        if (finalEventCounter == size) {
+//                                            populateList();
+//                                        }
+                                            adapter.notifyItemInserted(subEventsModelArrayList.size() - 1);
                                         }
-                                    }
-                                });
+                                    });
+                                }
                             }
                         }
                     });
@@ -173,4 +188,16 @@ public class liveStreamList extends Fragment {
         loadingDialog.dismiss();
     }
 
+    private boolean eventPassed(Timestamp eventTime) {
+        if (eventTime.compareTo(Timestamp.now()) < 0) {
+            Log.d("testevent", "eventPassed: true "+eventTime.toDate().toString()+" : "+Timestamp.now().toDate().toString());
+            return true;
+        } else if (eventTime.compareTo(Timestamp.now()) > 0) {
+            Log.d("testevent", "eventPassed: false "+eventTime.toDate().toString()+" : "+Timestamp.now().toDate().toString());
+            return false;
+        } else {
+            Log.d("testevent", "eventPassed: false "+eventTime.toDate().toString()+" : "+Timestamp.now().toDate().toString());
+            return false;
+        }
+    }
 }

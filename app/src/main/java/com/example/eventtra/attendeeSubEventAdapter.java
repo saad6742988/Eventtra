@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class attendeeSubEventAdapter extends RecyclerView.Adapter<attendeeSubEventAdapter.viewHolder> {
 
@@ -48,7 +49,10 @@ public class attendeeSubEventAdapter extends RecyclerView.Adapter<attendeeSubEve
             holder.attendeeSubImg.setImageResource(R.drawable.logo1);
         }
         holder.subEventNameView.setText(subEvent.getName());
-        holder.subEventdateView.setText(subEvent.getSubEventDate()+" At "+subEvent.getSubEventTime());
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(subEvent.getEventTime().toDate());
+        holder.subEventdateView.setText(startDate.get(Calendar.DATE)+"-"+startDate.get(Calendar.MONTH)+"-"+startDate.get(Calendar.YEAR)
+                +" At "+startDate.get(Calendar.HOUR_OF_DAY)+":"+startDate.get(Calendar.MINUTE));
 
         holder.mainCardView.setOnClickListener(new View.OnClickListener() {
             @Override
