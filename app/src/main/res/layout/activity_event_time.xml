@@ -45,14 +45,19 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="130dp"
             android:orientation="horizontal"
             android:gravity="center">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/subEventTimePickLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <TimePicker
                 android:id="@+id/sub_event_time_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:timePickerMode="spinner" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

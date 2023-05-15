@@ -28,7 +28,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.github.kittinunf.fuel.Fuel;
+import com.github.kittinunf.fuel.core.FuelError;
+import com.github.kittinunf.fuel.core.Handler;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -39,6 +43,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.stripe.android.PaymentConfiguration;
+import com.stripe.android.paymentsheet.PaymentSheet;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -53,7 +62,7 @@ public class org_subEvent_edit extends Fragment {
     private Button saveBtn;
     private EditText eventName,eventDes,eventPrice,eventNoOfPar,streamLinkBox;
     private TextInputLayout eventNameLayout,eventDesLayout,
-            subDatePickLayout,eventPicLayout,eventPriceLayout,eventNoOfParlayout,streamLinkBoxLayout;
+            subDatePickLayout,eventPicLayout,eventPriceLayout,eventNoOfParlayout,streamLinkBoxLayout,subEventTimePickLayout;
     Switch openEnrollmentSwitch,liveStreamSwitch;
     private TextView addEventPic;
     private ImageView eventPic;
@@ -100,6 +109,7 @@ public class org_subEvent_edit extends Fragment {
         eventDesLayout=view.findViewById(R.id.eventDesBoxLayout);
         eventPriceLayout=view.findViewById(R.id.eventPriceBoxLayout);
         streamLinkBoxLayout=view.findViewById(R.id.streamLinkBoxLayout);
+        subEventTimePickLayout=view.findViewById(R.id.subEventTimePickLayout);
 
         openEnrollmentSwitch=view.findViewById(R.id.openEnrollmentSwitch);
         liveStreamSwitch=view.findViewById(R.id.liveStreamSwitch);
@@ -211,6 +221,11 @@ public class org_subEvent_edit extends Fragment {
             streamLinkBoxLayout.setError("Stream Link Required");
             streamLinkBoxLayout.requestFocus();
         }
+        else if(convertToTimeStamp(subDatePick,subEventTime).toDate().getTime()<Timestamp.now().toDate().getTime()+600000)
+        {
+            Log.d("timecheck", "saveSubEvent: "+convertToTimeStamp(subDatePick,subEventTime).toDate().getTime()+" "+Timestamp.now().toDate().getTime()+600000);
+            subEventTimePickLayout.setError("Time Must be 1 hour later than currrent Time");
+        }
         else{
             showLoading();
             globalData.globalSubEvent.setName(subName);
@@ -251,6 +266,28 @@ public class org_subEvent_edit extends Fragment {
             //send registration open/close notification
             FCMSend.pushNotification(context,"/topics/All",globalData.globalSubEvent.getName(),
                     registrationStatus,"MianActivity","Registration Status");
+            //notification for before time start
+            long eventTime = globalData.globalSubEvent.getEventTime().toDate().getTime();
+            long timeToNotify = eventTime - Timestamp.now().toDate().getTime()-600000;
+            timeToNotify = 10000; //to be removed for proper working
+
+            Log.d("TimedNotification", "saveSubEvent: "+eventTime);
+
+            Fuel.INSTANCE.post("https://timed-notification-backend-production.up.railway.app/sendTimedNotification?event="+
+                    globalData.globalSubEvent.getName()+"&delay="+timeToNotify, null).responseString(new Handler<String>() {
+                @Override
+                public void success(String s) {
+
+                }
+
+                @Override
+                public void failure(@NonNull FuelError fuelError) {
+                    Log.d("Error", "failure: "+fuelError.getMessage());
+                }
+            });
+
+
+
             if(picChangeCheck)
             {
                 StorageReference file = storageReference.child("SubEvent/"+globalData.globalSubEvent.getSubEventId()+"/subevent.jpg");
