@@ -3,7 +3,7 @@ package com.example.eventtra.stub;
 
 import android.net.Uri;
 
-import com.example.eventtra.subEventsModel;
+import com.example.eventtra.Models.subEventsModel;
 
 
 import java.util.Hashtable;

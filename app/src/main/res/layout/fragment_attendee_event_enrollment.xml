@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".attendee_event_enrollment"
+    tools:context=".Attendee.attendee_event_enrollment"
     android:orientation="vertical"
     android:background="@color/screens_background">
 

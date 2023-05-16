@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name=".GlobalData"
+        android:name=".AllUsers.GlobalData"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -47,7 +47,7 @@
             android:value="false" />
 
         <service
-            android:name=".FirebaseNotificationMessaging"
+            android:name=".AllUsers.FirebaseNotificationMessaging"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -55,21 +55,21 @@
         </service>
 
         <activity
-            android:name=".temp_event_time"
+            android:name=".TempFiles.temp_event_time"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegisterationActivityByFatima"
+            android:name=".TempFiles.RegisterationActivityByFatima"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".OrganizerPage"
+            android:name=".Organizer.OrganizerPage"
             android:exported="false"
             android:theme="@style/Theme.Eventtra.NoActionBar" >
             <meta-data
@@ -77,56 +77,56 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".temp_event_price"
+            android:name=".TempFiles.temp_event_price"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".subEvent_list"
+            android:name=".Organizer.subEvent_list"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".temp_event_date"
+            android:name=".TempFiles.temp_event_date"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".temp_event_img"
+            android:name=".TempFiles.temp_event_img"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".temp_event_name"
+            android:name=".TempFiles.temp_event_name"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".temp_event_desc"
+            android:name=".TempFiles.temp_event_desc"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".temp_loginxml"
+            android:name=".TempFiles.temp_loginxml"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".AttendeePage"
+            android:name=".Attendee.AttendeePage"
             android:exported="false"
             android:theme="@style/Theme.Eventtra.NoActionBar" >
             <meta-data
@@ -134,14 +134,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".temp_OtpVerification1"
+            android:name=".TempFiles.temp_OtpVerification1"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".AdminPage"
+            android:name=".Admin.AdminPage"
             android:exported="false"
             android:theme="@style/Theme.Eventtra.NoActionBar" >
             <meta-data
@@ -149,7 +149,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".AllUsers.Login"
             android:exported="false"
             android:launchMode="singleTask" >
             <meta-data
@@ -157,7 +157,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Registration"
+            android:name=".AllUsers.Registration"
             android:exported="false"
             android:launchMode="singleTask" >
             <meta-data
@@ -165,7 +165,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".AllUsers.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Eventtra.NoActionBar1" >
             <intent-filter>

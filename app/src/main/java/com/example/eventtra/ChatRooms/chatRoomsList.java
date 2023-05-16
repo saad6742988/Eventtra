@@ -15,15 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.eventtra.GlobalData;
-import com.example.eventtra.PaymentInfo;
+import com.example.eventtra.AllUsers.GlobalData;
+import com.example.eventtra.Models.ChatRoomModel;
+import com.example.eventtra.Models.MessageModel;
+import com.example.eventtra.Models.PaymentInfo;
 import com.example.eventtra.R;
-import com.example.eventtra.mainEventAdapter;
-import com.example.eventtra.subEventsModel;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.example.eventtra.Models.subEventsModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -34,7 +33,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 

@@ -2,8 +2,7 @@ package com.example.eventtra.stub;
 
 import android.net.Uri;
 
-import com.example.eventtra.MyEvent;
-import com.example.eventtra.subEventsModel;
+import com.example.eventtra.Models.MyEvent;
 import com.google.firebase.Timestamp;
 
 import java.util.Calendar;

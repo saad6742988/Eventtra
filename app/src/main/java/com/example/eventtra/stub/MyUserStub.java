@@ -2,8 +2,7 @@ package com.example.eventtra.stub;
 
 import android.net.Uri;
 
-import com.example.eventtra.MyEvent;
-import com.example.eventtra.MyUser;
+import com.example.eventtra.Models.MyUser;
 
 
 import java.util.Hashtable;

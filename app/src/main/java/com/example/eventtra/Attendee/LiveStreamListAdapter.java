@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.eventtra.AttendeePage;
-import com.example.eventtra.GlobalData;
+import com.example.eventtra.AllUsers.GlobalData;
 import com.example.eventtra.R;
-import com.example.eventtra.attendeeSubEventAdapter;
-import com.example.eventtra.attendeeSubEventDetails;
-import com.example.eventtra.subEventsModel;
+import com.example.eventtra.Models.subEventsModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

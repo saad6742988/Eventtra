@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.eventtra.Admin.addEventdetails;
 
 
 public class addEventdetailsTest {

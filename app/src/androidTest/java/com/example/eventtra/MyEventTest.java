@@ -1,10 +1,9 @@
 package com.example.eventtra;
 
 import android.net.Uri;
-import android.util.Log;
 
+import com.example.eventtra.Models.MyEvent;
 import com.example.eventtra.stub.MyEventStub;
-import com.example.eventtra.stub.subEventsStub;
 import com.google.firebase.Timestamp;
 
 import org.junit.Assert;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 public class MyEventTest {

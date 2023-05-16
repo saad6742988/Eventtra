@@ -2,6 +2,7 @@ package com.example.eventtra;
 
 import android.net.Uri;
 
+import com.example.eventtra.Models.MyUser;
 import com.example.eventtra.stub.MyUserStub;
 
 import org.junit.Assert;

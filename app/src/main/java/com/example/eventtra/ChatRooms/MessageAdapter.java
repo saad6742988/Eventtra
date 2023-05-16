@@ -1,7 +1,6 @@
 package com.example.eventtra.ChatRooms;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.eventtra.GlobalData;
-import com.example.eventtra.MyEvent;
+import com.example.eventtra.AllUsers.GlobalData;
+import com.example.eventtra.Models.MessageModel;
 import com.example.eventtra.R;
 
 import java.text.SimpleDateFormat;

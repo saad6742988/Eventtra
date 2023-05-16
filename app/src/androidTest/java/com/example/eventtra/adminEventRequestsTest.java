@@ -3,14 +3,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-import static org.junit.Assert.*;
-
 import android.util.Log;
 
+import com.example.eventtra.Models.EventRequestModel;
 import com.example.eventtra.stub.eventRequestStub;
-
-import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class adminEventRequestsTest {
 

@@ -1,6 +1,6 @@
 package com.example.eventtra.stub;
 
-import com.example.eventtra.EventRequestModel;
+import com.example.eventtra.Models.EventRequestModel;
 
 import java.util.Hashtable;
 

@@ -1,7 +1,6 @@
 package com.example.eventtra.stub;
 
-import com.example.eventtra.EventRequestModel;
-import com.example.eventtra.PaymentInfo;
+import com.example.eventtra.Models.PaymentInfo;
 
 import java.util.Hashtable;
 

@@ -1,5 +1,6 @@
 package com.example.eventtra;
 
+import com.example.eventtra.Models.PaymentInfo;
 import com.example.eventtra.stub.PaymentInfoStub;
 
 

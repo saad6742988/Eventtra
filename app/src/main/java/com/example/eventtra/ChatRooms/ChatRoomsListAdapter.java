@@ -12,14 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.eventtra.GlobalData;
+import com.example.eventtra.AllUsers.GlobalData;
+import com.example.eventtra.Models.ChatRoomModel;
 import com.example.eventtra.R;
-import com.example.eventtra.attendee_sub_events;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 public class ChatRoomsListAdapter extends RecyclerView.Adapter<ChatRoomsListAdapter.ViewHolder>{

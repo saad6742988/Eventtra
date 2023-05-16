@@ -8,7 +8,7 @@
     android:id="@+id/organizer_page_layout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".OrganizerPage">
+    tools:context=".Organizer.OrganizerPage">
 
     <LinearLayout
         android:layout_width="match_parent"
