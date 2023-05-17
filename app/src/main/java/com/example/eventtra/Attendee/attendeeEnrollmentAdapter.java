@@ -1,13 +1,18 @@
 package com.example.eventtra.Attendee;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
-import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
+import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.eventtra.AllUsers.FCMSend;
 import com.example.eventtra.AllUsers.GlobalData;
 import com.example.eventtra.Models.PaymentInfo;
 import com.example.eventtra.R;
@@ -33,6 +36,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -134,7 +143,10 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
                    downloadCertificateBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            downloadCertificate(uri, paymentInfo.getParticipantName(), paymentInfo.getSubEventName(),v);
+//                            downloadCertificate(uri, paymentInfo.getParticipantName(), paymentInfo.getSubEventName(),v);
+//                            new DownloadPdfTask(paymentInfo.getParticipantName(), paymentInfo.getSubEventName()).execute(uri.toString());
+                            new DownloadPdfTask(paymentInfo.getParticipantName(), paymentInfo.getSubEventName())
+                                    .execute("https://firebasestorage.googleapis.com/v0/b/eventtra-efb5f.appspot.com/o/SubEvent%2F3Zg0cnOUsmhiHWZfPk05%2FCopy%20of%20Free%20Customer%20Appreciation%20Certificate%20Template.pdf?alt=media&token=206ecc76-0cc7-44ba-9a8e-ad8650f21d36");
                             alertDialog.dismiss();
                         }
                     });
@@ -166,6 +178,106 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
 
         alertDialog.show();
         alertDialog.setCanceledOnTouchOutside(false);
+    }
+
+    private class DownloadPdfTask extends AsyncTask<String, Void, Void> {
+        String parName,eventName;
+        public DownloadPdfTask(String participantName, String subEventName) {
+            this.eventName=subEventName;
+            this.parName = participantName;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(context, "Downloading Certificate...", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected Void doInBackground(String... urls) {
+            String pdfUrl = urls[0];
+            String fileName = parName+"-"+eventName+".pdf";
+
+            try {
+                URL url = new URL(pdfUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+
+                    InputStream inputStream = connection.getInputStream();
+                    FileOutputStream outputStream = new FileOutputStream(file);
+
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+
+                    outputStream.close();
+                    inputStream.close();
+                }
+
+                connection.disconnect();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            // Call the method to set the downloaded PDF to a PdfDocument object
+            setPdfDocument(parName,eventName);
+        }
+    }
+    private void setPdfDocument(String parName, String eventName) {
+        File pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), parName+"-"+eventName+".pdf");
+        PdfDocument pdfDocument = new PdfDocument();
+        Paint paint = new Paint();
+
+        PdfRenderer pdfRenderer = null;
+        try {
+            pdfRenderer = new PdfRenderer(ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int pageIndex = 0;
+        PdfRenderer.Page pdfRendererPage = pdfRenderer.openPage(pageIndex);
+
+        Bitmap bitmap = Bitmap.createBitmap(pdfRendererPage.getWidth(), pdfRendererPage.getHeight(), Bitmap.Config.ARGB_8888);
+
+        pdfRendererPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+
+        pdfRendererPage.close();
+
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), 1).create();
+        PdfDocument.Page pdfDocumentPage = pdfDocument.startPage(pageInfo);
+        Canvas canvas = pdfDocumentPage.getCanvas();
+        canvas.drawBitmap(bitmap, 0, 0, null);
+//        Canvas canvas = page.getCanvas();
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize(40);
+        canvas.drawText(parName,bitmap.getWidth()/2,(bitmap.getHeight()/2)-50,paint);
+
+        pdfDocument.finishPage(pdfDocumentPage);
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),parName+"-"+eventName+".pdf");
+        try {
+            pdfDocument.writeTo(new FileOutputStream(file));
+            FCMSend.pushNotification(context,globalData.globalUser.getDeviceToken(),eventName+" Certificate",
+                    parName+" Certificate Has Been Downloaded","MianActivity","Registration Status");
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        pdfRenderer.close();
+        pdfDocument.close();
+
     }
 
     private void downloadCertificate(Uri uri, String participantName, String subEventName, View v) {
