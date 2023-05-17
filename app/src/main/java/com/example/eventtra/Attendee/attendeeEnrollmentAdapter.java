@@ -307,6 +307,7 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
 
     public class viewHolder extends RecyclerView.ViewHolder {
 
+
         TextView enrollmentSubName;
         TextView enrollmentName;
         TextView enrollmentCnic;
