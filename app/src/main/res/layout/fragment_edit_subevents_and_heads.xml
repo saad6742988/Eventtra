@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Admin.editSubeventsAndHeads"
-    android:orientation="vertical"
-    android:background="@color/screens_background"
-    android:padding="10dp">
+    android:background="@color/screens_background">
 
     <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -178,14 +179,9 @@
             android:layout_height="wrap_content"
             android:text="Add"
             android:layout_gravity="right"/>
-    </LinearLayout>
 
-    <ScrollView
 
-        android:layout_width="match_parent"
-        android:layout_height="285dp"
-        android:orientation="vertical"
-        android:layout_marginTop="2dp">
+
         <LinearLayout
             android:id="@+id/dynamicContainer"
             android:layout_width="wrap_content"
@@ -194,7 +190,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+
 
     <Button
         android:id="@+id/saveEventBtn"
@@ -204,6 +200,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/button_shape"
         android:layout_gravity="right"/>
+    </LinearLayout>
 
-
+    </ScrollView>
 </LinearLayout>

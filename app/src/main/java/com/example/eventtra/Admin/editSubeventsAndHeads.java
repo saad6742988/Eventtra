@@ -73,6 +73,8 @@ public class editSubeventsAndHeads extends Fragment {
 
     private GlobalData globalData;
     Context context;
+    int indexLocal;
+    ArrayList<String> EventsDelete = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -276,6 +278,11 @@ public class editSubeventsAndHeads extends Fragment {
 
         }
 
+        for (int i = 0; i < EventsDelete.size(); i++)
+        {
+            subEventCollection.document(EventsDelete.get(i)).delete();
+        }
+
 
     }
 
@@ -304,28 +311,32 @@ public class editSubeventsAndHeads extends Fragment {
                    @Override
                    public void onSuccess(DocumentSnapshot documentSnapshot) {
                        subEventsModel subEvent = documentSnapshot.toObject(subEventsModel.class);
-                       subEvent.setSubEventId(documentSnapshot.getId());
+                       Log.d("checkEvent", "onSuccess: "+subEventId+":"+subEvent);
+                       if(subEvent!=null)
+                       {
+                           subEvent.setSubEventId(documentSnapshot.getId());
 
-                       Map<String,String> oldEvent =new HashMap<>();
-                       oldEvent.put(subEvent.getName(),subEvent.getSubEventId());
-                       oldSubEvents.add(oldEvent);
+                           Map<String, String> oldEvent = new HashMap<>();
+                           oldEvent.put(subEvent.getName(), subEvent.getSubEventId());
+                           oldSubEvents.add(oldEvent);
 
-                       userCollection.document(subEventsPair.get(subEventId)).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                           @Override
-                           public void onSuccess(DocumentSnapshot documentSnapshot) {
-                               MyUser user = documentSnapshot.toObject(MyUser.class);
-                               user.setUserId(documentSnapshot.getId());
-                               heads.put(user.getEmail(),user.getUserId());
-                               headsDeviceTokens.put(user.getEmail(),user.getDeviceToken());
-                               addFields(subEvent.getName(),user.getEmail());
+                           userCollection.document(subEventsPair.get(subEventId)).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                               @Override
+                               public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                   MyUser user = documentSnapshot.toObject(MyUser.class);
+                                   user.setUserId(documentSnapshot.getId());
+                                   heads.put(user.getEmail(), user.getUserId());
+                                   headsDeviceTokens.put(user.getEmail(), user.getDeviceToken());
+                                   addFields(subEvent.getName(), user.getEmail());
 
-                           }
-                       }).addOnFailureListener(new OnFailureListener() {
-                           @Override
-                           public void onFailure(@NonNull Exception e) {
+                               }
+                           }).addOnFailureListener(new OnFailureListener() {
+                               @Override
+                               public void onFailure(@NonNull Exception e) {
 
-                           }
-                       });
+                               }
+                           });
+                       }
                    }
                }).addOnFailureListener(new OnFailureListener() {
                    @Override
@@ -350,7 +361,7 @@ public class editSubeventsAndHeads extends Fragment {
         EditText headText = addView.findViewById(R.id.headBox);
         EditText subEventText = addView.findViewById(R.id.subBox);
         ImageButton menuBtn = addView.findViewById(R.id.subEventMenuBtn);
-        int indexLocal = subEventCount;
+        indexLocal = subEventCount;
 
         ///setting menu of layouts
         menuBtn.setOnClickListener(new View.OnClickListener() {
@@ -386,18 +397,21 @@ public class editSubeventsAndHeads extends Fragment {
                 removeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(@NonNull MenuItem item) {
-                        Toast.makeText(getActivity(), "remove clicked ok"+subEventText.getText().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "remove clicked "+subEventText.getText().toString(), Toast.LENGTH_SHORT).show();
                         subEventsList.remove(indexLocal-1);
+                        indexLocal--;
+                        subEventCount--;
                         ((LinearLayout)addView.getParent()).removeView(addView);
                         Log.d("sub events removesd", subEventsList.toString());
 
                         Log.d("indexLocal", indexLocal+" : "+oldSubEvents.size());
-                        if(indexLocal-1<oldSubEvents.size())
+                        if(indexLocal<oldSubEvents.size())
                         {
-                            String oldsubEventName = oldSubEvents.get(indexLocal-1).keySet().iterator().next();
-                            String oldsubEventId = oldSubEvents.get(indexLocal-1).get(oldsubEventName);
+                            String oldsubEventName = oldSubEvents.get(indexLocal).keySet().iterator().next();
+                            String oldsubEventId = oldSubEvents.get(indexLocal).get(oldsubEventName);
                             Log.d("deleting", "onMenuItemClick: "+oldsubEventName);
-                            subEventCollection.document(oldsubEventId).delete();
+                            EventsDelete.add(oldsubEventId);
+//                            subEventCollection.document(oldsubEventId).delete();
                         }
                         saveEventBtn.setEnabled(true);
                         return true;

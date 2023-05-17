@@ -71,6 +71,7 @@ public class addSubeventsAndHeads extends Fragment {
     private AlertDialog loadingDialog;
 
     Context context;
+    int indexLocal;
 
 
     private String[] emails = {"ms6742988@gmail.com","hello@gmail.com","abc@gmail.com"};
@@ -341,7 +342,7 @@ public class addSubeventsAndHeads extends Fragment {
             EditText headText = addView.findViewById(R.id.headBox);
             EditText subEventText = addView.findViewById(R.id.subBox);
             ImageButton menuBtn = addView.findViewById(R.id.subEventMenuBtn);
-            int indexLocal = subEventCount;
+            indexLocal = subEventCount;
 
             ///setting menu of layouts
             menuBtn.setOnClickListener(new View.OnClickListener() {
@@ -377,8 +378,13 @@ public class addSubeventsAndHeads extends Fragment {
                     removeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(@NonNull MenuItem item) {
-                            Toast.makeText(getActivity(), "remove clicked ok"+subEventText.getText().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "remove "+subEventText.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                            Log.d("indexchecker", subEventsList.size()+" : "+(indexLocal-1));
                             subEventsList.remove(indexLocal-1);
+                            indexLocal--;
+                            subEventCount--;
+                            Log.d("indexchecker", subEventsList.size()+" :: "+(indexLocal-1));
                             ((LinearLayout)addView.getParent()).removeView(addView);
                             Log.d("sub events removesd", subEventsList.toString());
                             return true;
