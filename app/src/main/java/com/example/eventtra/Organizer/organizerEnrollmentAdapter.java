@@ -112,6 +112,8 @@ public class organizerEnrollmentAdapter extends RecyclerView.Adapter<organizerEn
             statustv.setTextColor(Color.RED);
         }
 
+        Button downloadCertificateBtn=view.findViewById(R.id.downloadCertificateBtn);
+        downloadCertificateBtn.setVisibility(View.GONE);
         Button recievePaymentBtn=view.findViewById(R.id.recievePaymentBtn);
         if(paymentInfo.getStatus())
         {

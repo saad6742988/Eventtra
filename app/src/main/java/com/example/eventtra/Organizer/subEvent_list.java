@@ -84,20 +84,42 @@ public class subEvent_list extends Fragment {
 
 
                         //get event Picture
-                        StorageReference file = storageReference.child("SubEvent/"+documentSnapshot.getId()+"/subevent.jpg");                        file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        StorageReference file = storageReference.child("SubEvent/"+documentSnapshot.getId()+"/subevent.jpg");
+                        file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Log.d("main get image", "onSuccess: fetch success");
                                 if(uri!=null)
                                 {
-                                    Log.d("Image uri", "onSuccess: "+uri);
+                                    Log.d("Imageuri", "onSuccess: "+uri);
                                     event.setPic(uri);
-                                    subEventList.add(event);
-                                    counterEvent++;
-                                    if(counterEvent==queryDocumentSnapshots.size())
-                                    {
-                                        populateList();
-                                    }
+                                    //get event certificate
+                                    StorageReference certificatefile = storageReference.child("SubEvent/"+documentSnapshot.getId()+"/certificate.pdf");
+                                    certificatefile.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            if(uri!=null)
+                                            {
+                                                event.setCertificate(uri);
+                                                subEventList.add(event);
+                                                counterEvent++;
+                                                if(counterEvent==queryDocumentSnapshots.size())
+                                                {
+                                                    populateList();
+                                                }
+                                            }
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            event.setCertificate(null);
+                                            subEventList.add(event);
+                                            counterEvent++;
+                                            if(counterEvent==queryDocumentSnapshots.size())
+                                            {
+                                                populateList();
+                                            }
+                                        }
+                                    });
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -105,16 +127,39 @@ public class subEvent_list extends Fragment {
                             public void onFailure(@NonNull Exception e) {
 
                                 event.setPic(null);
-                                Log.d("Error", "onFailure: "+e.getMessage());
-                                Log.d("null event", "onFailure: "+event);
-                                subEventList.add(event);
-                                counterEvent++;
-                                if(counterEvent==queryDocumentSnapshots.size())
-                                {
-                                    populateList();
-                                }
+                                //get event certificate
+                                StorageReference certificatefile = storageReference.child("SubEvent/"+documentSnapshot.getId()+"/certificate.pdf");
+                                certificatefile.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        if(uri!=null)
+                                        {
+                                            event.setCertificate(uri);
+                                            subEventList.add(event);
+                                            counterEvent++;
+                                            if(counterEvent==queryDocumentSnapshots.size())
+                                            {
+                                                populateList();
+                                            }
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                        event.setCertificate(null);
+                                        subEventList.add(event);
+                                        counterEvent++;
+                                        if(counterEvent==queryDocumentSnapshots.size())
+                                        {
+                                            populateList();
+                                        }
+                                    }
+                                });
                             }
                         });
+
+
 
                     }
                 }

@@ -3,6 +3,7 @@ package com.example.eventtra.Organizer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,11 +25,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.eventtra.AllUsers.FCMSend;
 import com.example.eventtra.AllUsers.GlobalData;
@@ -56,12 +60,13 @@ import java.util.Map;
 public class org_subEvent_edit extends Fragment {
 
 
-    private Button saveBtn;
+    private Button saveBtn,chooseCertificateBtn;
+    private ImageButton removeCertificate;
     private EditText eventName,eventDes,eventPrice,eventNoOfPar,streamLinkBox;
     private TextInputLayout eventNameLayout,eventDesLayout,
             subDatePickLayout,eventPicLayout,eventPriceLayout,eventNoOfParlayout,streamLinkBoxLayout,subEventTimePickLayout;
     Switch openEnrollmentSwitch,liveStreamSwitch;
-    private TextView addEventPic;
+    private TextView addEventPic,certificateName;
     private ImageView eventPic;
     private Uri pictureUri;
     private TextView header;
@@ -83,7 +88,7 @@ public class org_subEvent_edit extends Fragment {
     GlobalData globalData;
     private Context context;
 
-    private boolean picChangeCheck;
+    private boolean picChangeCheck,certificateChangeCheck=false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,6 +99,10 @@ public class org_subEvent_edit extends Fragment {
         context=getContext();
 
         saveBtn=view.findViewById(R.id.saveBtn);
+        chooseCertificateBtn=view.findViewById(R.id.chooseCertificateBtn);
+        removeCertificate=view.findViewById(R.id.removeCertificate);
+        certificateName=view.findViewById(R.id.certificateName);
+
 
         eventName=view.findViewById(R.id.eventNameBox);
         eventDes=view.findViewById(R.id.eventDesBox);
@@ -182,7 +191,33 @@ public class org_subEvent_edit extends Fragment {
                 spinnerSelectedCategory = globalData.eventCategories[0];
             }
         });
+        chooseCertificateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCertificate();
+            }
+        });
+        removeCertificate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(globalData.globalSubEvent.getCertificate()!=null)
+                {
+                    certificateName.setText("Upload File...");
+                    globalData.globalSubEvent.setCertificate(null);
+                    certificateChangeCheck = true;
+                }
+            }
+        });
         return view;
+    }
+
+    private void addCertificate() {
+//        Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(openGallery,1000);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("application/pdf");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, 1001);
     }
 
     private void saveSubEvent() {
@@ -299,8 +334,6 @@ public class org_subEvent_edit extends Fragment {
                                 {
                                     Log.d("Image uri", "onSuccess: "+uri);
                                     globalData.globalSubEvent.setPic(uri);
-
-                                    goBackToSubEventList();
                                 }
                             }
                         });
@@ -311,6 +344,46 @@ public class org_subEvent_edit extends Fragment {
                         Log.d("upload image", "onFailure: fail");
                         //do nothing will show default event pic
                         globalData.globalSubEvent.setPic(null);
+                    }
+                });
+            }
+
+            if(certificateChangeCheck && globalData.globalSubEvent.getCertificate()!=null)
+            {
+                Log.d("certificateChangeCheck", "changing with certificate");
+                StorageReference file = storageReference.child("SubEvent/"+globalData.globalSubEvent.getSubEventId()+"/certificate.pdf");
+                file.putFile(globalData.globalSubEvent.getCertificate()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        file.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                if(uri!=null)
+                                {
+                                    globalData.globalSubEvent.setCertificate(uri);
+                                    goBackToSubEventList();
+                                }
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("certificateChangeCheck", "changing with certificate fail");
+                        globalData.globalSubEvent.setCertificate(null);
+                        goBackToSubEventList();
+                    }
+                });
+            }
+            else if(certificateChangeCheck&&globalData.globalSubEvent.getCertificate()==null)
+            {
+                Log.d("certificateChangeCheck", "deleting with certificate");
+                StorageReference file = storageReference.child("SubEvent/"+globalData.globalSubEvent.getSubEventId()+"/certificate.pdf");
+                file.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        globalData.globalSubEvent.setCertificate(null);
                         goBackToSubEventList();
                     }
                 });
@@ -414,6 +487,14 @@ public class org_subEvent_edit extends Fragment {
             addEventPic.setVisibility(View.GONE);
             Picasso.get().load(globalData.globalSubEvent.getPic()).into(eventPic);
         }
+        if(globalData.globalSubEvent.getCertificate()==null)
+        {
+            certificateName.setText("Upload File...");
+        }
+        else
+        {
+            certificateName.setText("certificate.pdf");
+        }
     }
     private int[] getDateInt(String startDate) {
         String[] temp = startDate.split("/");
@@ -433,6 +514,7 @@ public class org_subEvent_edit extends Fragment {
             if(resultCode== Activity.RESULT_OK)
             {
                 pictureUri = data.getData();
+                Log.d("certificateURi", ""+data.getData().getPath());
                 Log.d("picture URi", "onActivityResult: "+pictureUri.toString());
                 eventPic.setImageURI(pictureUri);
                 picChangeCheck=true;
@@ -445,6 +527,25 @@ public class org_subEvent_edit extends Fragment {
                 eventPic.setVisibility(View.VISIBLE);
 
             }
+        }
+        else if(requestCode==1001&&resultCode== Activity.RESULT_OK)
+        {
+            certificateChangeCheck=true;
+            Uri fileUri = data.getData();
+            Cursor returnCursor = getActivity().getContentResolver().query(fileUri, null, null, null, null);
+            returnCursor.moveToNext();
+            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            String fileName="";
+            if(nameIndex>=0)
+            {
+                fileName = returnCursor.getString(nameIndex);
+            }
+            if(fileName.equals(""))
+            {
+                fileName="Certificate.pdf";
+            }
+            certificateName.setText(fileName);
+            globalData.globalSubEvent.setCertificate(fileUri);
         }
     }
 

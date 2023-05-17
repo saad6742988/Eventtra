@@ -71,6 +71,7 @@
                 <include layout="@layout/event_no_of_participants"/>
                 <include layout="@layout/activity_subevent_date"/>
                 <include layout="@layout/activity_event_time"/>
+                <include layout="@layout/certificate_upload_layout"/>
                 <include layout="@layout/subevent_stream_link_input"/>
 
             <LinearLayout

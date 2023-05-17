@@ -1,5 +1,6 @@
 package com.example.eventtra.Attendee;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class attendee_my_enrollments extends Fragment {
     final private CollectionReference paymentCollection = database.collection("Payments");
     private AlertDialog loadingDialog;
     int counter = 0;
+    Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +53,7 @@ public class attendee_my_enrollments extends Fragment {
         View view=inflater.inflate(R.layout.fragment_attendee_my_enrollments, container, false);
         attendeeEnrollmentRecyclerView=view.findViewById(R.id.attendeeEnrollmentRecyclerView);
         globalData = (GlobalData) getActivity().getApplicationContext();
+        context = getActivity();
         paymentInfoArrayList.clear();
         getPaymentsData();
         return view;
@@ -98,7 +101,7 @@ public class attendee_my_enrollments extends Fragment {
 
     private void populateList() {
         Log.d("all Payments", "populateList: "+paymentInfoArrayList);
-        attendeeEnrollmentAdapter adapter= new attendeeEnrollmentAdapter(paymentInfoArrayList, getContext());
+        attendeeEnrollmentAdapter adapter= new attendeeEnrollmentAdapter(paymentInfoArrayList, context);
         attendeeEnrollmentRecyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         attendeeEnrollmentRecyclerView.setLayoutManager(layoutManager);
@@ -158,7 +161,7 @@ public class attendee_my_enrollments extends Fragment {
                             filtered.add(paymentInfoArrayList.get(i));
                         }
                     }
-                    attendeeEnrollmentAdapter adapter= new attendeeEnrollmentAdapter(filtered, getContext());
+                    attendeeEnrollmentAdapter adapter= new attendeeEnrollmentAdapter(filtered, context);
                     attendeeEnrollmentRecyclerView.setAdapter(adapter);
 
                 }

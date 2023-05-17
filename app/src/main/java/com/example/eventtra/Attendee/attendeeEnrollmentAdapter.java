@@ -1,8 +1,13 @@
 package com.example.eventtra.Attendee;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +15,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.eventtra.AllUsers.GlobalData;
 import com.example.eventtra.Models.PaymentInfo;
 import com.example.eventtra.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +41,8 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
     ArrayList<PaymentInfo> paymentInfoArrayList;
     Context context;
     GlobalData globalData;
+    final private StorageReference storageReference= FirebaseStorage.getInstance().getReference();
+    private Uri certificateUri;
     public attendeeEnrollmentAdapter(ArrayList<PaymentInfo> list, Context context) {
         this.paymentInfoArrayList = list;
         this.context = context;
@@ -89,6 +104,10 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
         madeBytv.setText(globalData.globalUser.getFname()+" "+globalData.globalUser.getLname());
         final LottieAnimationView lottieAnimationView = view.findViewById(R.id.animationView);
 
+        Button recievePaymentBtn=view.findViewById(R.id.recievePaymentBtn);
+        Button downloadCertificateBtn=view.findViewById(R.id.downloadCertificateBtn);
+        downloadCertificateBtn.setEnabled(false);
+        recievePaymentBtn.setVisibility(View.GONE);
         final TextView statustv = view.findViewById(R.id.statustv);
         if(paymentInfo.getStatus()) {
             statustv.setText("Paid");
@@ -101,11 +120,35 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
             lottieAnimationView.setAnimation(R.raw.pendinganimation);
             statustv.setTextColor(Color.RED);
         }
-
-        Button recievePaymentBtn=view.findViewById(R.id.recievePaymentBtn);
-        recievePaymentBtn.setVisibility(View.GONE);
-        ImageButton closeBtn = view.findViewById(R.id.closeBtn);
         AlertDialog alertDialog = builder.create();
+        //get event certificate
+
+        StorageReference certificatefile = storageReference.child("SubEvent/"+paymentInfo.getSubEventID()+"/certificate.pdf");
+        certificatefile.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                if(uri!=null&&paymentInfo.getStatus())
+                {
+                    certificateUri=uri;
+                   downloadCertificateBtn.setEnabled(true);
+                   downloadCertificateBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            downloadCertificate(uri, paymentInfo.getParticipantName(), paymentInfo.getSubEventName(),v);
+                            alertDialog.dismiss();
+                        }
+                    });
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "No certificate Found", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ImageButton closeBtn = view.findViewById(R.id.closeBtn);
+
 
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +156,36 @@ public class attendeeEnrollmentAdapter  extends RecyclerView.Adapter<attendeeEnr
                 alertDialog.dismiss();
             }
         });
+//        downloadCertificateBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                downloadCertificate(uri,paymentInfo.getSubEventID(),paymentInfo.getParticipantName(),paymentInfo.getSubEventName());
+//            }
+//        });
+
 
         alertDialog.show();
         alertDialog.setCanceledOnTouchOutside(false);
+    }
+
+    private void downloadCertificate(Uri uri, String participantName, String subEventName, View v) {
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+
+//        Log.d("downloadCertificate", "downloadCertificate: "+uri);
+
+        // Set the download directory path and file name
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, participantName+"_"+subEventName+".pdf");
+
+        // Optionally, set other request parameters such as title, description, etc.
+         request.setTitle("Download");
+         request.setDescription("Downloading file...");
+
+        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+
+        // Enqueue the download and get the download ID
+        long downloadId = downloadManager.enqueue(request);
+        Toast.makeText(context, "Certificate Has Been Downloaded", Toast.LENGTH_LONG).show();
+
     }
 
     @Override

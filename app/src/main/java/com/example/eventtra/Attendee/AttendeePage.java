@@ -171,7 +171,8 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
     {
         int notificationPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS);
         int wakeLockPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WAKE_LOCK);
-        if(notificationPermission == PackageManager.PERMISSION_GRANTED&&wakeLockPermission==PackageManager.PERMISSION_GRANTED)
+        int writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(notificationPermission == PackageManager.PERMISSION_GRANTED&&wakeLockPermission==PackageManager.PERMISSION_GRANTED&&writePermission==PackageManager.PERMISSION_GRANTED)
             return true;
         Log.d("Check Per", "checkPermission:not ");
         return false;
@@ -179,14 +180,15 @@ public class AttendeePage extends AppCompatActivity implements NavigationView.On
     public void requestPermission()
     {
         if(ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.POST_NOTIFICATIONS)
-                &&ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WAKE_LOCK))
+                &&ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WAKE_LOCK)
+                &&ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))
         {
             Toast.makeText(this, "Please Allow Notification Permission From Settings", Toast.LENGTH_SHORT).show();
         }
         else
         {
             ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.WAKE_LOCK},
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WAKE_LOCK,Manifest.permission.POST_NOTIFICATIONS},
                     101);
         }
     }

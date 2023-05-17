@@ -12,6 +12,7 @@ public class subEventsModel {
     private String price;   //price
     private String head;
     private Uri pic;
+    private Uri certificate;
     private String mainEventId;
     private String subEventDate;
     private String subEventTime;
@@ -50,6 +51,7 @@ public class subEventsModel {
         this.desc = "";
         this.price = "";
         this.pic = null;
+        this.certificate = null;
         this.subEventDate="";
         this.subEventTime="";
         this.minParticipants=0;
@@ -181,6 +183,16 @@ public class subEventsModel {
 
     public void setEventTime(Timestamp eventTime) {
         this.eventTime = eventTime;
+    }
+
+
+    @Exclude
+    public Uri getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(Uri certificate) {
+        this.certificate = certificate;
     }
 
     @Override
