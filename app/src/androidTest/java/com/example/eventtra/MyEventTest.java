@@ -65,7 +65,7 @@ public class MyEventTest {
         MyEvent test=new MyEvent("2","Event 2","This is Event 2",startDate,endDate,myMap,uri2);
         MyEventStub testGetter= new MyEventStub();
 
-        MyEvent test2= testGetter.getList(1);
+        MyEvent test2= testGetter.getList(2);
         Assert.assertEquals(test,test2);
 
 
@@ -116,7 +116,7 @@ public class MyEventTest {
         MyEvent test=new MyEvent("2","Event 4","This is Event 4",startDate,endDate,myMap,uri2);
         MyEventStub testGetter= new MyEventStub();
 
-        MyEvent test2= testGetter.getList(1);
+        MyEvent test2= testGetter.getList(2);
         Assert.assertNotEquals(test,test2);
 
 
