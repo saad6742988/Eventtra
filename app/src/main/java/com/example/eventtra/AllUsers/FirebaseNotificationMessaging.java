@@ -37,7 +37,7 @@ public class FirebaseNotificationMessaging extends FirebaseMessagingService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplication(),channel_id);
         builder.setContentTitle(message.getNotification().getTitle());
         builder.setContentText(message.getNotification().getBody());
-        builder.setSmallIcon(R.drawable.logo);
+        builder.setSmallIcon(R.drawable.icon);
         builder.setColor(0xFF017703);
         builder.setAutoCancel(true);
         try {

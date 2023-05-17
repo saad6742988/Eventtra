@@ -19,6 +19,8 @@ import com.example.eventtra.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+
 
 public class attendeeSubEventDetails extends Fragment {
 
@@ -56,8 +58,10 @@ public class attendeeSubEventDetails extends Fragment {
         subDes.setText(globalData.globalSubEvent.getDesc());
         subDes.setText(globalData.globalSubEvent.getDesc());
         subPrice.setText("Ticket : Rs."+globalData.globalSubEvent.getPrice()+" Per Participant");
-        subDate.setText(globalData.globalSubEvent.getSubEventDate());
-        subTime.setText(globalData.globalSubEvent.getSubEventTime());
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(globalData.globalSubEvent.getEventTime().toDate());
+        subDate.setText(startDate.get(Calendar.DATE)+"-"+startDate.get(Calendar.MONTH)+"-"+startDate.get(Calendar.YEAR));
+        subTime.setText(startDate.get(Calendar.HOUR_OF_DAY)+":"+startDate.get(Calendar.MINUTE));
         if(!globalData.globalSubEvent.isOpenRegistration())
         {
             subEventEnrollBtn.setEnabled(false);

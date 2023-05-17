@@ -54,7 +54,7 @@ public class subEventsModel {
         this.certificate = null;
         this.subEventDate="";
         this.subEventTime="";
-        this.minParticipants=0;
+        this.minParticipants=1;
         this.openRegistration = false;
         this.streamStatus = false;
         this.streamLink = "";

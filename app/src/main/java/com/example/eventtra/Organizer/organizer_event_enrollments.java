@@ -80,22 +80,24 @@ public class organizer_event_enrollments extends Fragment {
                         subEventCollection.document(paymentInfo.getSubEventID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if(documentSnapshot.get("head").equals(globalData.globalUser.getUserId()))
+                                if(documentSnapshot!=null)
                                 {
-                                    paymentInfoArrayList.add(paymentInfo);
-                                    counter++;
-                                    if(counter==queryDocumentSnapshots.size())
-                                    {
-                                        getUsersName();
+                                    if (documentSnapshot.get("head").equals(globalData.globalUser.getUserId())) {
+                                        paymentInfoArrayList.add(paymentInfo);
+                                        counter++;
+                                        if (counter == queryDocumentSnapshots.size()) {
+                                            getUsersName();
+                                        }
+                                    } else {
+                                        counter++;
+                                        if (counter == queryDocumentSnapshots.size()) {
+                                            getUsersName();
+                                        }
                                     }
                                 }
                                 else
                                 {
                                     counter++;
-                                    if(counter==queryDocumentSnapshots.size())
-                                    {
-                                        getUsersName();
-                                    }
                                 }
                             }
                         });
